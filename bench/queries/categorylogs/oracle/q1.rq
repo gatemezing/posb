@@ -1,0 +1,13 @@
+## Queries retrieved from Log analysis ##
+## Q1L: construct in opoce prod log
+
+prefix cdm: <http://publications.europa.eu/ontology/cdm#> 
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix at: <http://publications.europa.eu/ontology/authority/>
+PREFIX ORACLE_SEM_FS_NS:   
+<http://oracle.com/semtech#timeout=300,degree=8,ods=6>
+CONSTRUCT { ?s ?p ?o } WHERE
+ {
+   GRAPH ?g { ?s ?p ?o } .
+   {?s skos:inScheme ?o } .
+} limit 10000

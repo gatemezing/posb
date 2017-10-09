@@ -1,0 +1,22 @@
+# Q8L: from open data portal log
+# use of construct
+
+PREFIX lemon: <http://www.lemon-model.net/lemon#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+prefix owl: <http://www.w3.org/2002/07/owl#> 
+
+PREFIX ORACLE_SEM_FS_NS:
+<http://oracle.com/semtech#timeout=300,degree=8,ods=6>
+
+Construct {  ?dbpedia skos:label ?Rep .}
+WHERE
+  { 
+    ?variant rdf:type lemon:LexicalEntry .
+    ?variant lemon:sense ?sense . 
+    ?sense lemon:reference ?ref .
+    ?ref owl:sameAs ?dbpedia .
+    FILTER ( regex(str(?dbpedia), "http://dbpedia.org/resource/.*" )). 
+    ?variant lemon:canonicalForm ?form .
+    ?form lemon:writtenRep ?Rep .
+  } LIMIT 1000

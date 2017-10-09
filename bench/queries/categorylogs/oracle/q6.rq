@@ -1,0 +1,23 @@
+# Q6L - from open data portal log
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX odp:  <http://data.europa.eu/euodp/ontologies/ec-odp#>
+PREFIX dc: <http://purl.org/dc/terms/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+
+PREFIX ORACLE_SEM_FS_NS:
+<http://oracle.com/semtech#timeout=300,degree=8,ods=6>
+
+select distinct *
+where { 
+
+?Article <http://data.europa.eu/euodp#heading> ?Heading.
+FILTER (lang (?Heading) = 'en').
+?Article <http://data.europa.eu/euodp#hasAmount> ?Amount.
+?Amount ?has ?ComPayNonDif.
+?ComPayNonDif ?hasStatYearCatpol ?StatYearCatpol.
+FILTER(isURI(?StatYearCatpol))
+FILTER(datatype(?StatYearCatpol)=xsd:string)
+
+}
+ LIMIT 10

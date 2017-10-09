@@ -1,0 +1,13 @@
+# Q1. %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+## Goal: Compute non-inferred symmetric concise bounded description of an entire FRBR hierarchy. 
+## Remarks: Input is the Cellar identifier of a work. The output of a SPARQL DESCRIBE in Virtuoso can be customized with help the of the sql:describe-mode pragma.
+## Requirements: We intend to use the query for on-the-fly notice generation.  
+
+#DEFINE sql:describe-mode "SCBD"
+prefix cdm: <http://publications.europa.eu/ontology/cdm#>
+describe ?w ?e ?m where
+{	# substitute cellar id here 
+	values ?w {<http://publications.europa.eu/resource/cellar/6df75a83-c084-11e3-86f9-01aa75ed71a1>}   
+	?e cdm:expression_belongs_to_work ?w.
+	optional{?m cdm:manifestation_manifests_expression ?e.}
+}

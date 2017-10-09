@@ -1,0 +1,24 @@
+# Q10L: from open data portal log
+# ASK query with SPARQL 1.1 feature
+
+PREFIX qb:<http://purl.org/linked-data/cube#>
+PREFIX  skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX ORACLE_SEM_FS_NS:
+<http://oracle.com/semtech#timeout=300,degree=8,ods=6>
+
+ASK
+FROM <http://data.lod2.eu/scoreboard/>
+WHERE{
+                    ?obs qb:dataSet ?ds .
+                    ?ds qb:structure ?dsd .
+                    ?dsd qb:component ?c .
+                    ?c qb:componentProperty ?dim .
+                    ?dim a qb:DimensionProperty ;
+                         qb:codeList ?list .
+                    ?list a skos:Collection .
+                    ?obs ?dim ?v .
+                    FILTER NOT EXISTS { 
+                        ?v a skos:Concept . 
+                        ?list skos:member ?v 
+                    }
+                } 

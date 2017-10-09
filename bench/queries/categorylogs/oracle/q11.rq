@@ -1,0 +1,25 @@
+# Q11L example of construct, regex and offset
+PREFIX  rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX  dbo:  <http://dbpedia.org/ontology#>
+PREFIX  owl:  <http://www.w3.org/2002/07/owl#>
+PREFIX  rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX  skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX  lemon: <http://www.lemon-model.net/lemon#>
+
+PREFIX ORACLE_SEM_FS_NS:
+<http://oracle.com/semtech#timeout=300,degree=8,ods=6>
+
+CONSTRUCT 
+  { ?dbpedia <http://dbpedia.org/ext/jrc-label> ?Rep .
+    <http://dbpedia.org/ext/jrc-label> rdfs:subPropertyOf skos:altLabel .}
+WHERE
+  { ?variant rdf:type lemon:LexicalEntry .
+    ?variant lemon:sense _:b0 .
+    _:b0 lemon:reference ?ref .
+    ?ref owl:sameAs ?dbpedia
+    FILTER regex(str(?dbpedia), "^http://dbpedia\\.org/resource/.*")
+    ?variant lemon:canonicalForm ?form .
+    ?form lemon:writtenRep ?Rep
+  }
+OFFSET  1000
+LIMIT   1000

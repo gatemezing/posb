@@ -1,0 +1,21 @@
+## Q11: Count number of people per named graph ###
+## each directory is stored as a named graph ###
+## BGP: 1
+
+## oracle optimization
+# Turn off some special character escaping  
+PREFIX ORACLE_SEM_HT_NS: <http://oracle.com/semtech#ESCAPE_STR_FUNC=F,DISABLE_REGEX_UNESC>
+
+PREFIX ORACLE_SEM_FS_NS:   
+<http://oracle.com/semtech#timeout=60,degree=8,ods=6>
+prefix cdm: <http://publications.europa.eu/ontology/cdm#> 
+PREFIX org: <http://www.w3.org/ns/org#>
+prefix vcard: <http://www.w3.org/2006/vcard/ns#>
+prefix foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+select distinct ?g (count(?Person) as ?Number)  where {
+graph ?g {
+?Person rdf:type foaf:Person.
+}
+} group by ?g order by desc(?Number)

@@ -1,0 +1,46 @@
+############################################################################
+##Q10: Unsatisfactory use case on the wizard without answer - no response ##
+### It simulates select all filed and filter on title like "microsoft" #####
+############################################################################
+
+PREFIX cdm:<http://publications.europa.eu/ontology/cdm#>
+PREFIX skos:<http://www.w3.org/2004/02/skos/core#>
+PREFIX dc:<http://purl.org/dc/elements/1.1/>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl:<http://www.w3.org/2002/07/owl#>
+
+SELECT DISTINCT  (group_concat(distinct ?work;separator=",") as ?cellarURIs) 
+   (group_concat(distinct ?title_;separator=",") as ?title) 
+  ?langIdentifier
+   (group_concat(distinct ?mtype;separator=",") as ?mtypes) 
+   (group_concat(distinct ?thumbnail;separator=",") as ?thumbnails) 
+  (group_concat(distinct ?resType;separator=",") as ?workTypes) 
+  (group_concat(distinct ?agentName;separator=",") as ?authors) 
+  ?date
+  (group_concat(distinct ?subjectLabel;separator=",") as ?subjects) 
+  (group_concat(distinct ?workId_;separator=",") as ?workIds) 
+
+WHERE 
+{
+?work cdm:work_date_document ?d.
+?exp cdm:expression_belongs_to_work ?work .
+?exp cdm:expression_title ?title_ .
+?exp cdm:expression_uses_language/dc:identifier ?langIdentifier .
+?manif cdm:manifestation_manifests_expression ?exp .
+?manif cdm:manifestation_type ?mtype .
+OPTIONAL {?manif2 cdm:manifestation_manifests_expression ?exp }.
+OPTIONAL {?manif2 cdm:manifestation_has_thumbnail ?thumbnail }.
+?work rdf:type ?resType .
+OPTIONAL {?work cdm:work_created_by_agent/skos:prefLabel ?agentName .
+filter (lang(?agentName)="en")}.
+?work cdm:work_date_document ?date .
+OPTIONAL {?work cdm:work_is_about_concept_eurovoc/skos:prefLabel ?subjectLabel .
+filter (lang(?subjectLabel)="en")}.
+?work cdm:work_id_document ?workId_ .
+ ?exp cdm:expression_uses_language <http://publications.europa.eu/resource/authority/language/ENG>.
+FILTER (regex( str(?title_), "microsoft", "i")).
+}
+GROUP BY ?work ?date ?langIdentifier
+LIMIT 100
+OFFSET 0

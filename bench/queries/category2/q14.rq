@@ -1,0 +1,109 @@
+#########################################
+##Q14 --> OpenPortal.sparql ##
+##BGP: 7
+#########################################
+
+PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX eurovoc: <http://eurovoc.europa.eu/schema#>
+PREFIX owl:<http://www.w3.org/2002/07/owl#>
+SELECT DISTINCT  ?work
+      ?expr
+      (?lang1 as ?lang)
+      (group_concat(distinct ?title_;separator=", ") as ?title) 
+      ?date
+      (?abstract as ?abstracts )
+      (group_concat(distinct ?workId;separator=", ") as ?workIds)
+      (group_concat(distinct ?workType;separator=", ") as ?workTypes)
+      (group_concat(distinct ?subject;separator=", ") as ?subjects)
+      (group_concat(distinct ?author;separator=", ") as ?authors)
+      (group_concat(distinct ?work;separator=", ") as ?cellarURIs)
+      (group_concat(distinct ?mtype;separator=", ") as ?mtypes)
+      (group_concat(distinct ?thumbnail;separator=", ") as ?thumbnails)
+WHERE {
+      ?work cdm:work_id_document ?workId;
+         rdf:type ?workType.
+      optional{?work cdm:work_is_about_concept_eurovoc/dc:identifier ?subject.}
+ 
+OPTIONAL{
+ 
+{
+{?work cdm:work_created_by_agent/dc:identifier ?author.}
+UNION
+{?work cdm:work_created_by_agent/cdm:agent_name ?author.}
+}
+ 
+UNION
+{
+{?work cdm:work_authored_by_agent/dc:identifier ?author.}
+UNION
+{?work cdm:work_authored_by_agent/cdm:agent_name ?author.}
+}
+ 
+UNION
+{
+{?work cdm:work_illustrated_by_agent/dc:identifier ?author.}
+UNION
+{?work cdm:work_illustrated_by_agent/cdm:agent_name ?author.}
+}
+ 
+UNION
+{
+{?work cdm:work_compiled_by_agent/dc:identifier ?author.}
+UNION
+{?work cdm:work_compiled_by_agent/cdm:agent_name ?author.}
+}
+ 
+UNION
+{
+{?work cdm:work_contributed_to_by_agent/dc:identifier ?author.}
+UNION
+{?work cdm:work_contributed_to_by_agent/cdm:agent_name ?author.}
+}
+ 
+UNION
+{
+{?work cdm:work_edited_by_agent/dc:identifier ?author.}
+UNION
+{?work cdm:work_edited_by_agent/cdm:agent_name ?author.}
+}
+ 
+UNION
+{
+{?work cdm:work_translated_by_agent/dc:identifier ?author.}
+UNION
+{?work cdm:work_translated_by_agent/cdm:agent_name ?author.}
+}
+ 
+}
+      ?expr cdm:expression_belongs_to_work ?work.
+      optional {?expr cdm:expression_abstract ?abstract}.
+      optional {?m cdm:manifestation_manifests_expression ?expr; cdm:manifestation_type ?mtype.}
+      optional {?m2  cdm:manifestation_manifests_expression ?expr; cdm:manifestation_has_thumbnail ?thumbnail }.
+      ?expr cdm:expression_uses_language/dc:identifier ?lang1.
+      optional { ?expr cdm:expression_title ?title_ }.
+      {
+          SELECT ?work ?date
+          WHERE
+          {
+            {
+              SELECT DISTINCT ?work ?date
+              WHERE
+                {
+               
+                ?work cdm:work_is_about_concept_eurovoc/skos:inScheme/dc:identifier "4026";
+ 
+                    cdm:work_date_document ?date.                  
+                 
+                 }
+              ORDER BY DESC(?date)
+            }
+          }
+          OFFSET 0
+          LIMIT 10 }
+      }
+GROUP BY ?work ?expr ?date ?abstract ?lang1
+ORDER BY DESC(?date) ?work

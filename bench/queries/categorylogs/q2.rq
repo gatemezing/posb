@@ -1,0 +1,11 @@
+## Q2L: construct in opoce prod log
+prefix cdm: <http://publications.europa.eu/ontology/cdm#> 
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix at: <http://publications.europa.eu/ontology/authority/>
+
+CONSTRUCT { ?s ?p ?o } WHERE
+ {
+   GRAPH ?g { ?s ?p ?o } .
+   {?s skos:inScheme <http://publications.europa.eu/resource/authority/country> } .
+
+} limit 10000

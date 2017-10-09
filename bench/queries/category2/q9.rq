@@ -1,0 +1,37 @@
+#Q9: Query for selecting work and dossiers to analyse
+#BGP: 1
+ 
+prefix cdm: <http://publications.europa.eu/ontology/cdm#> 
+prefix owl: <http://www.w3.org/2002/07/owl#>
+select distinct
+?Cellar_Id 
+?Work_Identifier 
+?dossierId
+?legal_basis_celex
+?legal_basis_celex_comment
+?legal_basis_eli
+?legal_basis_eli_subdivision
+?new_ceres_tz
+?eurlex_tz
+?new_ceres_pz
+?eurlex_pz
+where {?Cellar_Id cdm:work_has_resource-type ?type.
+?Cellar_Id owl:sameAs ?Work_Identifier.
+?Cellar_Id cdm:work_id_document ?id_doc.
+?dossier cdm:dossier_contains_work ?Cellar_Id.
+?dossier cdm:dossier_identifier ?dossierId_.
+?dossier cdm:procedure_internal_has_type_procedure_internal <http://publications.europa.eu/resource/authority/com_internal_procedure/ISC_WORKFLOW>.
+BIND(str(?dossierId_) as ?dossierId)
+FILTER(regex(?Work_Identifier,'pi_com'))
+FILTER(regex(?dossierId,'publicAccess'))
+FILTER not exists{?Cellar_Id cdm:resource_legal_based_on_resource_legal ?legal_basis_.}
+BIND(str(?legal_basis_) as ?legal_basis)
+BIND(str(?legal_basis_) as ?legal_basis_comment)
+BIND(str(?legal_basis_) as ?legal_basis_eli)
+BIND(str(?legal_basis_) as ?legal_basis_eli_subdivision)
+FILTER(regex(str(?type),'DRAFT$'))
+BIND(concat("http://newceres-test/ceres-monitoring/publicationview?type=businessId&value=",replace(str(?Work_Identifier),"(^.+immc[/])(.+$)","$2"),"&originFamily=ALL&fromExecutionDate=&toExecutionDate=&destinationGroup=ALL&destinationIdentifier=ALL&workflowOverallStatus=ALL&refreshTime=0&submit_button=Submit") as ?new_ceres_tz)
+BIND(concat("http://eurlex-active-test/eurlex-frontoffice/legal-content/EN/ALL/?uri=immc:",encode_for_uri(replace(?id_doc,'pi_com:',''))) as ?eurlex_tz)
+BIND(concat("http://newceres/ceres-monitoring/publicationview?type=businessId&value=",replace(str(?Work_Identifier),"(^.+immc[/])(.+$)","$2"),"&originFamily=ALL&fromExecutionDate=&toExecutionDate=&destinationGroup=ALL&destinationIdentifier=ALL&workflowOverallStatus=ALL&refreshTime=0&submit_button=Submit") as ?new_ceres_pz)
+BIND(concat("http://eur-lex.europa.eu/legal-content/EN/ALL/?uri=immc:",encode_for_uri(replace(?id_doc,'pi_com:',''))) as ?eurlex_pz)
+}

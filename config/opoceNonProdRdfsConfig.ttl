@@ -1,0 +1,33 @@
+#
+# Configuration template for an GraphDB-EE repository
+#
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rep: <http://www.openrdf.org/config/repository#>.
+@prefix sr: <http://www.openrdf.org/config/repository/sail#>.
+@prefix sail: <http://www.openrdf.org/config/sail#>.
+@prefix owlim: <http://www.ontotext.com/trree/owlim#>.
+
+[] a rep:Repository ;
+    rep:repositoryID "opoceNonProdRdfsPlus" ;
+    rdfs:label "Repo for the non normalized data of OPOCE with RDFS+ ruleset" ;
+    rep:repositoryImpl [
+        rep:repositoryType "owlim:ReplicationClusterWorker" ;
+        rep:delegate [
+            rep:repositoryType "owlim:MonitorRepository" ;
+                    sr:sailImpl [
+                            sail:sailType "owlimClusterWorker:Sail" ;
+
+                            # i want inference or not - set it here
+                            #owlim:ruleset "owl-horst-optimized" ;
+			                owlim:ruleset "rdfs-optimized" ;
+
+                            # disable context index(because my data do not uses contexts)
+                            owlim:enable-context-index "false" ;
+
+                            # nice to have, will speedup the future queries
+                            owlim:enablePredicateList "true" ;
+                            owlim:enable-literal-index "true" ;
+                            owlim:in-memory-literal-properties "true" ;
+                   ]
+        ]
+    ].

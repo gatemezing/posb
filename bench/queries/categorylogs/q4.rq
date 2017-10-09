@@ -1,0 +1,33 @@
+## Q4L: How to test: With inference capabilities activated
+## From PROD Log containing union, distinct, property path features
+prefix cdm: <http://publications.europa.eu/ontology/cdm#> 
+prefix annotation: <http://publications.europa.eu/ontology/annotation#> 
+prefix xsd: <http://www.w3.org/2001/XMLSchema#> 
+prefix owl: <http://www.w3.org/2002/07/owl#> 
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+select distinct ?workflow ?minDate ?workflow_type ?document ?document_type ?document_title 
+?document_id ?document_date ?short_title ?legal_basis ?comment_on_legal_basis 
+?responsible_agent ?consults_agent ?consults_agent_type ?consultation_type ?consultation_duration 
+?event ?event_date ?event_type 
+where{{select distinct ?workflow ?minDate where 
+	{{select (?predecessor as ?workflow) (MIN(xsd:date(?date)) AS ?minDate)
+		{<http://publications.europa.eu/resource/pi_com/Ares%282016%295412212>^owl:sameAs*/(^cdm:dossier_contains_work | cdm:resource_legal_produced_by_dossier) ?entry. 
+			?entry a cdm:procedure_internal; cdm:dossier_is_logical_successor_of_dossier* ?predecessor. ?predecessor cdm:dossier_contains_event/cdm:event_date ?date.} group by ?predecessor} 
+			UNION{select(?following as ?workflow)(MIN(xsd:date(?date)) AS ?minDate){<http://publications.europa.eu/resource/pi_com/Ares%282016%295412212>^owl:sameAs*/(^cdm:dossier_contains_work | cdm:resource_legal_produced_by_dossier) ?entry.
+			 ?entry a cdm:procedure_internal. ?following cdm:dossier_is_logical_successor_of_dossier+ ?entry; cdm:dossier_contains_event/cdm:event_date ?date.}
+			 group by ?following}}ORDER BY ?minDate} 
+			 OPTIONAL {?workflow cdm:procedure_internal_has_type_procedure_internal ?workflow_type.} 
+			 OPTIONAL {?workflow (cdm:dossier_contains_work | ^cdm:resource_legal_produced_by_dossier) ?document. ?document cdm:work_has_resource-type ?document_type 
+			 	OPTIONAL { ?exp cdm:expression_belongs_to_work ?document ; cdm:expression_uses_language <http://publications.europa.eu/resource/authority/language/ENG> ; 
+			 	cdm:expression_subtitle ?document_title } ?document owl:sameAs ?document_id. ?document cdm:work_date_document ?document_date. 
+			 	FILTER regex(?document_id, "resource/(celex|pi_com)")} 
+			 	OPTIONAL {?workflow cdm:dossier_title ?short_title.} 
+			 	OPTIONAL{ ?workflow cdm:dossier_based_on_resource_legal/owl:sameAs ?legal_basis. 
+			 	FILTER regex(?legal_basis, "resource/celex") ?lb annotation:comment_on_legal_basis ?comment_on_legal_basis. ?lb owl:annotatedSource ?workflow; owl:annotatedProperty cdm:dossier_based_on_resource_legal. ?lb owl:annotatedTarget/(owl:sameAs)? ?legal_basis} 
+			 	OPTIONAL {?workflow (cdm:dossier_responsibility_of_agent | cdm:event_responsibility_of_institution) ?responsible_agent.} 
+			 	OPTIONAL { ?workflow cdm:dossier_consults_agent/owl:sameAs ?consults_agent; cdm:dossier_consults_agent/rdf:type ?consults_agent_type 
+			 		FILTER regex(?consults_agent, "resource/agent") 
+			 	FILTER regex(?consults_agent_type, "/ontology/cdm#(committee|expert-group)")} 
+			 	OPTIONAL {?workflow cdm:procedure_internal_has_type_consultation ?consultation_type.} 
+			 	OPTIONAL {?workflow cdm:dossier_duration ?consultation_duration.} 
+			 	OPTIONAL {?workflow cdm:dossier_contains_event ?event. ?event cdm:event_date ?event_date. ?event cdm:event_has_type_concept_type_event ?event_type}} 

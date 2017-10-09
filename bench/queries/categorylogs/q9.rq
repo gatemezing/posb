@@ -1,0 +1,14 @@
+# Q9L: from open data portal log
+# counting graphs with dataset
+
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX odp:  <http://data.europa.eu/euodp/ontologies/ec-odp#>
+PREFIX dc: <http://purl.org/dc/terms/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
+
+SELECT ?format (count(?g) as ?count)
+WHERE { GRAPH ?g { ?s a dcat:Dataset.
+?s dcat:distribution ?d.
+?d odp:distributionFormat ?format.}
+} GROUP BY ?format 

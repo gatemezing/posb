@@ -1,0 +1,57 @@
+#Q7: Query for setting the adopted flag
+# BGP: 5
+
+#DEFINE input:inference "cdm_rule_set"
+PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
+SELECT ?dossier ?date1 ?date2
+WHERE 
+  { ?dossier cdm:dossier_contains_event_legal ?event1.
+OPTIONAL {?dossier cdm:dossier_adopted-proposal ?adopted.}
+?event1 cdm:event_has_type_concept_type_event ?eventType1.
+?event1 cdm:event_date ?date1.
+FILTER ( 
+?eventType1=<http://publications.europa.eu/resource/authority/event/DEC_byCOUN_ASS>
+||?eventType1=<http://publications.europa.eu/resource/authority/event/DEC_byCMT_CONJOIN>
+||?eventType1=<http://publications.europa.eu/resource/authority/event/DEC_byACP_MIN>
+||?eventType1=<http://publications.europa.eu/resource/authority/event/DEC_byACP_AMB>
+||?eventType1=<http://publications.europa.eu/resource/authority/event/DEC_byCMT_COOP>
+||?eventType1=<http://publications.europa.eu/resource/authority/event/DEC_byCOUN_JOIN>
+||?eventType1=<http://publications.europa.eu/resource/authority/event/SIGN_PAR_byEP_CONSIL>
+||?eventType1=<http://publications.europa.eu/resource/authority/event/ADP_FRM_byCONSIL>
+||?eventType1=<http://publications.europa.eu/resource/authority/event/ADP_PAR_byCONSIL>
+||?eventType1=<http://publications.europa.eu/resource/authority/event/SIGN_byEP_CONSIL>
+||?eventType1=<http://publications.europa.eu/resource/authority/event/DEC_byCOUN_COOP>
+||?eventType1=<http://publications.europa.eu/resource/authority/event/DEC_byCMT_JOIN>
+||?eventType1=<http://publications.europa.eu/resource/authority/event/ADP_ACT_byCOM>
+) 
+?event1 cdm:event_legal_contains_work ?adoptedWork1.
+FILTER (regex(str(?adoptedWork1),'celex/[234][0-9][0-9][0-9][0-9][RLDSFE]'))
+OPTIONAL{ 
+?dossier cdm:dossier_contains_event_legal ?event2.
+?event2 cdm:event_has_type_concept_type_event ?eventType2.
+?event2 cdm:event_date ?date2. 
+FILTER ( 
+?eventType2=<http://publications.europa.eu/resource/authority/event/DEC_byCOUN_ASS>
+||?eventType2=<http://publications.europa.eu/resource/authority/event/DEC_byCMT_CONJOIN>
+||?eventType2=<http://publications.europa.eu/resource/authority/event/DEC_byACP_MIN>
+||?eventType2=<http://publications.europa.eu/resource/authority/event/DEC_byACP_AMB>
+||?eventType2=<http://publications.europa.eu/resource/authority/event/DEC_byCMT_COOP>
+||?eventType2=<http://publications.europa.eu/resource/authority/event/DEC_byCOUN_JOIN>
+||?eventType2=<http://publications.europa.eu/resource/authority/event/SIGN_PAR_byEP_CONSIL>
+||?eventType2=<http://publications.europa.eu/resource/authority/event/ADP_FRM_byCONSIL>
+||?eventType2=<http://publications.europa.eu/resource/authority/event/ADP_PAR_byCONSIL>
+||?eventType2=<http://publications.europa.eu/resource/authority/event/SIGN_byEP_CONSIL>
+||?eventType2=<http://publications.europa.eu/resource/authority/event/DEC_byCOUN_COOP>
+||?eventType2=<http://publications.europa.eu/resource/authority/event/DEC_byCMT_JOIN>
+||?eventType2=<http://publications.europa.eu/resource/authority/event/ADP_ACT_byCOM>
+) 
+?event2 cdm:event_legal_contains_work ?adoptedWork2.
+FILTER (regex(str(?adoptedWork2),'celex/[234][0-9][0-9][0-9][0-9][RLDSFE]'))
+} 
+ MINUS 
+{ 
+?dossier cdm:dossier_adopted-proposal ?adopted.
+FILTER(?adopted="true" ^^<http://www.w3.org/2001/XMLSchema#boolean>)
+?dossier cdm:dossier_date_adopted ?dateadopted.
+} 
+}

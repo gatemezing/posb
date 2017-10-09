@@ -1,0 +1,12 @@
+# Q7L: from open data portal log
+# Search based on a particular Bnode
+
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX odp:  <http://data.europa.eu/euodp/ontologies/ec-odp#>
+PREFIX dc: <http://purl.org/dc/terms/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
+select distinct *
+where { 
+<nodeID://b6127743> ?w ?c.
+} LIMIT 10

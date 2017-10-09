@@ -1,0 +1,26 @@
+########################################################################
+## Q19 --> Preleg_testSet.sparql ##
+## CONSIL: Dossier monitoring: retrieveing procedure URIs with leading 0s
+## BGP: 1
+#########################################################################
+
+PREFIX cdm: <http://publications.europa.eu/ontology/cdm#> 
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?idCON ?e ?d ?sAa
+WHERE {
+
+?act cdm:work_id_document ?idCON .
+
+FILTER (?idCON='immc:PE 95 2014 REV 1'^^xsd:string || ?idCON='immc:ST 10710 2014 REV 2 ADD 1'^^xsd:string || ?idCON='immc:ST 10710 2014 REV 2'^^xsd:string || ?idCON='immc:ST 15884 2014 ADD 1 REV 1'^^xsd:string || ?idCON='immc:ST 16703 2014 INIT'^^xsd:string || ?idCON='immc:ST 17137 2014 INIT'^^xsd:string || ?idCON='immc:PE 15 2015 REV 1'^^xsd:string || ?idCON='immc:ST 12042 2015 ADD 1'^^xsd:string || ?idCON='immc:ST 7532 2016 REV 2'^^xsd:string || ?idCON='immc:ST 7532 2016 REV 2 ADD 1'^^xsd:string || ?idCON='ST_14601_2015_INIT'^^xsd:string || ?idCON='ST_14600_2015_INIT'^^xsd:string)
+?act owl:sameAs ?sA .
+?e cdm:event_legal_contains_work ?act ; 
+   cdm:event_legal_part_of_dossier ?d .
+
+?d owl:sameAs ?sAa
+FILTER (regex (?sAa, '_0'))
+
+#OPTIONAL{?d cdm:dossier_contains_work ?sA.}
+
+} ORDER BY ?idCON 
