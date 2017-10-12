@@ -2,10 +2,11 @@
 This repository contains the resources used for benchmarking EU Publications Office dataset. The dump are accessible from the publisher. However, almost all the dataset used in PROD are available in the following endpoint:  http://publications.europa.eu/webapi/rdf/sparql
 
 This folder contains the resources of the POSB Benchmark. The folder is structured as follows:
-  - Configurations under /config
+  - RDF store configurations under /config
   - Benchmark queries under /bench/queries
-  - Benchmark scripts under /bench/scripts for the sample scripts used for the benchmark
+  - Benchmark scripts under /bench/bencher for the sample scripts used for the benchmark
   - Benchmark results under /bench/results
+  - Scripts used for bulk loading under /script
   
   
   
