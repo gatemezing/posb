@@ -1,0 +1,35 @@
+Total Response Time,Average Response Time (Arithmetic),Total Runtime,Actual Runtime,Average Runtime (Arithmetic),Actual Average Runtime (Arithmetic),Average Runtime (Geometric),Minimum Mix Runtime,Maximum Mix Runtime,Variance,Standard Deviation,Operation Mixes per Hour,Actual Operation Mixes per Hour
+57.012249738,19.004083245999997,57.094273453,387.52214423600003,19.031424484,129.174048078,18.778731740932844,14.826936559,21.183709228,13.260793115468438,3.6415371912790397,189.16082729522287,27.869375107190177
+Options Summary,
+Query Endpoint,http://opoce1.mondeca.com:8000/v1/graphs/sparql?database=opoceProd
+Update Endpoint,http://opoce1.mondeca.com:8000/v1/graphs/sparql?database=opoceProd
+Graph Store Endpoint,null
+Sanity Checking Level,0
+Warmups,20
+Runs,5
+Random Operation Order,true
+Outliers,1
+Timeout,10s
+Max Delay between Operations,1000s
+Result Limit,Query Specified
+ASK Results Format,application/sparql-results+xml
+Graph Results Format,application/rdf+xml
+SELECT Results Format,application/sparql-results+xml
+Parallel Threads,70
+Result Counting,false
+,
+Run Summary,
+Run,Total Response Time,Total Runtime,Min Query Runtime,Max Query Runtime
+1,13.863904424000001,13.884526188,0.006212802,10.000102217
+2,14.793821894,14.826936559,0.005250476,10.000162805
+3,21.053392679,21.083627666,0.004498388,10.000128307999999
+4,21.195005087000002,21.221944440999998,0.004932306,10.000129216
+5,21.165035165000003,21.183709228,0.006157406,10.000126723
+,
+Operation Summary,
+Operation,Type,Total Response Time,Average Response Time (Arithmetic),Total Runtime,Actual Runtime,Average Runtime (Arithmetic),Actual Average Runtime (Arithmetic),Average Runtime (Geometric),Min Runtime,Max Runtime,Variance,Standard Deviation,Operations per Second,Actual Operations per Second,Operations per Hour,Actual Operations per Hour
+/home/mondeca/bench/sparql-query-bm-2.1.0/cmd/queries/group3/q1.rq,Remote SPARQL Query,22.407981121000002,0.974260048,22.972709378,24.582983628,0.998813451,1.0688253749999999,9.90587646562466E8,0.766314449,1.211703115,0.016351423154063884,0.12787268337711494,1.0011879585710546,0.9356065297383122,3604.2766508557966,3368.1835070579236
+/home/mondeca/bench/sparql-query-bm-2.1.0/cmd/queries/group3/q2.rq,Remote SPARQL Update,230.003041517,10.000132239000001,230.003041517,216.605505609,10.000132239000001,9.417630678,1.0000132239858288E10,10.000103884,10.000166581,2.359016072974094E-10,1.5359088752182188E-5,0.09999867762748692,0.10618381992150573,359.9952394589529,382.2617517174207
+/home/mondeca/bench/sparql-query-bm-2.1.0/cmd/queries/group3/q3.rq,Remote SPARQL Update,0.209120498,0.009092195,0.209120498,0.24215506,0.009092195,0.01052848,7363987.662042046,0.004921366,0.033239797,6.678442887925061E-5,0.008172174060753393,109.98444270057999,94.98047201495373,395943.993722088,341929.69925383345
+/home/mondeca/bench/sparql-query-bm-2.1.0/cmd/queries/group3/q4.rq,Remote SPARQL Update,170.82490110700002,7.427169613,170.82490110700002,159.43107687,7.427169613,6.93178595,4.6035102974018135E9,0.00588403,10.000171812000001,12.63329490427573,3.5543346640793025,0.13464079213293711,0.1442629658811089,484.7068516785736,519.346677171992
+/home/mondeca/bench/sparql-query-bm-2.1.0/cmd/queries/group3/q5.rq,Remote SPARQL Update,0.14262959,0.006201285999999999,0.14262959,0.188614162,0.006201285999999999,0.008200615000000001,5957495.881411758,0.004373228,0.014557177,4.579171506767262E-6,0.0021398998824167592,161.25687478371424,121.94207385665585,580524.7492213713,438991.46588396106
