@@ -6,6 +6,7 @@ This folder contains the resources of the POSB Benchmark. The folder is structur
   - Benchmark queries under /bench/queries
   - Benchmark scripts under /bench/bencher for the sample scripts used for the benchmark
   - Benchmark results under /bench/results
+  - Benchmark output with CSV files in /benchoutput
   - Scripts used for bulk loading under /script
   
   
