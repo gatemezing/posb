@@ -1,7 +1,7 @@
-# posb
-===========
+# posb Benchmark
+================
 
-[ Update July 2019] * We have included the results of testing with AWS Neptune 
+# [Update July 2019] * We have included the results of testing with AWS Neptune 
 
 This repository contains the resources used for benchmarking EU Publications Office dataset. The dump are accessible from the publisher. However, almost all the dataset used in PROD are available in the following endpoint:  http://publications.europa.eu/webapi/rdf/sparql
 
@@ -14,7 +14,8 @@ This folder contains the resources of the POSB Benchmark. The folder is structur
   - Scripts used for bulk loading under /script
   
   
-  
+ # Publications
+   
  # License
  This project is licensed under the terms of the MIT license.
 
