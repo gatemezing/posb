@@ -17,6 +17,9 @@ This folder contains the resources of the POSB Benchmark. The folder is structur
  # Publications
    - First ref. paper https://hobbitdata.informatik.uni-leipzig.de/quweda/quweda2018/QuWeDa2018_paper_5.pdf
    - Blog Mondeca (en français): http://blog.mondeca.com/2019/02/01/benchmark-de-aws-neptune-1-0/
+ 
+ # Dump for download
+ https://doi.org/10.5281/zenodo.1036738 
  # License
  This project is licensed under the terms of the MIT license.
 
