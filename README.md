@@ -1,7 +1,7 @@
 # posb Benchmark
 ================
 
-# [Update July 2019] * We have included the results of testing with AWS Neptune 
+# [Update July 2019:] We have included the results of testing with AWS Neptune 
 
 This repository contains the resources used for benchmarking EU Publications Office dataset. The dump are accessible from the publisher. However, almost all the dataset used in PROD are available in the following endpoint:  http://publications.europa.eu/webapi/rdf/sparql
 
@@ -15,7 +15,8 @@ This folder contains the resources of the POSB Benchmark. The folder is structur
   
   
  # Publications
-   
+   - First ref. paper https://hobbitdata.informatik.uni-leipzig.de/quweda/quweda2018/QuWeDa2018_paper_5.pdf
+   - Blog Mondeca (en français): http://blog.mondeca.com/2019/02/01/benchmark-de-aws-neptune-1-0/
  # License
  This project is licensed under the terms of the MIT license.
 
