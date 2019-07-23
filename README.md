@@ -23,5 +23,6 @@ This folder contains the resources of the POSB Benchmark. The folder is structur
  # License
  This project is licensed under the terms of the MIT license.
 
- # ACKNOWLEDGEMENT
- Publications Office for the datasets used for the benchmark.
+ # ACKNOWLEDGEMENTS
+ - Publications Office for the datasets used for the benchmark.
+ - Folks at Oracle (Boston), Stardog Union, Ontotext, OpenLinks, AWS Neptune
