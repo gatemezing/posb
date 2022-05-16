@@ -1,0 +1,239 @@
+
+
+Queries Category 1
+==================
+
+Q1:
+# Q1. %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+## Goal: Compute non-inferred symmetric concise bounded description of an entire FRBR hierarchy.  
+
+#DEFINE sql:describe-mode "SCBD"
+prefix cdm: <http://publications.europa.eu/ontology/cdm#>
+describe ?w ?e ?m where
+{	# substitute cellar id here 
+	values ?w {<http://publications.europa.eu/resource/cellar/6df75a83-c084-11e3-86f9-01aa75ed71a1>}   
+	?e cdm:expression_belongs_to_work ?w.
+	optional{?m cdm:manifestation_manifests_expression ?e.}
+}
+
+
+
+Q1.cypher
+
+MATCH (e:Resource)-[r:expression_belongs_to_work]->(w:Resource {uri:'http://publications.europa.eu/resource/cellar/6df75a83-c084-11e3-86f9-01aa75ed71a1'})
+OPTIONAL MATCH
+(m:Resource)-[r1:manifestation_manifests_expression]->(e:Resource)
+RETURN r, e, w
+ 
+ 
+Q2
+ 
+prefix cdm: <http://publications.europa.eu/ontology/cdm#>
+prefix owl: <http://www.w3.org/2002/07/owl#> 
+ 
+describe ?w ?e ?m where
+{
+	
+	values ?w {<http://publications.europa.eu/resource/cellar/6df75a83-c084-11e3-86f9-01aa75ed71a1>}
+	?e cdm:expression_belongs_to_work ?w;
+	# substitute language code here
+	cdm:expression_uses_language <http://publications.europa.eu/resource/authority/language/POR>.
+	optional{?m cdm:manifestation_manifests_expression ?e.}
+}
+ 
+Q2.cypher 
+
+MATCH (l:Resource {uri:'http://publications.europa.eu/resource/authority/language/POR'})<-[r1:expression_uses_language]-(e:Resource)-[r2:expression_belongs_to_work]->(w:Resource {uri:'http://publications.europa.eu/resource/cellar/6df75a83-c084-11e3-86f9-01aa75ed71a1'})
+OPTIONAL MATCH
+(m:Resource)-[r3:manifestation_manifests_expression]->(e:Resource)
+RETURN w, m, l
+ 
+ 
+ 
+ 
+ 
+Q3:
+ 
+## Goal: Compute non-inferred concise bounded branch description
+##Note that this time we compute the concise bounded description of a branch notice, not its
+## symmetric equivalent. CDB is enough for representation of embedded works. 
+## Requirements:We intend to use the query for on-the-fly notice generation. 
+ 
+#DEFINE sql:describe-mode "CBD"
+prefix cdm: <http://publications.europa.eu/ontology/cdm#> 
+prefix owl: <http://www.w3.org/2002/07/owl#> 
+ 
+describe ?s ?e ?m where {
+	# substitute cellar id here
+	values ?w {<http://publications.europa.eu/resource/cellar/6df75a83-c084-11e3-86f9-01aa75ed71a1>}
+	?s owl:sameAs? ?w.
+	?e cdm:expression_belongs_to_work ?s;
+	# substitute language code here
+	cdm:expression_uses_language <http://publications.europa.eu/resource/authority/language/POR>.
+	optional{?m cdm:manifestation_manifests_expression ?e.}
+}
+ 
+Q3.cypher
+ 
+MATCH (s:Resource)-[r1:sameAs*]->(w:Resource {uri:'http://publications.europa.eu/resource/cellar/6df75a83-c084-11e3-86f9-01aa75ed71a1'}) 
+MATCH (l:Resource {uri:'http://publications.europa.eu/resource/authority/language/POR'})<-[r1:expression_uses_language]-(e:Resource)-[r2:expression_belongs_to_work]->(w:Resource {uri:'http://publications.europa.eu/resource/cellar/6df75a83-c084-11e3-86f9-01aa75ed71a1'})
+OPTIONAL MATCH
+(m:Resource)-[r3:manifestation_manifests_expression]->(e:Resource)
+RETURN s, w, m, l
+ 
+ 
+ 
+Q4:
+ 
+#Q4. %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+## Goal: Retrieve language specific information required for the decoding of concepts from named authority lists. 
+## Remarks: Input = concept uri + 2-char language code. In order to harmonize and standardize the codes and the associated labels used in the Publications Office
+## the MDR team maintains a number of tables, controlled vocabularies or value lists.
+## Requirements: We intend to use the query for on-the-fly notice generation.
+ 
+prefix cdm: <http://publications.europa.eu/ontology/cdm#> 
+prefix dc: <http://purl.org/dc/elements/1.1/>
+prefix at: <http://publications.europa.eu/ontology/authority> 
+ 
+construct
+{
+	?s ?p ?o.
+}
+where
+{
+	# substitute concept uri here
+	values ?s {<http://publications.europa.eu/resource/authority/language/POR>}
+	{
+	select ?s ?o ?p where
+	{
+		?s ?p ?o.
+		bind(lang(?o) as ?lang)
+		filter( ?lang = "" )
+		}
+	} 
+	UNION
+	{
+		select ?s ?o ?p where 
+		{
+		?s ?p ?o.
+		bind(lang(?o) as ?lang)
+		# substitute language code here
+		filter( ?lang = "en" )
+		}
+	}
+} 
+ 
+ 
+ 
+Q5:
+ 
+#############################################################################
+#Q5: Search by subject-author faced applied - 2 selections-year facetApplied #
+#############################################################################
+ 
+PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX eurovoc: <http://eurovoc.europa.eu/schema#>
+PREFIX owl:<http://www.w3.org/2002/07/owl#>
+ 
+ 
+ 
+SELECT ?work 
+      ?expr
+      (?lang1 as ?lang) 
+      (group_concat(distinct ?title_;separator=", ") as ?title)  
+      ?date
+      (?abstract as ?abstracts )
+      (group_concat(distinct ?workId;separator=", ") as ?workIds) 
+      (group_concat(distinct ?workType;separator=", ") as ?workTypes) 
+      (group_concat(distinct ?subject;separator=", ") as ?subjects) 
+      (group_concat(distinct ?author;separator=", ") as ?authors)
+      (group_concat(distinct ?work;separator=", ") as ?cellarURIs)
+      (group_concat(distinct ?mtype;separator=", ") as ?mtypes) 
+      (group_concat(distinct ?thumbnail;separator=", ") as ?thumbnails)
+WHERE {
+      ?work cdm:work_id_document ?workId;
+         rdf:type ?workType.
+      optional{?work cdm:work_is_about_concept_eurovoc/dc:identifier ?subject.}
+      optional{?work cdm:work_created_by_agent/dc:identifier ?author.}
+      ?expr cdm:expression_belongs_to_work ?work.
+      optional {?expr cdm:expression_abstract ?abstract}.
+      optional {?m cdm:manifestation_manifests_expression ?expr; cdm:manifestation_type ?mtype.}
+      optional {?m2  cdm:manifestation_manifests_expression ?expr; cdm:manifestation_has_thumbnail ?thumbnail }.
+      ?expr cdm:expression_uses_language/dc:identifier ?lang1.
+      optional { ?expr cdm:expression_title ?title_ }.
+      {
+          SELECT ?work ?date
+          WHERE
+          {
+            {
+              SELECT DISTINCT ?work ?date
+              WHERE
+                {
+                
+                ?work cdm:work_is_about_concept_eurovoc/skos:inScheme/dc:identifier "4026";
+ 
+                    cdm:work_date_document ?date.                   
+                 filter(YEAR(?date) in (2014)).
+?work cdm:work_created_by_agent/dc:identifier ?authorCode2 .
+FILTER ( ?authorCode2 in ("CURIA","GCEU")).
+ 
+                 } 
+              ORDER BY DESC(?date)
+            }
+          }
+          OFFSET 0
+          LIMIT 10 }
+      }
+GROUP BY ?work ?expr ?date ?abstract ?lang1
+ORDER BY DESC(?date) ?work
+ 
+ 
+Q6
+###############################
+##Q6: Dynamic Query ###########
+###############################
+ 
+PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX eurovoc: <http://eurovoc.europa.eu/schema#>
+PREFIX owl:<http://www.w3.org/2002/07/owl#>
+SELECT ?work 
+       ((?abstract) as ?abstracts) 
+       (group_concat(distinct ?title_;separator=", ") as ?title)  
+       ?date
+      (group_concat(distinct ?workId;separator=", ") as ?workIds) 
+      (group_concat(distinct ?workType;separator=", ") as ?workTypes) 
+      (group_concat(distinct ?subject;separator=", ") as ?subjects) 
+      (group_concat(distinct ?author;separator=", ") as ?authors)
+      (group_concat(distinct ?work;separator=", ") as ?cellarURIs)
+      (group_concat(distinct ?mtype;separator=", ") as ?mtypes)WHERE {
+   ?work cdm:work_is_about_concept_eurovoc/dc:identifier ?subject;
+   cdm:work_id_document ?workId;
+   rdf:type ?workType;
+   cdm:work_created_by_agent/dc:identifier ?author.
+   ?expr cdm:expression_belongs_to_work ?work.
+   optional {?expr cdm:expression_title ?title_;
+                   cdm:expression_uses_language <http://publications.europa.eu/resource/authority/language/ENG>.}
+   optional {?expr cdm:expression_abstract ?abstract}.
+   optional {?m cdm:manifestation_manifests_expression ?expr; cdm:manifestation_type ?mtype}
+{
+   SELECT DISTINCT ?work ?date WHERE {
+?work cdm:work_is_about_concept_eurovoc/dc:identifier "3493";
+      cdm:work_date_document ?date.
+?expr2 cdm:expression_belongs_to_work ?work.
+ ?expr2 cdm:expression_title ?title2;
+      cdm:expression_uses_language <http://publications.europa.eu/resource/authority/language/ENG>. 
+?work cdm:work_created_by_agent/dc:identifier "EC".
+}
+ORDER BY DESC(?date)
+OFFSET 0
+LIMIT 10 }
+}
+GROUP BY ?work ?date ?abstract
