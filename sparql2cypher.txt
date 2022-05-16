@@ -4,10 +4,10 @@ Queries Category 1
 ==================
 
 Q1:
-# Q1. %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-## Goal: Compute non-inferred symmetric concise bounded description of an entire FRBR hierarchy.  
+===
+ ## Goal: Compute non-inferred symmetric concise bounded description of an entire FRBR hierarchy.  
+ #DEFINE sql:describe-mode "SCBD"
 
-#DEFINE sql:describe-mode "SCBD"
 prefix cdm: <http://publications.europa.eu/ontology/cdm#>
 describe ?w ?e ?m where
 {	# substitute cellar id here 
@@ -25,6 +25,8 @@ MATCH (e:Resource)-[r:expression_belongs_to_work]->(w:Resource {uri:'http://publ
 OPTIONAL MATCH
 (m:Resource)-[r1:manifestation_manifests_expression]->(e:Resource)
 RETURN r, e, w
+
+
  
  
 Q2
@@ -238,3 +240,6 @@ OFFSET 0
 LIMIT 10 }
 }
 GROUP BY ?work ?date ?abstract
+
+
+
