@@ -250,7 +250,7 @@ Q6.cypher
 //       concept_id: "3493", agent_id: "OP_DATPRO" 
 //       concept_id: "5404", agent_id: "EC" 
 
-match ({ uri: $lang_uri })<-[expression_uses_language]-(expr)-[:expression_belongs_to_work]->(work)-[:work_is_about_concept_eurovoc]->(:Concept {identifier: $concept_id}),  (work)-[:work_created_by_agent]->({identifier: $agent_id })
+match ({ uri: $lang_uri })<-[:expression_uses_language]-(expr)-[:expression_belongs_to_work]->(work)-[:work_is_about_concept_eurovoc]->(:Concept {identifier: $concept_id}),  (work)-[:work_created_by_agent]->({identifier: $agent_id })
 with work, work.work_date_document as date order by date desc limit 10
 match (a)-[:work_created_by_agent]-(work:Resource)-[:work_is_about_concept_eurovoc]->(c) 
 match (exl)<-[:expression_uses_language]-(expr)-[:expression_belongs_to_work]->(work)
