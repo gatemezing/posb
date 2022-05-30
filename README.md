@@ -1,8 +1,8 @@
-# posb Bench (The PO Benchmark)
+# posb Bench (Publications Office Benchmark)
 
 
 # Update 2022: New Benchmark started on the 5th, January till end of June, 2022
-This will update the repository with new findings and resuls.
+This will update the repository with new findings and results.
 
 # Update July 2019: We have included the results of testing with AWS Neptune 
 
@@ -20,6 +20,7 @@ This folder contains the resources of the POSB Benchmark. The folder is structur
  # Publications work 2017
    - First ref. paper https://hobbitdata.informatik.uni-leipzig.de/quweda/quweda2018/QuWeDa2018_paper_5.pdf
    - Blog Mondeca (en français): http://blog.mondeca.com/2019/02/01/benchmark-de-aws-neptune-1-0/
+   - Empirical Evaluation of a Cloud-based Graph Database: the Case of Neptune: https://link.springer.com/chapter/10.1007/978-3-030-91305-2_3 
  
  # Dump for download 
  https://doi.org/10.5281/zenodo.1036738 
@@ -27,6 +28,7 @@ This folder contains the resources of the POSB Benchmark. The folder is structur
  This project is licensed under the terms of the MIT license.
 
  # ACKNOWLEDGEMENTS
- - Publications Office for the datasets used for the benchmark.
+ - Publications Office (PO) for the datasets used for the benchmark.
+ - Cellar team at PO
  - Folks at Oracle (Boston), Stardog Union, Ontotext, OpenLinks, AWS Neptune
  - Folks at Neo4J
