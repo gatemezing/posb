@@ -33,5 +33,3 @@ This folder contains the resources of the POSB Benchmark. The folder is structur
  - Cellar team at PO
  - Folks at Oracle (Boston), Stardog Union, Ontotext, OpenLinks, AWS Neptune
  - Folks at Neo4J
-
-### Author: Ghislain Atemezing (Mondeca)
