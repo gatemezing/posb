@@ -779,3 +779,631 @@ OPTIONAL { ?workflow cdm:dossier_contains_work ?work. ?work owl:sameAs ?work_id.
 FILTER (?type in ( <http://publications.europa.eu/resource/authority/resource-type/DEC_DEL_DRAFT>, <http://publications.europa.eu/resource/authority/resource-type/DEC_IMPL_DRAFT>, <http://publications.europa.eu/resource/authority/resource-type/DIR_DEL_DRAFT>, 
   <http://publications.europa.eu/resource/authority/resource-type/DIR_IMPL_DRAFT>, <http://publications.europa.eu/resource/authority/resource-type/REG_DEL_DRAFT>, <http://publications.europa.eu/resource/authority/resource-type/REG_IMPL_DRAFT>, <http://publications.europa.eu/resource/authority/resource-type/DEC_DRAFT>, 
   <http://publications.europa.eu/resource/authority/resource-type/DIR_DRAFT>, <http://publications.europa.eu/resource/authority/resource-type/REG_DRAFT>))}}
+
+
+
+
+Queries Category 2
+===================
+
+Q1
+===
+DEFINE input:inference "cdm_rule_set"
+#DEFINE input:same-as "yes"
+prefix cdm: <http://publications.europa.eu/ontology/cdm#>
+select  (count (distinct ?lr ) as ?total) 
+ where {
+?lr cdm:work_date_creation_legacy ?dat_cre.
+?lr a cdm:resource_legal .
+FILTER (!regex(str(?dat_cre), "^2016-"))
+}
+
+Q2
+===
+#Q2:Total number of authors for these resource_legal:
+# BGP: 1
+ 
+#DEFINE input:inference "cdm_rule_set"
+prefix cdm: <http://publications.europa.eu/ontology/cdm#>
+SELECT (COUNT(*) AS ?count) where{
+select  distinct ?lr ?author 
+ where {
+?lr cdm:work_created_by_agent ?author.
+?lr cdm:work_date_creation_legacy ?dat_cre.
+?lr a cdm:resource_legal .
+FILTER (!regex(str(?dat_cre), "^2016-"))
+}
+}
+
+Q3
+===
+#Q3:Repartition of the authors for documents published in the OJ or 
+# not published in the OJ (that query was working beginning of #this year,
+# not anymore now, so that one would definitively be worth looking at!!)
+# BGP: 2
+
+#DEFINE input:inference "cdm_rule_set"
+prefix cdm: <http://publications.europa.eu/ontology/cdm#>
+select  (count(distinct(?lr)) as ?lrTotal) ?author ?boolOJ  
+ where {
+?lr cdm:work_created_by_agent ?author.
+?lr cdm:work_date_creation_legacy ?dat_cre.
+?lr a cdm:resource_legal .
+OPTIONAL
+{?lr cdm:resource_legal_published_in_official-journal ?oj.}
+bind((if(bound(?oj), "1","0")) as ?boolOJ).
+FILTER (!regex(str(?dat_cre), "^2016-"))
+} group by ?author ?boolOJ
+
+Q4
+===
+#Q4:Query for setting the inforce flag ($systemdate replaced by the current date)
+# s/'{$systemdate}'/"2017-03-01"
+# BGP: 5
+
+PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT * 
+WHERE 
+  { 
+?w cdm:resource_legal_date_entry-into-force ?date_begin.
+FILTER(xsd:date(?date_begin) > "2017-03-01"^^<http://www.w3.org/2001/XMLSchema#date>||xsd:date(?date_begin) = '1001-01-01'^^<http://www.w3.org/2001/XMLSchema#date>)
+FILTER not exists {?w cdm:resource_legal_date_entry-into-force ?date_begin2.
+FILTER(xsd:date(?date_begin2) <= "2017-03-01'"^^<http://www.w3.org/2001/XMLSchema#date>)
+FILTER(xsd:date(?date_begin2) != '1001-01-01'^^<http://www.w3.org/2001/XMLSchema#date>)
+}
+FILTER not exists {?m cdm:manifestation_official-journal_part_durability 'EPH'^^<http://www.w3.org/2001/XMLSchema#string>.
+?m cdm:manifestation_manifests_expression ?e.
+?e cdm:expression_belongs_to_work ?w.
+}
+?w cdm:resource_legal_date_end-of-validity ?date_end.
+FILTER(xsd:date(?date_end) >= "2017-03-01"^^<http://www.w3.org/2001/XMLSchema#date>)
+OPTIONAL{?w cdm:resource_legal_id_celex ?celex.}
+MINUS
+   { ?w cdm:resource_legal_in-force ?inforce.
+FILTER(xsd:date(?inforce)="false"^^<http://www.w3.org/2001/XMLSchema#boolean>)
+}
+}
+
+Q5
+===
+#Q5: Another Query for setting the inforce flag
+# s/{$systemdate}/2007-03-01
+# BGP: 5
+
+PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
+SELECT * WHERE { 
+?s cdm:resource_legal_date_end-of-validity ?date_end.
+FILTER not exists {?s cdm:resource_legal_date_end-of-validity ?date_end2.
+FILTER(str(?date_end2) >= '2017-03-01' ) }
+FILTER(str(?date_end) < '2017-03-01' )
+FILTER(str(?date_end) > '1003-03-03' )
+OPTIONAL {?s cdm:resource_legal_has_type_act_concept_type_act ?typeact.}
+FILTER not exists {?m cdm:manifestation_official-journal_part_durability 'EPH'^^<http://www.w3.org/2001/XMLSchema#string>.?m cdm:manifestation_manifests_expression ?e.?e cdm:expression_belongs_to_work ?s.}
+OPTIONAL{?s cdm:resource_legal_id_celex ?celex.}
+MINUS { ?s cdm:resource_legal_in-force ?inforce. FILTER(?inforce="false" ^^<http://www.w3.org/2001/XMLSchema#boolean>) }
+ }
+ 
+ Q6
+ ===
+ #Q6: Query3 for setting the inforce flag
+# BGP: 4
+
+PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT * 
+WHERE 
+  { ?s cdm:resource_legal_date_entry-into-force ?date_begin;
+cdm:resource_legal_date_end-of-validity ?date_end.
+FILTER(xsd:date(?date_begin) != '1001-01-01'^^<http://www.w3.org/2001/XMLSchema#date>)
+FILTER(xsd:date(?date_begin) <= '2017-03-01'^^<http://www.w3.org/2001/XMLSchema#date>)
+FILTER(xsd:date(?date_end) > '2017-03-01'^^<http://www.w3.org/2001/XMLSchema#date>)
+FILTER not exists {?m cdm:manifestation_official-journal_part_durability 'EPH'^^<http://www.w3.org/2001/XMLSchema#string>.?m cdm:manifestation_manifests_expression ?e.?e cdm:expression_belongs_to_work ?s.}
+OPTIONAL{?s cdm:resource_legal_id_celex ?celex.}
+MINUS
+   { ?s cdm:resource_legal_in-force ?inforce.
+FILTER(?inforce="true" ^^<http://www.w3.org/2001/XMLSchema#boolean>)
+} 
+}
+
+Q7
+===
+#Q7: Query for setting the adopted flag
+# BGP: 5
+
+#DEFINE input:inference "cdm_rule_set"
+PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
+SELECT ?dossier ?date1 ?date2
+WHERE 
+  { ?dossier cdm:dossier_contains_event_legal ?event1.
+OPTIONAL {?dossier cdm:dossier_adopted-proposal ?adopted.}
+?event1 cdm:event_has_type_concept_type_event ?eventType1.
+?event1 cdm:event_date ?date1.
+FILTER ( 
+?eventType1=<http://publications.europa.eu/resource/authority/event/DEC_byCOUN_ASS>
+||?eventType1=<http://publications.europa.eu/resource/authority/event/DEC_byCMT_CONJOIN>
+||?eventType1=<http://publications.europa.eu/resource/authority/event/DEC_byACP_MIN>
+||?eventType1=<http://publications.europa.eu/resource/authority/event/DEC_byACP_AMB>
+||?eventType1=<http://publications.europa.eu/resource/authority/event/DEC_byCMT_COOP>
+||?eventType1=<http://publications.europa.eu/resource/authority/event/DEC_byCOUN_JOIN>
+||?eventType1=<http://publications.europa.eu/resource/authority/event/SIGN_PAR_byEP_CONSIL>
+||?eventType1=<http://publications.europa.eu/resource/authority/event/ADP_FRM_byCONSIL>
+||?eventType1=<http://publications.europa.eu/resource/authority/event/ADP_PAR_byCONSIL>
+||?eventType1=<http://publications.europa.eu/resource/authority/event/SIGN_byEP_CONSIL>
+||?eventType1=<http://publications.europa.eu/resource/authority/event/DEC_byCOUN_COOP>
+||?eventType1=<http://publications.europa.eu/resource/authority/event/DEC_byCMT_JOIN>
+||?eventType1=<http://publications.europa.eu/resource/authority/event/ADP_ACT_byCOM>
+) 
+?event1 cdm:event_legal_contains_work ?adoptedWork1.
+FILTER (regex(str(?adoptedWork1),'celex/[234][0-9][0-9][0-9][0-9][RLDSFE]'))
+OPTIONAL{ 
+?dossier cdm:dossier_contains_event_legal ?event2.
+?event2 cdm:event_has_type_concept_type_event ?eventType2.
+?event2 cdm:event_date ?date2. 
+FILTER ( 
+?eventType2=<http://publications.europa.eu/resource/authority/event/DEC_byCOUN_ASS>
+||?eventType2=<http://publications.europa.eu/resource/authority/event/DEC_byCMT_CONJOIN>
+||?eventType2=<http://publications.europa.eu/resource/authority/event/DEC_byACP_MIN>
+||?eventType2=<http://publications.europa.eu/resource/authority/event/DEC_byACP_AMB>
+||?eventType2=<http://publications.europa.eu/resource/authority/event/DEC_byCMT_COOP>
+||?eventType2=<http://publications.europa.eu/resource/authority/event/DEC_byCOUN_JOIN>
+||?eventType2=<http://publications.europa.eu/resource/authority/event/SIGN_PAR_byEP_CONSIL>
+||?eventType2=<http://publications.europa.eu/resource/authority/event/ADP_FRM_byCONSIL>
+||?eventType2=<http://publications.europa.eu/resource/authority/event/ADP_PAR_byCONSIL>
+||?eventType2=<http://publications.europa.eu/resource/authority/event/SIGN_byEP_CONSIL>
+||?eventType2=<http://publications.europa.eu/resource/authority/event/DEC_byCOUN_COOP>
+||?eventType2=<http://publications.europa.eu/resource/authority/event/DEC_byCMT_JOIN>
+||?eventType2=<http://publications.europa.eu/resource/authority/event/ADP_ACT_byCOM>
+) 
+?event2 cdm:event_legal_contains_work ?adoptedWork2.
+FILTER (regex(str(?adoptedWork2),'celex/[234][0-9][0-9][0-9][0-9][RLDSFE]'))
+} 
+ MINUS 
+{ 
+?dossier cdm:dossier_adopted-proposal ?adopted.
+FILTER(?adopted="true" ^^<http://www.w3.org/2001/XMLSchema#boolean>)
+?dossier cdm:dossier_date_adopted ?dateadopted.
+} 
+}
+
+Q8
+===
+#########################################
+#Q8: Query for setting the pending flag
+#BGP: 4
+#########################################
+ 
+#DEFINE input:inference "cdm_rule_set"
+prefix cdm: <http://publications.europa.eu/ontology/cdm#>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+
+select distinct ?dossier where
+{
+?dossier_cellar owl:sameAs ?dossier.
+FILTER(regex(str(?dossier),'procedure'))
+?dossier_cellar a cdm:dossier.
+?dossier_cellar a cdm:procedure_code_interinstitutional.
+?dossier_cellar cdm:dossier_initiated_by_act_preparatory ?work.
+?event cdm:event_legal_contains_work ?work.
+?event (cdm:event_date|cdm:event_legal_date) ?date.
+FILTER(?date >= '2015-06-29' ^^<http://www.w3.org/2001/XMLSchema#date>)
+MINUS
+{
+?dossier_cellar cdm:dossier_withdrawn-proposal ?withdrawn.
+FILTER(?withdrawn="true"^^xsd:boolean)
+}
+MINUS
+{
+?dossier_cellar cdm:dossier_adopted-proposal ?adopted.
+FILTER(?adopted="true"^^xsd:boolean)
+}
+MINUS
+{
+?dossier_cellar cdm:dossier_pending-proposal ?pending.
+FILTER(?pending="true"^^xsd:boolean)
+}
+}
+
+Q9
+===
+#Q9: Query for selecting work and dossiers to analyse
+#BGP: 1
+ 
+prefix cdm: <http://publications.europa.eu/ontology/cdm#> 
+prefix owl: <http://www.w3.org/2002/07/owl#>
+select distinct
+?Cellar_Id 
+?Work_Identifier 
+?dossierId
+?legal_basis_celex
+?legal_basis_celex_comment
+?legal_basis_eli
+?legal_basis_eli_subdivision
+?new_ceres_tz
+?eurlex_tz
+?new_ceres_pz
+?eurlex_pz
+where {?Cellar_Id cdm:work_has_resource-type ?type.
+?Cellar_Id owl:sameAs ?Work_Identifier.
+?Cellar_Id cdm:work_id_document ?id_doc.
+?dossier cdm:dossier_contains_work ?Cellar_Id.
+?dossier cdm:dossier_identifier ?dossierId_.
+?dossier cdm:procedure_internal_has_type_procedure_internal <http://publications.europa.eu/resource/authority/com_internal_procedure/ISC_WORKFLOW>.
+BIND(str(?dossierId_) as ?dossierId)
+FILTER(regex(?Work_Identifier,'pi_com'))
+FILTER(regex(?dossierId,'publicAccess'))
+FILTER not exists{?Cellar_Id cdm:resource_legal_based_on_resource_legal ?legal_basis_.}
+BIND(str(?legal_basis_) as ?legal_basis)
+BIND(str(?legal_basis_) as ?legal_basis_comment)
+BIND(str(?legal_basis_) as ?legal_basis_eli)
+BIND(str(?legal_basis_) as ?legal_basis_eli_subdivision)
+FILTER(regex(str(?type),'DRAFT$'))
+BIND(concat("http://newceres-test/ceres-monitoring/publicationview?type=businessId&value=",replace(str(?Work_Identifier),"(^.+immc[/])(.+$)","$2"),"&originFamily=ALL&fromExecutionDate=&toExecutionDate=&destinationGroup=ALL&destinationIdentifier=ALL&workflowOverallStatus=ALL&refreshTime=0&submit_button=Submit") as ?new_ceres_tz)
+BIND(concat("http://eurlex-active-test/eurlex-frontoffice/legal-content/EN/ALL/?uri=immc:",encode_for_uri(replace(?id_doc,'pi_com:',''))) as ?eurlex_tz)
+BIND(concat("http://newceres/ceres-monitoring/publicationview?type=businessId&value=",replace(str(?Work_Identifier),"(^.+immc[/])(.+$)","$2"),"&originFamily=ALL&fromExecutionDate=&toExecutionDate=&destinationGroup=ALL&destinationIdentifier=ALL&workflowOverallStatus=ALL&refreshTime=0&submit_button=Submit") as ?new_ceres_pz)
+BIND(concat("http://eur-lex.europa.eu/legal-content/EN/ALL/?uri=immc:",encode_for_uri(replace(?id_doc,'pi_com:',''))) as ?eurlex_pz)
+}
+
+Q10
+====
+##################################################
+#Q10: source--> query_vrep.sparql
+# email: 01/12/2016
+# sample error in Stardog or with qparse of JENA: Variable 'FIELD_DN' in projection is not present in GROUP BY
+# BGP: 15
+##################################################
+
+prefix cdm: <http://publications.europa.eu/ontology/cdm#>
+prefix cmr: <http://publications.europa.eu/ontology/cdm/cmr#>
+PREFIX skos:<http://www.w3.org/2004/02/skos/core#>
+PREFIX dc:<http://purl.org/dc/elements/1.1/>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl:<http://www.w3.org/2002/07/owl#>
+select distinct 
+?FIELD_DN 
+(group_concat(distinct ?resourceTypeLabel;separator="#") as ?FIELD_FM) 
+?FIELD_SO_COLL
+?FIELD_SO_NUM
+?FIELD_SO_PAGE_FIRST
+?FIELD_SO_PAGE_LAST
+?FIELD_SO_PAGE_TOTAL
+?FIELD_PD
+?FIELD_DD
+(group_concat(distinct ?if; separator="#") as ?FIELD_IF)
+(group_concat(distinct ?vv; separator="#") as ?FIELD_EV)
+(group_concat(distinct ?LegalBasisCelex; separator="#") as ?FIELD_LB)
+?repeals
+?repealedBy
+?repealsImplicit
+?repealedByImplicit
+(group_concat(distinct ?directoryCode; separator="#") as ?FIELD_CC)
+?FIELD_DT_SEC
+?FIELD_DT_TYP
+?FIELD_DT_ANN
+#?FIELD_DT_CORR
+#?FIELD_DT_CORR2
+?FIELD_UPD_T
+?FIELD_TI
+?FIELD_REP
+where 
+{ ?act cdm:resource_legal_id_sector ?sector. 
+FILTER (
+      ?sector="2"^^<http://www.w3.org/2001/XMLSchema#string>||
+      ?sector="3"^^<http://www.w3.org/2001/XMLSchema#string>||
+      ?sector="4"^^<http://www.w3.org/2001/XMLSchema#string>
+      ) 
+?act cdm:resource_legal_in-force "true"^^<http://www.w3.org/2001/XMLSchema#boolean>. 
+?act cdm:resource_legal_repertoire ?FIELD_REP.
+FILTER (
+      ?FIELD_REP="REP"^^<http://www.w3.org/2001/XMLSchema#string>||
+      ?FIELD_REP="LIE"^^<http://www.w3.org/2001/XMLSchema#string>
+      ) 
+?act cdm:resource_legal_id_celex ?FIELD_DN.
+OPTIONAL {
+      ?act cdm:work_has_resource-type/skos:prefLabel ?resourceTypeLabel.
+      FILTER (lang(?resourceTypeLabel)="en").
+      }
+OPTIONAL {
+      ?act cdm:resource_legal_published_in_official-journal ?oj.
+      ?oj cdm:official-journal_part_of_collection_document ?col.
+      BIND(substr(str(?col),70) as ?FIELD_SO_COLL).
+      ?oj cdm:official-journal_number ?FIELD_SO_NUM.
+      ?oj cdm:work_date_document ?FIELD_PD.
+      ?act cdm:work_date_document ?FIELD_DD.
+      }
+OPTIONAL {
+       ?act cdm:resource_legal_date_entry-into-force ?if.
+       }
+OPTIONAL {
+       ?act cdm:resource_legal_date_end-of-validity ?vv.
+       }
+OPTIONAL {
+      ?act cdm:resource_legal_based_on_resource_legal ?LegalBasis.
+      ?LegalBasis cdm:resource_legal_id_celex ?LegalBasisCelex.
+      }
+OPTIONAL{
+      ?act cdm:resource_legal_repeals_resource_legal ?repeals_.
+      ?repeals_ cdm:resource_legal_id_celex ?repeals.
+      }
+OPTIONAL{
+      ?repealedBy_ cdm:resource_legal_repeals_resource_legal ?act.
+      ?repealedBy_ cdm:resource_legal_id_celex ?repealedBy.
+      }
+OPTIONAL{
+      ?act cdm:resource_legal_implicitly_repeals_resource_legal ?repealsImplicit_.
+      ?repealsImplicit_ cdm:resource_legal_id_celex ?repealsImplicit.
+      }
+OPTIONAL{
+      ?repealedByImplicit_ cdm:resource_legal_implicitly_repeals_resource_legal ?act.
+      ?repealedByImplicit_ cdm:resource_legal_id_celex ?repealedByImplicit.
+      }
+OPTIONAL{
+      ?act cdm:resource_legal_is_about_concept_directory-code ?cc.
+      BIND(substr(xsd:string(?cc),57) as ?directoryCode).
+      }
+?act cdm:resource_legal_id_sector ?FIELD_DT_SEC.
+?act cdm:resource_legal_type ?FIELD_DT_TYP.
+?act cdm:resource_legal_year ?FIELD_DT_ANN.
+#OPTIONAL{?act cdm:resource_legal_number_corrigendum ?FIELD_DT_CORR.}
+?act cmr:lastModificationDate ?FIELD_UPD_T.
+?exp cdm:expression_belongs_to_work ?act.
+?exp cdm:expression_uses_language <http://publications.europa.eu/resource/authority/language/ENG>.
+?exp cdm:expression_title ?FIELD_TI.
+OPTIONAL{
+      ?manif cdm:manifestation_manifests_expression ?exp.
+      ?manif cdm:manifestation_official-journal_part_page_first ?FIELD_SO_PAGE_FIRST.
+      OPTIONAL{?manif cdm:manifestation_official-journal_part_page_last ?FIELD_SO_PAGE_LAST.}
+      OPTIONAL{?manif cdm:manifestation_official-journal_part_pages_total ?FIELD_SO_PAGE_TOTAL.}
+#     OPTIONAL{?manif cdm:manifestation_official-journal_part_is_corrigendum_printer ?FIELD_DT_CORR2}
+      }
+} GROUP by ?FIELD_DN ?FIELD_SO_COLL ?FIELD_SO_NUM ?FIELD_SO_PAGE_FIRST ?FIELD_SO_PAGE_LAST ?FIELD_SO_PAGE_TOTAL ?FIELD_PD ?FIELD_DD ?repeals ?repealedBy ?repealsImplicit ?repealedByImplicit ?FIELD_DT_SEC ?FIELD_DT_TYP ?FIELD_DT_ANN ?FIELD_UPD_T ?FIELD_TI ?FIELD_REP
+
+
+Q11
+===
+#######################################
+#Q11: source--> query_sec5.sparql
+# email: 01/12/2016
+# BGP: 16
+##########################################
+prefix cdm: <http://publications.europa.eu/ontology/cdm#>
+prefix cmr: <http://publications.europa.eu/ontology/cdm/cmr#>
+PREFIX skos:<http://www.w3.org/2004/02/skos/core#>
+PREFIX dc:<http://purl.org/dc/elements/1.1/>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl:<http://www.w3.org/2002/07/owl#>
+
+ select distinct ?FIELD_DN 
+  (group_concat(distinct ?resourceTypeLabel;separator="#") as ?FIELD_FM) 
+?FIELD_SO_COLL
+?FIELD_SO_NUM
+?FIELD_SO_PAGE_FIRST
+?FIELD_SO_PAGE_LAST
+?FIELD_SO_PAGE_TOTAL
+?FIELD_PD
+?FIELD_DD
+(group_concat(distinct ?if; separator="#") as ?FIELD_IF)
+(group_concat(distinct ?vv; separator="#") as ?FIELD_EV)
+(group_concat(distinct ?LegalBasisCelex; separator="#") as ?FIELD_LB)
+?repeals
+?repealedBy
+?repealsImplicit
+?repealedByImplicit
+(group_concat(distinct ?directoryCode; separator="#") as ?FIELD_CC)
+?FIELD_DT_SEC
+?FIELD_DT_TYP
+?FIELD_DT_ANN
+?FIELD_UPD_T
+?FIELD_TI
+?FIELD_REP
+where 
+{ 
+?dossier cdm:dossier_pending-proposal "true"^^<http://www.w3.org/2001/XMLSchema#boolean>. 
+?dossier cdm:dossier_initiated_by_act_preparatory ?act.  
+OPTIONAL{?act cdm:resource_legal_id_sector ?sector.}
+OPTIONAL{?act cdm:resource_legal_repertoire ?FIELD_REP.}
+?act cdm:resource_legal_id_celex ?FIELD_DN.
+?act cdm:work_has_resource-type/skos:prefLabel ?resourceTypeLabel.
+FILTER (lang(?resourceTypeLabel)="en").
+OPTIONAL{
+       ?act cdm:resource_legal_published_in_official-journal ?oj.
+       ?oj cdm:official-journal_part_of_collection_document ?col.
+       ?oj cdm:official-journal_number ?FIELD_SO_NUM.
+       ?oj cdm:work_date_document ?FIELD_PD.
+       ?act cdm:work_date_document ?FIELD_DD.
+       }
+BIND(substr(str(?col),70) as ?FIELD_SO_COLL).
+OPTIONAL {
+       ?act cdm:resource_legal_date_entry-into-force ?if.
+       }
+OPTIONAL {
+       ?act cdm:resource_legal_date_end-of-validity ?vv.
+       }
+OPTIONAL {
+      ?act cdm:resource_legal_based_on_resource_legal ?LegalBasis.
+      ?LegalBasis cdm:resource_legal_id_celex ?LegalBasisCelex.
+      }
+OPTIONAL{
+      ?act cdm:resource_legal_repeals_resource_legal ?repeals_.
+      ?repeals_ cdm:resource_legal_id_celex ?repeals.
+      }
+OPTIONAL{
+      ?repealedBy_ cdm:resource_legal_repeals_resource_legal ?act.
+      ?repealedBy_ cdm:resource_legal_id_celex ?repealedBy.
+      }
+OPTIONAL{
+      ?act cdm:resource_legal_implicitly_repeals_resource_legal ?repealsImplicit_.
+      ?repealsImplicit_ cdm:resource_legal_id_celex ?repealsImplicit.
+      }
+OPTIONAL{
+      ?repealedByImplicit_ cdm:resource_legal_implicitly_repeals_resource_legal ?act.
+      ?repealedByImplicit_ cdm:resource_legal_id_celex ?repealedByImplicit.
+      }
+OPTIONAL{?act cdm:resource_legal_is_about_concept_directory-code ?cc.}
+BIND(substr(xsd:string(?cc),57) as ?directoryCode).
+?act cdm:resource_legal_id_sector ?FIELD_DT_SEC.
+?act cdm:resource_legal_type ?FIELD_DT_TYP.
+?act cdm:resource_legal_year ?FIELD_DT_ANN.
+?act cmr:lastModificationDate ?FIELD_UPD_T.
+?exp cdm:expression_belongs_to_work ?act.
+?exp cdm:expression_uses_language <http://publications.europa.eu/resource/authority/language/ENG>.
+?exp cdm:expression_title ?FIELD_TI.
+OPTIONAL{
+      ?manif cdm:manifestation_manifests_expression ?exp.
+      ?manif cdm:manifestation_official-journal_part_page_first ?FIELD_SO_PAGE_FIRST.
+      OPTIONAL{?manif cdm:manifestation_official-journal_part_page_last ?FIELD_SO_PAGE_LAST.}
+      OPTIONAL{?manif cdm:manifestation_official-journal_part_pages_total ?FIELD_SO_PAGE_TOTAL.}
+
+      }
+} group by ?FIELD_DN ?FIELD_SO_COLL ?FIELD_SO_NUM ?FIELD_SO_PAGE_FIRST ?FIELD_SO_PAGE_LAST ?FIELD_SO_PAGE_TOTAL ?FIELD_PD ?FIELD_DD ?repeals ?repealedBy ?repealsImplicit ?repealedByImplicit ?FIELD_DT_SEC ?FIELD_DT_TYP ?FIELD_DT_ANN ?FIELD_UPD_T ?FIELD_TI ?FIELD_REP
+
+Q12
+===
+#####################################
+# Q12: source--> query_vrcc.sparql
+# email: 01/12/2016
+# BGP: 2
+######################################
+
+prefix cdm: <http://publications.europa.eu/ontology/cdm#> 
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+select 
+?FIELD_DN 
+(group_concat(distinct ?directoryCode; separator="#") as ?FIELD_CC)
+where 
+{
+?act cdm:resource_legal_id_celex ?FIELD_DN. 
+?act cdm:resource_legal_id_sector ?sector. 
+FILTER (
+      ?sector="2"^^<http://www.w3.org/2001/XMLSchema#string>||
+      ?sector="3"^^<http://www.w3.org/2001/XMLSchema#string>||
+      ?sector="4"^^<http://www.w3.org/2001/XMLSchema#string>||
+      ?sector="5"^^<http://www.w3.org/2001/XMLSchema#string>
+      ) 
+OPTIONAL{
+      ?act cdm:resource_legal_is_about_concept_directory-code ?cc.
+      BIND(substr(xsd:string(?cc),57) as ?directoryCode).
+      }
+} group by ?FIELD_DN
+order by ?FIELD_DN
+
+Q13
+===
+#########################################
+##Q13 --> dynamicQuery_modified.sparql ##
+##BGP: 6
+#########################################
+
+PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX eurovoc: <http://eurovoc.europa.eu/schema#>
+PREFIX owl:<http://www.w3.org/2002/07/owl#>
+SELECT ?work 
+       (?abstract as ?abstracts)
+       (group_concat(distinct ?title_;separator=", ") as ?title)  
+       ?date
+      (group_concat(distinct ?workId;separator=", ") as ?workIds) 
+      (group_concat(distinct ?workType;separator=", ") as ?workTypes) 
+      (group_concat(distinct ?subject;separator=", ") as ?subjects) 
+      (group_concat(distinct ?author;separator="; ") as ?authors)
+      (group_concat(distinct ?work;separator=", ") as ?cellarURIs)
+      (group_concat(distinct ?mtype;separator=", ") as ?mtypes)WHERE {
+   ?work cdm:work_is_about_concept_eurovoc/dc:identifier ?subject;
+   cdm:work_id_document ?workId;
+   rdf:type ?workType.
+  OPTIONAL{
+
+{
+{?work cdm:work_created_by_agent/dc:identifier ?author.}
+UNION
+{?work cdm:work_created_by_agent/cdm:agent_name ?author.}
+}
+
+UNION
+{
+{?work cdm:work_authored_by_agent/dc:identifier ?author.}
+UNION
+{?work cdm:work_authored_by_agent/cdm:agent_name ?author.}
+}
+
+UNION
+{ 
+{?work cdm:work_illustrated_by_agent/dc:identifier ?author.}
+UNION 
+{?work cdm:work_illustrated_by_agent/cdm:agent_name ?author.}
+}
+
+UNION
+{
+{?work cdm:work_compiled_by_agent/dc:identifier ?author.}
+UNION
+{?work cdm:work_compiled_by_agent/cdm:agent_name ?author.}
+}
+
+UNION
+{
+{?work cdm:work_contributed_to_by_agent/dc:identifier ?author.}
+UNION
+{?work cdm:work_contributed_to_by_agent/cdm:agent_name ?author.}
+}
+
+UNION
+{
+{?work cdm:work_edited_by_agent/dc:identifier ?author.}
+UNION
+{?work cdm:work_edited_by_agent/cdm:agent_name ?author.}
+}
+
+UNION
+{
+{?work cdm:work_translated_by_agent/dc:identifier ?author.}
+UNION
+{?work cdm:work_translated_by_agent/cdm:agent_name ?author.}
+}
+
+}
+   ?expr cdm:expression_belongs_to_work ?work.
+   optional {?expr cdm:expression_title ?title_;
+                   cdm:expression_uses_language <http://publications.europa.eu/resource/authority/language/ENG>.}
+   optional {?expr cdm:expression_abstract ?abstract}.
+   optional {?m cdm:manifestation_manifests_expression ?expr; cdm:manifestation_type ?mtype}
+{
+   SELECT DISTINCT ?work ?date WHERE {
+?work cdm:work_is_about_concept_eurovoc/dc:identifier "3493";
+      cdm:work_date_document ?date.
+?expr2 cdm:expression_belongs_to_work ?work.
+ ?expr2 cdm:expression_title ?title2;
+      cdm:expression_uses_language <http://publications.europa.eu/resource/authority/language/ENG>. 
+OPTIONAL{
+
+{?work cdm:work_created_by_agent/dc:identifier "EC".}
+UNION
+{?work cdm:work_authored_by_agent/dc:identifier "EC".}
+UNION 
+{?work cdm:work_illustrated_by_agent/dc:identifier "EC".}
+UNION 
+{?work cdm:work_compiled_by_agent/dc:identifier "EC".}
+UNION
+{?work cdm:work_contributed_to_by_agent/dc:identifier "EC".}
+UNION
+{?work cdm:work_edited_by_agent/dc:identifier "EC".}
+UNION
+{?work cdm:work_translated_by_agent/dc:identifier "EC".}
+}
+}
+ORDER BY DESC(?date)
+OFFSET 0
+LIMIT 10 }
+}
+GROUP BY ?work ?date ?abstract
+
+Q14
+===
