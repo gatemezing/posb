@@ -1,5 +1,4 @@
 // credit: Jesus Barrasa, Neo4J
-Q6.cypher
 :params { concept_id: "3493", agent_id: "EP", lang_uri: "http://publications.europa.eu/resource/authority/language/ENG" }
 
 // Parameterising the query is best practice but also makes it easy to run tests with different values instead of hardcoding. 
