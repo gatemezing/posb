@@ -1,7 +1,8 @@
-# posb Benchmark
-================
+# posb Bench (The PO Benchmark)
+
 
 # Update 2022: New Benchmark started on the 5th, January till end of June, 2022
+This will update the repository with new findings and resuls.
 
 # Update July 2019: We have included the results of testing with AWS Neptune 
 
