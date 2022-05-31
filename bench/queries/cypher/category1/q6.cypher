@@ -20,3 +20,6 @@ return  work.uri as work,
 	collect( distinct c.identifier) as subjects, 
 	collect( distinct a.identifier) as authors, 
 	collect( distinct man.manifestation_type) as mtypes
+
+
+
