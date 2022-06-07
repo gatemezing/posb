@@ -1,0 +1,28 @@
+#Q4:Query for setting the inforce flag ($systemdate replaced by the current date)
+# s/'{$systemdate}'/"2017-03-01"
+# BGP: 5
+
+PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT * 
+WHERE 
+  { 
+?w cdm:resource_legal_date_entry-into-force ?date_begin.
+FILTER(xsd:date(?date_begin) > "2017-03-01"^^<http://www.w3.org/2001/XMLSchema#date>||xsd:date(?date_begin) = '1001-01-01'^^<http://www.w3.org/2001/XMLSchema#date>)
+FILTER not exists {?w cdm:resource_legal_date_entry-into-force ?date_begin2.
+FILTER(xsd:date(?date_begin2) <= "2017-03-01'"^^<http://www.w3.org/2001/XMLSchema#date>)
+FILTER(xsd:date(?date_begin2) != '1001-01-01'^^<http://www.w3.org/2001/XMLSchema#date>)
+}
+FILTER not exists {?m cdm:manifestation_official-journal_part_durability 'EPH'^^<http://www.w3.org/2001/XMLSchema#string>.
+?m cdm:manifestation_manifests_expression ?e.
+?e cdm:expression_belongs_to_work ?w.
+}
+?w cdm:resource_legal_date_end-of-validity ?date_end.
+FILTER(xsd:date(?date_end) >= "2017-03-01"^^<http://www.w3.org/2001/XMLSchema#date>)
+OPTIONAL{?w cdm:resource_legal_id_celex ?celex.}
+MINUS
+   { ?w cdm:resource_legal_in-force ?inforce.
+FILTER(xsd:date(?inforce)="false"^^<http://www.w3.org/2001/XMLSchema#boolean>)
+}
+}

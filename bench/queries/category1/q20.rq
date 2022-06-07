@@ -3,13 +3,15 @@
 ## Q20: legal basis procedure #####
 ###################################
 
+## update:replaced obsolete Cellar id in VALUES
+## June, 2022
 prefix cdm: <http://publications.europa.eu/ontology/cdm#> 
 prefix annotation: <http://publications.europa.eu/ontology/annotation#>
 prefix xsd: <http://www.w3.org/2001/XMLSchema#> 
 prefix owl: <http://www.w3.org/2002/07/owl#> 
 prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
-select * where { VALUES ?basic_act {<http://publications.europa.eu/resource/cellar/27afd6ef-dcc7-418f-97c4-acfc9126c6d4>} 
+select * where { VALUES ?basic_act {<http://publications.europa.eu/resource/cellar/5cd41b4c-d85b-497e-9234-2026c8b05d84>} 
 ?basic_act ^cdm:dossier_based_on_resource_legal ?workflow. ?workflow cdm:dossier_responsibility_of_agent <http://publications.europa.eu/resource/authority/corporate-body/COM>. 
 OPTIONAL {?workflow cdm:dossier_title ?short_title.} 
 OPTIONAL { ?workflow cdm:dossier_contains_work ?work. ?work owl:sameAs ?work_id. 
@@ -17,4 +19,3 @@ OPTIONAL { ?workflow cdm:dossier_contains_work ?work. ?work owl:sameAs ?work_id.
 FILTER (?type in ( <http://publications.europa.eu/resource/authority/resource-type/DEC_DEL_DRAFT>, <http://publications.europa.eu/resource/authority/resource-type/DEC_IMPL_DRAFT>, <http://publications.europa.eu/resource/authority/resource-type/DIR_DEL_DRAFT>, 
   <http://publications.europa.eu/resource/authority/resource-type/DIR_IMPL_DRAFT>, <http://publications.europa.eu/resource/authority/resource-type/REG_DEL_DRAFT>, <http://publications.europa.eu/resource/authority/resource-type/REG_IMPL_DRAFT>, <http://publications.europa.eu/resource/authority/resource-type/DEC_DRAFT>, 
   <http://publications.europa.eu/resource/authority/resource-type/DIR_DRAFT>, <http://publications.europa.eu/resource/authority/resource-type/REG_DRAFT>))}}
-

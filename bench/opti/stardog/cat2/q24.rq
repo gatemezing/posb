@@ -1,0 +1,22 @@
+#############################################################################
+## Q24 --> Preleg_testSet.sparql ##
+## Get ALL Preleg testset events
+## BGP: 1
+#############################################################################
+
+PREFIX cdm: <http://publications.europa.eu/ontology/cdm#> 
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?id ?e ?sAa
+WHERE {
+
+?act cdm:work_id_document ?id .
+FILTER (?id='parliament:P7_TA(2014)0382'^^xsd:string || ?id='parliament:P7_A(2014)0147'^^xsd:string || ?id='parliament:ENVI_AD(2014)521552'^^xsd:string || ?id='parliament:JURI_AL(2014)527960'^^xsd:string || ?id='parliament:P7_TA(2014)0427'^^xsd:string || ?id='parliament:P7_A(2014)0251'^^xsd:string || ?id='parliament:JURI_AD(2013)514816'^^xsd:string || ?id='parliament:JURI_AL(2012)500747'^^xsd:string || ?id='parliament:P8_TA(2015)0377'^^xsd:string || ?id='parliament:P8_A(2015)0296'^^xsd:string || ?id='parliament:P7_TA(2013)0463'^^xsd:string || ?id='parliament:P7_A(2013)0021'^^xsd:string || ?id='parliament:JURI_AL(2013)504159'^^xsd:string || ?id='parliament:REGI_AD(2012)491329'^^xsd:string || ?id='parliament:BUDG_AD(2012)492829'^^xsd:string || ?id='parliament:P7_TA(2013)0519'^^xsd:string || ?id='parliament:P7_A(2013)0396'^^xsd:string || ?id='parliament:FEMM_AD(2012)491303'^^xsd:string || ?id='parliament:BUDG_AD(2012)491190'^^xsd:string || ?id='parliament:P7_TA(2013)0488'^^xsd:string || ?id='parliament:P7_A(2013)0340'^^xsd:string || ?id='parliament:JURI_AL(2013)510654'^^xsd:string || ?id='parliament:ECON_AD(2013)508237'^^xsd:string || ?id='parliament:EMPL_AD(2012)508089'^^xsd:string || ?id='parliament:IMCO_AD(2012)507984'^^xsd:string || ?id='parliament:P8_TA(2015)0285'^^xsd:string || ?id='parliament:P8_A(2015)0216'^^xsd:string || ?id='parliament:INTA_AD(2015)551983'^^xsd:string || ?id='immc:PE 95 2014 REV 1'^^xsd:string || ?id='immc:ST 10710 2014 REV 2 ADD 1'^^xsd:string || ?id='immc:ST 10710 2014 REV 2'^^xsd:string || ?id='immc:ST 15884 2014 ADD 1 REV 1'^^xsd:string || ?id='immc:ST 16703 2014 INIT'^^xsd:string || ?id='immc:ST 17137 2014 INIT'^^xsd:string || ?id='immc:PE 15 2015 REV 1' || ?id='immc:ST 12042 2015 ADD 1' || ?id='comnat:JOIN_2014_0041_FIN'^^xsd:string || ?id='comnat:COM_2014_0748_FIN'^^xsd:string || ?id='comnat:COM_2014_0733_FIN'^^xsd:string || ?id='comnat:COM_2014_0724_FIN'^^xsd:string || ?id='comnat:COM_2014_0719_FIN'^^xsd:string || ?id='comnat:COM_2014_0716_FIN'^^xsd:string || ?id='comnat:COM_2014_0688_FIN'^^xsd:string || ?id='comnat:COM_2015_0552_FIN'^^xsd:string || ?id='comnat:COM_2015_0549_FIN'^^xsd:string || ?id='comnat:COM_2015_0569_FIN'^^xsd:string || ?id='comnat:COM_2015_0627_FIN'^^xsd:string || ?id='comnat:COM_2015_0639_FIN'^^xsd:string)
+?act owl:sameAs ?sA .
+?e cdm:event_legal_contains_work ?act . 
+?e owl:sameAs ?sAa .
+
+#FILTER (regex (?sAa, '_0'))
+
+} ORDER BY ?id

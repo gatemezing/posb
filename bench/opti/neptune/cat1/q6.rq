@@ -6,6 +6,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX eurovoc: <http://eurovoc.europa.eu/schema#>
 PREFIX owl:<http://www.w3.org/2002/07/owl#>
+
+## updated 2022
 SELECT ?work 
        ((?abstract) as ?abstracts) 
        (group_concat(distinct ?title_;separator=", ") as ?title)  
@@ -25,7 +27,7 @@ SELECT ?work
        ?expr2 cdm:expression_belongs_to_work ?work.
        ?expr2 cdm:expression_title ?title2;
               cdm:expression_uses_language <http://publications.europa.eu/resource/authority/language/ENG>. 
-       ?work cdm:work_created_by_agent/dc:identifier "EC".
+       ?work cdm:work_created_by_agent/dc:identifier "EP".
      } ORDER BY DESC(?date) OFFSET 0 LIMIT 10 
    }
 

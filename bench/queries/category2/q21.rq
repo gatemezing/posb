@@ -9,13 +9,16 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX cmr: <http://publications.europa.eu/ontology/cdm/cmr#>
 
+# update: added three new values on the filter for ?idEP
+# date: June, 2022
+
 select ?sAep ?dateWork ?lang ?dateExp ?format ?dateMan
 
 where {
 
 ?wEP cdm:work_id_document ?idEP .
 
-FILTER (?idEP='parliament:P7_TA(2014)0382'^^xsd:string || ?idEP='parliament:P7_A(2014)0147'^^xsd:string || ?idEP='parliament:ENVI_AD(2014)521552'^^xsd:string || ?idEP='parliament:JURI_AL(2014)527960'^^xsd:string || ?idEP='parliament:P7_TA(2014)0427'^^xsd:string || ?idEP='parliament:P7_A(2014)0251'^^xsd:string || ?idEP='parliament:JURI_AD(2013)514816'^^xsd:string || ?idEP='parliament:JURI_AL(2012)500747'^^xsd:string || ?idEP='parliament:P8_TA(2015)0377'^^xsd:string || ?idEP='parliament:P8_A(2015)0296'^^xsd:string || ?idEP='parliament:P7_TA(2013)0463'^^xsd:string || ?idEP='parliament:P7_A(2013)0021'^^xsd:string || ?idEP='parliament:JURI_AL(2013)504159'^^xsd:string || ?idEP='parliament:REGI_AD(2012)491329'^^xsd:string || ?idEP='parliament:BUDG_AD(2012)492829'^^xsd:string || ?idEP='parliament:P7_TA(2013)0519'^^xsd:string || ?idEP='parliament:P7_A(2013)0396'^^xsd:string || ?idEP='parliament:FEMM_AD(2012)491303'^^xsd:string || ?idEP='parliament:BUDG_AD(2012)491190'^^xsd:string || ?idEP='parliament:P7_TA(2013)0488'^^xsd:string || ?idEP='parliament:P7_A(2013)0340'^^xsd:string || ?idEP='parliament:JURI_AL(2013)510654'^^xsd:string || ?idEP='parliament:ECON_AD(2013)508237'^^xsd:string || ?idEP='parliament:EMPL_AD(2012)508089'^^xsd:string || ?idEP='parliament:IMCO_AD(2012)507984'^^xsd:string || ?idEP='parliament:P8_TA(2015)0285'^^xsd:string || ?idEP='parliament:P8_A(2015)0216'^^xsd:string || ?idEP='parliament:INTA_AD(2015)551983'^^xsd:string)
+FILTER (?idEP='oj:JOC_2014_361_R_0005'^^xsd:string || ?idEP='oj:JOC_2015_163_R'^^xsd:string || ?idEP='oj:JOC_2015_354_R_0017'^^xsd:string || ?idEP='parliament:P7_TA(2014)0382'^^xsd:string || ?idEP='parliament:P7_A(2014)0147'^^xsd:string || ?idEP='parliament:ENVI_AD(2014)521552'^^xsd:string || ?idEP='parliament:JURI_AL(2014)527960'^^xsd:string || ?idEP='parliament:P7_TA(2014)0427'^^xsd:string || ?idEP='parliament:P7_A(2014)0251'^^xsd:string || ?idEP='parliament:JURI_AD(2013)514816'^^xsd:string || ?idEP='parliament:JURI_AL(2012)500747'^^xsd:string || ?idEP='parliament:P8_TA(2015)0377'^^xsd:string || ?idEP='parliament:P8_A(2015)0296'^^xsd:string || ?idEP='parliament:P7_TA(2013)0463'^^xsd:string || ?idEP='parliament:P7_A(2013)0021'^^xsd:string || ?idEP='parliament:JURI_AL(2013)504159'^^xsd:string || ?idEP='parliament:REGI_AD(2012)491329'^^xsd:string || ?idEP='parliament:BUDG_AD(2012)492829'^^xsd:string || ?idEP='parliament:P7_TA(2013)0519'^^xsd:string || ?idEP='parliament:P7_A(2013)0396'^^xsd:string || ?idEP='parliament:FEMM_AD(2012)491303'^^xsd:string || ?idEP='parliament:BUDG_AD(2012)491190'^^xsd:string || ?idEP='parliament:P7_TA(2013)0488'^^xsd:string || ?idEP='parliament:P7_A(2013)0340'^^xsd:string || ?idEP='parliament:JURI_AL(2013)510654'^^xsd:string || ?idEP='parliament:ECON_AD(2013)508237'^^xsd:string || ?idEP='parliament:EMPL_AD(2012)508089'^^xsd:string || ?idEP='parliament:IMCO_AD(2012)507984'^^xsd:string || ?idEP='parliament:P8_TA(2015)0285'^^xsd:string || ?idEP='parliament:P8_A(2015)0216'^^xsd:string || ?idEP='parliament:INTA_AD(2015)551983'^^xsd:string)
 OPTIONAL {?wEP cmr:lastModificationDate ?dateWork} .
 ?wEP owl:sameAs ?sAep .
 FILTER (regex(?sAep, '/immc/'))
@@ -41,3 +44,4 @@ BIND (strafter(?string2, '.') as ?format)
 OPTIONAL {?m cmr:lastModificationDate ?dateMan}
 
 }
+

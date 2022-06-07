@@ -24,6 +24,9 @@ This folder contains the resources of the POSB Benchmark. The folder is structur
  
  ## Dump for download 
  https://doi.org/10.5281/zenodo.1036738 
+
+ ## Benchmark Tool
+  - SPARQL Query Benchmarker (https://sourceforge.net/projects/sparql-query-bm/) by Rob Vesse for triples stores.
  
  ## License
  This project is licensed under the terms of the MIT license.
@@ -33,3 +36,4 @@ This folder contains the resources of the POSB Benchmark. The folder is structur
  - Cellar team at PO
  - Folks at Oracle (Boston), Stardog Union, Ontotext, OpenLinks, AWS Neptune
  - Folks at Neo4J
+ - Rob Vesse for the benchmarker tool

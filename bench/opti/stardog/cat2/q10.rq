@@ -1,0 +1,126 @@
+##################################################
+#Q10: source--> query_vrep.sparql
+# email: 01/12/2016
+# sample error in Stardog or with qparse of JENA: Variable 'FIELD_DN' in projection is not present in GROUP BY
+# BGP: 15
+##################################################
+
+# updated: Put FILTER (?resourceTypeLabel="en") in comment
+# update date: June, 2022
+
+prefix cdm: <http://publications.europa.eu/ontology/cdm#>
+prefix cmr: <http://publications.europa.eu/ontology/cdm/cmr#>
+PREFIX skos:<http://www.w3.org/2004/02/skos/core#>
+PREFIX dc:<http://purl.org/dc/elements/1.1/>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl:<http://www.w3.org/2002/07/owl#>
+select distinct 
+?FIELD_DN 
+(group_concat(distinct ?resourceTypeLabel;separator="#") as ?FIELD_FM) 
+?FIELD_SO_COLL
+?FIELD_SO_NUM
+?FIELD_SO_PAGE_FIRST
+?FIELD_SO_PAGE_LAST
+?FIELD_SO_PAGE_TOTAL
+?FIELD_PD
+?FIELD_DD
+(group_concat(distinct ?if; separator="#") as ?FIELD_IF)
+(group_concat(distinct ?vv; separator="#") as ?FIELD_EV)
+(group_concat(distinct ?LegalBasisCelex; separator="#") as ?FIELD_LB)
+?repeals
+?repealedBy
+?repealsImplicit
+?repealedByImplicit
+(group_concat(distinct ?directoryCode; separator="#") as ?FIELD_CC)
+?FIELD_DT_SEC
+?FIELD_DT_TYP
+?FIELD_DT_ANN
+#?FIELD_DT_CORR
+#?FIELD_DT_CORR2
+?FIELD_UPD_T
+?FIELD_TI
+?FIELD_REP
+where 
+{ 
+
+{
+#pragma group.joins
+
+?act cdm:resource_legal_id_sector ?sector. 
+FILTER (
+      ?sector="2"^^<http://www.w3.org/2001/XMLSchema#string>||
+      ?sector="3"^^<http://www.w3.org/2001/XMLSchema#string>||
+      ?sector="4"^^<http://www.w3.org/2001/XMLSchema#string>
+      ) 
+?act cdm:resource_legal_in-force "true"^^<http://www.w3.org/2001/XMLSchema#boolean>. 
+?act cdm:resource_legal_repertoire ?FIELD_REP.
+FILTER (
+      ?FIELD_REP="REP"^^<http://www.w3.org/2001/XMLSchema#string>||
+      ?FIELD_REP="LIE"^^<http://www.w3.org/2001/XMLSchema#string>
+      ) 
+?act cdm:resource_legal_id_celex ?FIELD_DN.
+
+?act cdm:resource_legal_id_sector ?FIELD_DT_SEC.
+?act cdm:resource_legal_type ?FIELD_DT_TYP.
+?act cdm:resource_legal_year ?FIELD_DT_ANN.
+#OPTIONAL{?act cdm:resource_legal_number_corrigendum ?FIELD_DT_CORR.}
+?act cmr:lastModificationDate ?FIELD_UPD_T.
+?exp cdm:expression_belongs_to_work ?act.
+?exp cdm:expression_uses_language <http://publications.europa.eu/resource/authority/language/ENG>.
+?exp cdm:expression_title ?FIELD_TI.
+
+}
+
+
+OPTIONAL {
+      ?act cdm:work_has_resource-type/skos:prefLabel ?resourceTypeLabel.
+        #FILTER (lang(?resourceTypeLabel)="en").
+      }
+OPTIONAL {
+      ?act cdm:resource_legal_published_in_official-journal ?oj.
+      ?oj cdm:official-journal_part_of_collection_document ?col.
+      BIND(substr(str(?col),70) as ?FIELD_SO_COLL).
+      ?oj cdm:official-journal_number ?FIELD_SO_NUM.
+      ?oj cdm:work_date_document ?FIELD_PD.
+      ?act cdm:work_date_document ?FIELD_DD.
+      }
+OPTIONAL {
+       ?act cdm:resource_legal_date_entry-into-force ?if.
+       }
+OPTIONAL {
+       ?act cdm:resource_legal_date_end-of-validity ?vv.
+       }
+OPTIONAL {
+      ?act cdm:resource_legal_based_on_resource_legal ?LegalBasis.
+      ?LegalBasis cdm:resource_legal_id_celex ?LegalBasisCelex.
+      }
+OPTIONAL{
+      ?act cdm:resource_legal_repeals_resource_legal ?repeals_.
+      ?repeals_ cdm:resource_legal_id_celex ?repeals.
+      }
+OPTIONAL{
+      ?repealedBy_ cdm:resource_legal_repeals_resource_legal ?act.
+      ?repealedBy_ cdm:resource_legal_id_celex ?repealedBy.
+      }
+OPTIONAL{
+      ?act cdm:resource_legal_implicitly_repeals_resource_legal ?repealsImplicit_.
+      ?repealsImplicit_ cdm:resource_legal_id_celex ?repealsImplicit.
+      }
+OPTIONAL{
+      ?repealedByImplicit_ cdm:resource_legal_implicitly_repeals_resource_legal ?act.
+      ?repealedByImplicit_ cdm:resource_legal_id_celex ?repealedByImplicit.
+      }
+OPTIONAL{
+      ?act cdm:resource_legal_is_about_concept_directory-code ?cc.
+      BIND(substr(xsd:string(?cc),57) as ?directoryCode).
+      }
+
+OPTIONAL{
+      ?manif cdm:manifestation_manifests_expression ?exp.
+      ?manif cdm:manifestation_official-journal_part_page_first ?FIELD_SO_PAGE_FIRST.
+      OPTIONAL{?manif cdm:manifestation_official-journal_part_page_last ?FIELD_SO_PAGE_LAST.}
+      OPTIONAL{?manif cdm:manifestation_official-journal_part_pages_total ?FIELD_SO_PAGE_TOTAL.}
+#     OPTIONAL{?manif cdm:manifestation_official-journal_part_is_corrigendum_printer ?FIELD_DT_CORR2}
+      }
+} GROUP by ?FIELD_DN ?FIELD_SO_COLL ?FIELD_SO_NUM ?FIELD_SO_PAGE_FIRST ?FIELD_SO_PAGE_LAST ?FIELD_SO_PAGE_TOTAL ?FIELD_PD ?FIELD_DD ?repeals ?repealedBy ?repealsImplicit ?repealedByImplicit ?FIELD_DT_SEC ?FIELD_DT_TYP ?FIELD_DT_ANN ?FIELD_UPD_T ?FIELD_TI ?FIELD_REP

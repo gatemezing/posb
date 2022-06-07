@@ -1,0 +1,49 @@
+########################################################################
+## Q18 --> Preleg_testSet.sparql ##
+## CONSIL: lastModificationDate monitoring
+## BGP: 7
+#########################################################################
+
+PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX cmr: <http://publications.europa.eu/ontology/cdm/cmr#>
+
+select DISTINCT ?sAconsil ?dateWork ?langREV ?langINIT ?dateExp ?formatREV ?formatINIT ?dateMan
+
+where {
+
+#pragma values.rewrite.limit 20
+
+?w cdm:work_id_document ?idCON .
+
+FILTER (?idCON='immc:PE 95 2014 REV 1'^^xsd:string || ?idCON='immc:ST 10710 2014 REV 2 ADD 1'^^xsd:string || ?idCON='immc:ST 10710 2014 REV 2'^^xsd:string || ?idCON='immc:ST 15884 2014 ADD 1 REV 1'^^xsd:string || ?idCON='immc:ST 16703 2014 INIT'^^xsd:string || ?idCON='immc:ST 17137 2014 INIT'^^xsd:string || ?idCON='immc:PE 15 2015 REV 1'^^xsd:string || ?idCON='immc:ST 12042 2015 ADD 1'^^xsd:string || ?idCON='immc:ST 7532 2016 REV 2'^^xsd:string || ?idCON='immc:ST 7532 2016 REV 2 ADD 1'^^xsd:string || ?idCON='ST_14601_2015_INIT'^^xsd:string || ?idCON='ST_14600_2015_INIT'^^xsd:string)
+OPTIONAL {?w cmr:lastModificationDate ?dateWork} .
+?w owl:sameAs ?sAconsil .
+FILTER (regex(?sAconsil, '/consil/'))
+?e cdm:expression_belongs_to_work ?w .
+OPTIONAL {?e cmr:lastModificationDate ?dateExp .}
+?e owl:sameAs ?sAeconsil .
+
+FILTER (regex(?sAeconsil, 'consil'))
+
+BIND (strafter(str(?sAeconsil), 'REV_') as ?substrREV)
+BIND (strafter(str(?sAeconsil), 'INIT') as ?substrINIT)
+BIND (strafter (?substrINIT, '.') as ?langINIT)
+BIND (strafter (?substrREV, '.') as ?langREV)
+
+?m cdm:manifestation_manifests_expression ?e .
+?m owl:sameAs ?sAman .
+
+FILTER (regex(?sAman, 'consil'))
+BIND (strafter(str(?sAman), 'REV_') as ?stringRev)
+BIND (strafter(?stringRev, '.') as ?stringRevExpMan) 
+BIND (strafter(?stringRevExpMan, '.') as ?formatREV)
+
+BIND (strafter(str(?sAman), 'INIT') as ?stringInit)
+BIND (strafter(?stringInit, '.') as ?stringInitExpMan) 
+BIND (strafter(?stringInitExpMan, '.') as ?formatINIT)
+
+?m cmr:lastModificationDate ?dateMan
+
+} ORDER BY ?sAconsil ?langREV ?langINIT

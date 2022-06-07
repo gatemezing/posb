@@ -1,6 +1,4 @@
-// credit: @gatemezing
-// 31rst, May 2022
-// TODO: review with data using keepLangTag:true
+ 
 :params { lang_uri: "http://publications.europa.eu/resource/authority/language/ENG", langvalue: "ENG" }
 
 match (l)<-[:expression_uses_language]-(e)-[:expression_belongs_to_work]->(w)

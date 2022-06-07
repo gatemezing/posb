@@ -1,28 +1,31 @@
-#################################################
-## Q16: Query rectified applicable only in Test##
-## test with doc Celex 62013TO0583
-## exple of ${language}= ENG, FRA, ITA, DEUS
-## BGP: 4 
-###################################################
-
-
 prefix cdm: <http://publications.europa.eu/ontology/cdm#> 
 prefix owl: <http://www.w3.org/2002/07/owl#> 
 prefix xsd: <http://www.w3.org/2001/XMLSchema#>
 
+# update: One new URI for Cellar Id
+# Date: June, 2022
+
+prefix cdm: <http://publications.europa.eu/ontology/cdm#>
+prefix annotation: <http://publications.europa.eu/ontology/annotation#>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
 select ?date ?lang ?type ?celex ?rectificationOrderCelex 
 where 
-{ ?uri cdm:work_datetime_transmission ?date. 
-  OPTIONAL{ 
-  ?rectificationOrder cdm:resource_legal_corrects_resource_legal ?uri; cdm:resource_legal_id_celex ?rectificationOrderCelex. } 
+{ 
+	?uri cdm:work_datetime_transmission ?date. 
+	OPTIONAL
+	{ 
+		?rectificationOrder cdm:resource_legal_corrects_resource_legal ?uri; cdm:resource_legal_id_celex ?rectificationOrderCelex. 
+	} 
 
-  ?uri ^cdm:expression_belongs_to_work ?exp. 
-  ?exp cdm:expression_uses_language ?lang;
-^cdm:manifestation_manifests_expression ?manif. 
-?manif cdm:manifestation_type ?type. 
-?uri owl:sameAs ?celex. 
-FILTER contains(str(?celex), "62013TO0583"). 
-  
-  VALUES ?uri {<http://publications.europa.eu/resource/cellar/6df75a83-c084-11e3-86f9-01aa75ed71a1> <http://publications.europa.eu/resource/cellar/3415a9e7-1d14-4017-95c1-aecec43462d5.0022>
-  	   <http://publications.europa.eu/resource/cellar/771a3fe7-b701-438b-b8af-a94ed340fd63>}
+	?uri ^cdm:expression_belongs_to_work ?exp. 
+	?exp cdm:expression_uses_language ?lang;
+	^cdm:manifestation_manifests_expression ?manif. 
+	?manif cdm:manifestation_type ?type. 
+	?uri owl:sameAs ?celex. 
+	FILTER contains(str(?celex), "62013TO0583").
+	
+	VALUES ?uri {<http://publications.europa.eu/resource/cellar/e85d7e2d-9308-41ec-8afc-fdb801373028>}
 } ORDER BY DESC(?date) ?uri ?lang ?type

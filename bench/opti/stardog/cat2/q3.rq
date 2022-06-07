@@ -1,0 +1,17 @@
+#Q3:Repartition of the authors for documents published in the OJ or 
+# not published in the OJ (that query was working beginning of #this year,
+# not anymore now, so that one would definitively be worth looking at!!)
+# BGP: 2
+
+#DEFINE input:inference "cdm_rule_set"
+prefix cdm: <http://publications.europa.eu/ontology/cdm#>
+select  (count(distinct(?lr)) as ?lrTotal) ?author ?boolOJ  
+ where {
+?lr cdm:work_created_by_agent ?author.
+?lr cdm:work_date_creation_legacy ?dat_cre.
+?lr a cdm:resource_legal .
+OPTIONAL
+{?lr cdm:resource_legal_published_in_official-journal ?oj.}
+bind((if(bound(?oj), "1","0")) as ?boolOJ).
+FILTER (!regex(str(?dat_cre), "^2016-"))
+} group by ?author ?boolOJ

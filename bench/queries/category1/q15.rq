@@ -1,16 +1,28 @@
 #################################################
-## Q15: Not normalized query (not used):
+## Q15
 ## List contains documents with titles ##########
-## test with doc Celex 52014SC0183
-## exple of ${language}= ENG, FRA, ITA, DEUS
+## test with doc Celex 32013D0752
+## example of ${language}= ENG, FRA, ITA, DEUS
 ## BGP: 1
 ###################################################
+
+# Updates: Removed owl:sameAs path and just replaced by single properties
+# cdm:resource_legal_id_celex and cdm:summary_summarizes_work to make query match again
 
 prefix cdm: <http://publications.europa.eu/ontology/cdm#>
 prefix owl: <http://www.w3.org/2002/07/owl#> 
 prefix xsd: <http://www.w3.org/2001/XMLSchema#>
 
 
-Select ?summary ?title where { {select DISTINCT ?summary where {?s owl:sameAs/cdm:resource_legal_id_celex "52014SC0183"^^xsd:string;owl:sameAs/^cdm:summary_summarizes_work ?summary. } } 
-OPTIONAL {?summary ^cdm:expression_belongs_to_work ?e. 
-  ?e cdm:expression_uses_language <http://publications.europa.eu/resource/authority/language/ENG>; cdm:expression_title ?title.}}
+select ?summary ?title where {
+	{	
+		select DISTINCT ?summary where {
+			?s cdm:resource_legal_id_celex "32013D0752"^^xsd:string;
+				^cdm:summary_summarizes_work ?summary. } 
+	} 
+	OPTIONAL {
+		?summary ^cdm:expression_belongs_to_work ?e. 
+		?e cdm:expression_uses_language <http://publications.europa.eu/resource/authority/language/ENG>; cdm:expression_title ?title.
+	}
+}
+

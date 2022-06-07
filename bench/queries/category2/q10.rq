@@ -5,6 +5,9 @@
 # BGP: 15
 ##################################################
 
+# updated: Put FILTER (?resourceTypeLabel="en") in comment
+# update date: June, 2022
+
 prefix cdm: <http://publications.europa.eu/ontology/cdm#>
 prefix cmr: <http://publications.europa.eu/ontology/cdm/cmr#>
 PREFIX skos:<http://www.w3.org/2004/02/skos/core#>
@@ -54,7 +57,7 @@ FILTER (
 ?act cdm:resource_legal_id_celex ?FIELD_DN.
 OPTIONAL {
       ?act cdm:work_has_resource-type/skos:prefLabel ?resourceTypeLabel.
-      FILTER (lang(?resourceTypeLabel)="en").
+	  #FILTER (?resourceTypeLabel="en").
       }
 OPTIONAL {
       ?act cdm:resource_legal_published_in_official-journal ?oj.

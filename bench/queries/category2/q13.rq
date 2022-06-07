@@ -19,7 +19,8 @@ SELECT ?work
       (group_concat(distinct ?subject;separator=", ") as ?subjects) 
       (group_concat(distinct ?author;separator="; ") as ?authors)
       (group_concat(distinct ?work;separator=", ") as ?cellarURIs)
-      (group_concat(distinct ?mtype;separator=", ") as ?mtypes)WHERE {
+      (group_concat(distinct ?mtype;separator=", ") as ?mtypes)
+      WHERE {
    ?work cdm:work_is_about_concept_eurovoc/dc:identifier ?subject;
    cdm:work_id_document ?workId;
    rdf:type ?workType.

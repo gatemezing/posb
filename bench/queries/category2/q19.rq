@@ -4,6 +4,8 @@
 ## BGP: 1
 #########################################################################
 
+# update: Changed filter regex _0 for ?sAa,  with _0, /1, /2
+# date: June, 2022
 PREFIX cdm: <http://publications.europa.eu/ontology/cdm#> 
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -19,7 +21,7 @@ FILTER (?idCON='immc:PE 95 2014 REV 1'^^xsd:string || ?idCON='immc:ST 10710 2014
    cdm:event_legal_part_of_dossier ?d .
 
 ?d owl:sameAs ?sAa
-FILTER (regex (?sAa, '_0'))
+FILTER (regex (?sAa, '/1') || regex (?sAa, '/2') || regex (?sAa, '_0'))
 
 #OPTIONAL{?d cdm:dossier_contains_work ?sA.}
 
