@@ -1,0 +1,747 @@
+Running in verbose mode, run with --quiet to disable
+General Options
+---------------
+
+Query Endpoint = https://opoce10b.cluster-ctllocetqpml.eu-west-3.neptune.amazonaws.com:8182/sparql
+Update Endpoint = https://opoce10b.cluster-ctllocetqpml.eu-west-3.neptune.amazonaws.com:8182/sparql
+Graph Store Protocol Endpoint = not specified
+Sanity Checking Level = 0
+Random Operation Order = Off
+Setup Mix = disabled
+Teardown Mix = disabled
+Timeout = 10 seconds
+Max Delay between Operations = 1000 milliseconds
+Halt on Timeout = false
+Halt on Error = false
+Halt Any = false
+Result Limit = Query Specified
+Result Counting = Enabled
+ASK Results Format = application/sparql-results+xml
+Graph Results Format = application/rdf+xml
+SELECT Results Format = application/sparql-results+xml
+Compression = disabled
+Parallel Threads = 1
+Authentication = disabled
+
+Benchmark Options
+---------------
+
+Warmups = 20
+Runs = 5
+Outliers = 1
+CSV Results File = results/results_neptune_group3_10B.csv
+XML Results File = disabled
+
+
+Sanity Check skipped by user...
+Starting Benchmarking...
+5 operations were loaded:
+Operation ID 0 of type Remote SPARQL Query (/home/ec2-user/bench/queries/cat3/q1.rq)
+# Q1:
+# LODep: select from the dataBase the list of triples, whose have to be incremented (number of comments, ..)
+#BGP: 6 
+# fixed version for bench
+
+
+PREFIX  lodep: <https://webgate.acceptance.ec.testa.eu/eparticipation/ontologies/LOD_Eparticipation/>
+
+SELECT DISTINCT  ?container ?total ?totalna ?note ?notena
+WHERE
+  {   { OPTIONAL
+          { ?container lodep:num_items_total ?total }
+        OPTIONAL
+          { ?container lodep:num_items_yes ?note }
+        OPTIONAL
+          { ?container lodep:num_items_yes_na ?notena }
+        OPTIONAL
+          { ?container lodep:num_items_total_na ?totalna }
+        FILTER ( ?container = <http://localhost:8000/eli/PROP_DIR/2016/0593/art_1/eng> )
+      }
+    UNION
+      { OPTIONAL
+          { ?container lodep:num_items_total ?total }
+        OPTIONAL
+          { ?container lodep:num_items_yes ?note }
+      }
+  }
+
+
+Operation ID 1 of type Remote SPARQL Update (/home/ec2-user/bench/queries/cat3/q2.rq)
+prefix lodep: <https://webgate.acceptance.ec.testa.eu/eparticipation/ontologies/LOD_Eparticipation/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+WITH <http://lodepart/graph> DELETE  {
+
+                ?val lodep:num_items_total ?total. 
+                ?val lodep:num_items_yes  ?note. 
+                ?val lodep:num_items_total_na ?totalna. 
+                ?val lodep:num_items_yes_na ?notena. 
+                } 
+                 # and update statistics about comments by increasing by 1
+                INSERT {
+                ?val lodep:num_items_total ?newtotal.
+                ?val lodep:num_items_yes ?newnote.
+                ?val lodep:num_items_total_na ?newtotalna.
+                ?val lodep:num_items_yes_na ?newnotena. 
+               }
+                
+               WHERE {
+                        OPTIONAL{?val lodep:num_items_total ?total. BIND ((xsd:integer(?total) + 1) AS ?newtotal)}
+                        OPTIONAL{?val lodep:num_items_total_na ?totalna. BIND ((xsd:integer(?totalna) + 1) AS ?newtotalna)}
+	                    OPTIONAL{?val lodep:num_items_yes_na ?notena. BIND ((xsd:integer(?notena) + 1) AS ?newnotena)}
+                        OPTIONAL{?val lodep:num_items_yes ?note. BIND ((xsd:integer(?note) + 1) AS ?newnote)}
+                     }
+
+
+
+Operation ID 2 of type Remote SPARQL Update (/home/ec2-user/bench/queries/cat3/q3.rq)
+## Q3: insert a Thread with some attributs
+prefix lodep: <https://webgate.acceptance.ec.testa.eu/eparticipation/ontologies/LOD_Eparticipation/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX sioc: <http://rdfs.org/sioc/ns#>
+
+INSERT DATA
+ { 
+ GRAPH <http://lodepart/graph> 
+
+ { 
+     <http://localhost:8000/posts/id_user_9/20161122142401/2016/0593/art_1/eng> lodep:num_items_yes 1;
+             lodep:num_items_yes  1;
+             lodep:num_items_total 1;
+             lodep:num_items_yes_na 1;
+             a sioc:Thread;
+             lodep:num_insertion 0;
+       lodep:num_deletion 0;
+       lodep:num_substitution 0;
+       lodep:num_amendment 0;
+      lodep:num_insertion_na 0;
+      lodep:num_deletion_na 0;
+      lodep:num_substitution_na 0;
+      lodep:num_amendment_na 0;                             
+  }
+  }
+
+
+Operation ID 3 of type Remote SPARQL Update (/home/ec2-user/bench/queries/cat3/q4.rq)
+## Q4: Query to put in the dataset the hierarchy of containers (has_parent or realization_of)
+## adding inverse of relations 
+PREFIX  sioc: <http://rdfs.org/sioc/ns#>
+PREFIX  lodep: <https://webgate.acceptance.ec.testa.eu/eparticipation/ontologies/LOD_Eparticipation/>
+
+WITH <http://lodepart/graph>
+INSERT  
+ {
+     ?x sioc:has_parent <http://dbpedia.org/resource/Barack_Obama,_Sr.> .
+     ?y sioc:parent_of <http://dbpedia.org/resource/Barack_Obama> .
+     ?x lodep:realization_of ?y .
+     ?y lodep:realization_by ?x . 
+
+}
+WHERE
+{
+?x sioc:has_parent ?y .
+     ?y sioc:parent_of ?x .
+     ?x lodep:realization_of ?y .
+     ?y lodep:realization_by ?x . 	
+}
+
+
+Operation ID 4 of type Remote SPARQL Update (/home/ec2-user/bench/queries/cat3/q5.rq)
+## Q5: Query to insert a post 
+PREFIX  lodep: <https://webgate.acceptance.ec.testa.eu/eparticipation/ontologies/LOD_Eparticipation/>
+PREFIX  sioc: <http://rdfs.org/sioc/ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+INSERT DATA
+{
+GRAPH <http://lodepart/graph> 
+		{
+		<http://localhost:8000/posts/id_user_9/20161122142401/2016/0593/art_1/eng> a sioc:Post;
+		sioc:content "This is my comment.."@eng;
+		sioc:has_creator <http://localhost:8000/user/id_user_9>;
+		sioc:note "yes"^^rdfs:Literal;
+		sioc:created_at "2016-12-20"; 
+		sioc:has_container <http://localhost:8000/eli/PROP_DIR/2016/0593/art_1/eng>;
+		lodep:num_like 0;
+		lodep:num_dislike 0.
+		} 
+	}
+
+
+Running Warmups...
+
+Warmup Run 1 of 20
+Operation Order for this Run is 0, 1, 2, 3, 4
+Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...started responding in 2.010655222s...got 1 result(s) in 2.012743375s
+Sleeping for 0.071s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...got Unknown result(s) in 0.29628141900000005s
+Sleeping for 0.55s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...got Unknown result(s) in 0.13451701800000002s
+Sleeping for 0.443s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...got Unknown result(s) in 0.055798474s
+Sleeping for 0.288s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...got Unknown result(s) in 0.090249738s
+Sleeping for 0.501s before next operation
+
+Total Response Time: 2,587502 seconds
+Total Runtime: 2,589590 seconds
+Minimum Operation Runtime: 0,055798 seconds (Operation /home/ec2-user/bench/queries/cat3/q4.rq)
+Maximum Operation Runtime: 2,012743 seconds (Operation /home/ec2-user/bench/queries/cat3/q1.rq)
+
+Warmup Run 2 of 20
+Operation Order for this Run is 0, 1, 2, 3, 4
+Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...started responding in 0.06778720699999999s...got 1 result(s) in 0.068402008s
+Sleeping for 0.084s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...got Unknown result(s) in 0.109035881s
+Sleeping for 0.42s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...got Unknown result(s) in 0.052438473s
+Sleeping for 0.972s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...got Unknown result(s) in 0.027726139s
+Sleeping for 0.119s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...got Unknown result(s) in 0.033213638000000004s
+Sleeping for 0.541s before next operation
+
+Total Response Time: 0,290201 seconds
+Total Runtime: 0,290816 seconds
+Minimum Operation Runtime: 0,027726 seconds (Operation /home/ec2-user/bench/queries/cat3/q4.rq)
+Maximum Operation Runtime: 0,109036 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+
+Warmup Run 3 of 20
+Operation Order for this Run is 0, 1, 2, 3, 4
+Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...started responding in 0.049165203s...got 4 result(s) in 0.050532452s
+Sleeping for 0.126s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...got Unknown result(s) in 0.068983403s
+Sleeping for 0.857s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...got Unknown result(s) in 0.030165564s
+Sleeping for 0.619s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...got Unknown result(s) in 0.026286489s
+Sleeping for 0.296s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...got Unknown result(s) in 0.024898581s
+Sleeping for 0.081s before next operation
+
+Total Response Time: 0,199499 seconds
+Total Runtime: 0,200866 seconds
+Minimum Operation Runtime: 0,024899 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+Maximum Operation Runtime: 0,068983 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+
+Warmup Run 4 of 20
+Operation Order for this Run is 0, 1, 2, 3, 4
+Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...started responding in 0.048531927s...got 9 result(s) in 0.065371556s
+Sleeping for 0.946s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...got Unknown result(s) in 0.111303545s
+Sleeping for 0.712s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...got Unknown result(s) in 0.028260962s
+Sleeping for 0.721s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...got Unknown result(s) in 0.028932238000000002s
+Sleeping for 0.69s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...got Unknown result(s) in 0.030084094s
+Sleeping for 0.218s before next operation
+
+Total Response Time: 0,247113 seconds
+Total Runtime: 0,263952 seconds
+Minimum Operation Runtime: 0,028261 seconds (Operation /home/ec2-user/bench/queries/cat3/q3.rq)
+Maximum Operation Runtime: 0,111304 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+
+Warmup Run 5 of 20
+Operation Order for this Run is 0, 1, 2, 3, 4
+Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...started responding in 0.039370639s...got 16 result(s) in 0.046699091000000005s
+Sleeping for 0.58s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...got Unknown result(s) in 0.073111048s
+Sleeping for 0.491s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...got Unknown result(s) in 0.033163419s
+Sleeping for 0.731s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...got Unknown result(s) in 0.032426017s
+Sleeping for 0.673s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...got Unknown result(s) in 0.021115165999999998s
+Sleeping for 0.144s before next operation
+
+Total Response Time: 0,199186 seconds
+Total Runtime: 0,206515 seconds
+Minimum Operation Runtime: 0,021115 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+Maximum Operation Runtime: 0,073111 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+
+Warmup Run 6 of 20
+Operation Order for this Run is 0, 1, 2, 3, 4
+Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...started responding in 0.044075552999999996s...got 25 result(s) in 0.048307089s
+Sleeping for 0.405s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...got Unknown result(s) in 0.07863472199999999s
+Sleeping for 0.197s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...got Unknown result(s) in 0.024095870999999998s
+Sleeping for 0.152s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...got Unknown result(s) in 0.020643484s
+Sleeping for 0.195s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...got Unknown result(s) in 0.028806322000000002s
+Sleeping for 0.251s before next operation
+
+Total Response Time: 0,196256 seconds
+Total Runtime: 0,200487 seconds
+Minimum Operation Runtime: 0,020643 seconds (Operation /home/ec2-user/bench/queries/cat3/q4.rq)
+Maximum Operation Runtime: 0,078635 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+
+Warmup Run 7 of 20
+Operation Order for this Run is 0, 1, 2, 3, 4
+Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...started responding in 0.069380504s...got 36 result(s) in 0.085082396s
+Sleeping for 0.364s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...got Unknown result(s) in 0.071440595s
+Sleeping for 0.131s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...got Unknown result(s) in 0.022506788s
+Sleeping for 0.629s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...got Unknown result(s) in 0.025067678s
+Sleeping for 0.159s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...got Unknown result(s) in 0.018227908s
+Sleeping for 0.847s before next operation
+
+Total Response Time: 0,206623 seconds
+Total Runtime: 0,222325 seconds
+Minimum Operation Runtime: 0,018228 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+Maximum Operation Runtime: 0,085082 seconds (Operation /home/ec2-user/bench/queries/cat3/q1.rq)
+
+Warmup Run 8 of 20
+Operation Order for this Run is 0, 1, 2, 3, 4
+Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...started responding in 0.040892125s...got 49 result(s) in 0.053287954s
+Sleeping for 0.37s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...got Unknown result(s) in 0.078066559s
+Sleeping for 0.872s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...got Unknown result(s) in 0.022561142s
+Sleeping for 0.649s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...got Unknown result(s) in 0.024652449s
+Sleeping for 0.457s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...got Unknown result(s) in 0.021538595s
+Sleeping for 0.438s before next operation
+
+Total Response Time: 0,187711 seconds
+Total Runtime: 0,200107 seconds
+Minimum Operation Runtime: 0,021539 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+Maximum Operation Runtime: 0,078067 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+
+Warmup Run 9 of 20
+Operation Order for this Run is 0, 1, 2, 3, 4
+Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...started responding in 0.040321204s...got 64 result(s) in 0.053422283s
+Sleeping for 0.062s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...got Unknown result(s) in 0.106933066s
+Sleeping for 0.265s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...got Unknown result(s) in 0.026438806s
+Sleeping for 0.866s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...got Unknown result(s) in 0.017922975s
+Sleeping for 0.633s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...got Unknown result(s) in 0.022051494s
+Sleeping for 0.717s before next operation
+
+Total Response Time: 0,213668 seconds
+Total Runtime: 0,226769 seconds
+Minimum Operation Runtime: 0,017923 seconds (Operation /home/ec2-user/bench/queries/cat3/q4.rq)
+Maximum Operation Runtime: 0,106933 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+
+Warmup Run 10 of 20
+Operation Order for this Run is 0, 1, 2, 3, 4
+Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...started responding in 0.042174618999999997s...got 81 result(s) in 0.072057781s
+Sleeping for 0.325s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...got Unknown result(s) in 0.07483804299999999s
+Sleeping for 0.44s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...got Unknown result(s) in 0.02784268s
+Sleeping for 0.753s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...got Unknown result(s) in 0.022573647000000002s
+Sleeping for 0.44s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...got Unknown result(s) in 0.020417427s
+Sleeping for 0.768s before next operation
+
+Total Response Time: 0,187846 seconds
+Total Runtime: 0,217730 seconds
+Minimum Operation Runtime: 0,020417 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+Maximum Operation Runtime: 0,074838 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+
+Warmup Run 11 of 20
+Operation Order for this Run is 0, 1, 2, 3, 4
+Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...started responding in 0.064088926s...got 100 result(s) in 0.08229399600000001s
+Sleeping for 0.13s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...got Unknown result(s) in 0.071594042s
+Sleeping for 0.51s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...got Unknown result(s) in 0.025578696999999997s
+Sleeping for 0.653s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...got Unknown result(s) in 0.027033128s
+Sleeping for 0.537s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...got Unknown result(s) in 0.018359497000000002s
+Sleeping for 0.948s before next operation
+
+Total Response Time: 0,206654 seconds
+Total Runtime: 0,224859 seconds
+Minimum Operation Runtime: 0,018359 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+Maximum Operation Runtime: 0,082294 seconds (Operation /home/ec2-user/bench/queries/cat3/q1.rq)
+
+Warmup Run 12 of 20
+Operation Order for this Run is 0, 1, 2, 3, 4
+Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...started responding in 0.041146076000000004s...got 121 result(s) in 0.058916485000000005s
+Sleeping for 0.109s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...got Unknown result(s) in 0.09934878600000001s
+Sleeping for 0.495s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...got Unknown result(s) in 0.024693729999999997s
+Sleeping for 0.225s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...got Unknown result(s) in 0.019638382s
+Sleeping for 0.422s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...got Unknown result(s) in 0.025469266s
+Sleeping for 0.672s before next operation
+
+Total Response Time: 0,210296 seconds
+Total Runtime: 0,228067 seconds
+Minimum Operation Runtime: 0,019638 seconds (Operation /home/ec2-user/bench/queries/cat3/q4.rq)
+Maximum Operation Runtime: 0,099349 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+
+Warmup Run 13 of 20
+Operation Order for this Run is 0, 1, 2, 3, 4
+Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...started responding in 0.038747285s...got 144 result(s) in 0.05340465s
+Sleeping for 0.786s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...got Unknown result(s) in 0.083096746s
+Sleeping for 0.945s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...got Unknown result(s) in 0.020431816000000002s
+Sleeping for 0.362s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...got Unknown result(s) in 0.030171639s
+Sleeping for 0.722s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...got Unknown result(s) in 0.020702467999999998s
+Sleeping for 0.395s before next operation
+
+Total Response Time: 0,193150 seconds
+Total Runtime: 0,207807 seconds
+Minimum Operation Runtime: 0,020432 seconds (Operation /home/ec2-user/bench/queries/cat3/q3.rq)
+Maximum Operation Runtime: 0,083097 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+
+Warmup Run 14 of 20
+Operation Order for this Run is 0, 1, 2, 3, 4
+Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...started responding in 0.026231548s...got 169 result(s) in 0.041591827000000005s
+Sleeping for 0.518s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...got Unknown result(s) in 0.085312545s
+Sleeping for 0.45s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...got Unknown result(s) in 0.023741060999999997s
+Sleeping for 0.915s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...got Unknown result(s) in 0.017994093s
+Sleeping for 0.453s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...got Unknown result(s) in 0.017898955s
+Sleeping for 0.101s before next operation
+
+Total Response Time: 0,171178 seconds
+Total Runtime: 0,186538 seconds
+Minimum Operation Runtime: 0,017899 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+Maximum Operation Runtime: 0,085313 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+
+Warmup Run 15 of 20
+Operation Order for this Run is 0, 1, 2, 3, 4
+Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...started responding in 0.024930275999999998s...got 196 result(s) in 0.062542097s
+Sleeping for 0.415s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...got Unknown result(s) in 0.09056981500000001s
+Sleeping for 0.574s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...got Unknown result(s) in 0.024340118s
+Sleeping for 0.574s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...got Unknown result(s) in 0.019351177s
+Sleeping for 0.332s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...got Unknown result(s) in 0.014452464000000002s
+Sleeping for 0.049s before next operation
+
+Total Response Time: 0,173644 seconds
+Total Runtime: 0,211256 seconds
+Minimum Operation Runtime: 0,014452 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+Maximum Operation Runtime: 0,090570 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+
+Warmup Run 16 of 20
+Operation Order for this Run is 0, 1, 2, 3, 4
+Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...started responding in 0.08411874s...got 225 result(s) in 0.104514508s
+Sleeping for 0.325s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...got Unknown result(s) in 0.091777611s
+Sleeping for 0.677s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...got Unknown result(s) in 0.022189267000000002s
+Sleeping for 0.894s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...got Unknown result(s) in 0.022476356s
+Sleeping for 0.888s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...got Unknown result(s) in 0.018296283s
+Sleeping for 0.342s before next operation
+
+Total Response Time: 0,238858 seconds
+Total Runtime: 0,259254 seconds
+Minimum Operation Runtime: 0,018296 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+Maximum Operation Runtime: 0,104515 seconds (Operation /home/ec2-user/bench/queries/cat3/q1.rq)
+
+Warmup Run 17 of 20
+Operation Order for this Run is 0, 1, 2, 3, 4
+Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...started responding in 0.025394471s...got 256 result(s) in 0.038148300999999996s
+Sleeping for 0.043s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...got Unknown result(s) in 0.131732081s
+Sleeping for 0.186s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...got Unknown result(s) in 0.020774714s
+Sleeping for 0.18s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...got Unknown result(s) in 0.023601505s
+Sleeping for 0.278s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...got Unknown result(s) in 0.017354602s
+Sleeping for 0.971s before next operation
+
+Total Response Time: 0,218857 seconds
+Total Runtime: 0,231611 seconds
+Minimum Operation Runtime: 0,017355 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+Maximum Operation Runtime: 0,131732 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+
+Warmup Run 18 of 20
+Operation Order for this Run is 0, 1, 2, 3, 4
+Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...started responding in 0.03439091s...got 289 result(s) in 0.049182518s
+Sleeping for 0.428s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...got Unknown result(s) in 0.103653365s
+Sleeping for 0.648s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...got Unknown result(s) in 0.020223754s
+Sleeping for 0.939s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...got Unknown result(s) in 0.019592787s
+Sleeping for 0.749s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...got Unknown result(s) in 0.015187837s
+Sleeping for 0.101s before next operation
+
+Total Response Time: 0,193049 seconds
+Total Runtime: 0,207840 seconds
+Minimum Operation Runtime: 0,015188 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+Maximum Operation Runtime: 0,103653 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+
+Warmup Run 19 of 20
+Operation Order for this Run is 0, 1, 2, 3, 4
+Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...started responding in 0.028419779s...got 324 result(s) in 0.048481287000000005s
+Sleeping for 0.649s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...got Unknown result(s) in 0.114646158s
+Sleeping for 0.178s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...got Unknown result(s) in 0.019572773s
+Sleeping for 0.713s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...got Unknown result(s) in 0.019094826999999998s
+Sleeping for 0.088s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...got Unknown result(s) in 0.016288131s
+Sleeping for 0.571s before next operation
+
+Total Response Time: 0,198022 seconds
+Total Runtime: 0,218083 seconds
+Minimum Operation Runtime: 0,016288 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+Maximum Operation Runtime: 0,114646 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+
+Warmup Run 20 of 20
+Operation Order for this Run is 0, 1, 2, 3, 4
+Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...started responding in 0.027655183s...got 361 result(s) in 0.047279384s
+Sleeping for 0.252s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...got Unknown result(s) in 0.141568239s
+Sleeping for 0.821s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...got Unknown result(s) in 0.019683906s
+Sleeping for 0.295s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...got Unknown result(s) in 0.018589829000000002s
+Sleeping for 0.665s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...got Unknown result(s) in 0.013994049s
+Sleeping for 0.134s before next operation
+
+Total Response Time: 0,221491 seconds
+Total Runtime: 0,241115 seconds
+Minimum Operation Runtime: 0,013994 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+Maximum Operation Runtime: 0,141568 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+
+Running Benchmarks...
+
+Start Time: 12/06/2022 15:32:08 +0000
+Operation Mix Run 1 of 5
+Current Time: 12/06/2022 15:32:08 +0000
+Operation Order for this Run is 0, 1, 2, 3, 4
+Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...started responding in 0.027065048s...got 400 result(s) in 0.048260041000000004s
+Sleeping for 0.535s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...got Unknown result(s) in 0.149698297s
+Sleeping for 0.758s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...got Unknown result(s) in 0.018782785s
+Sleeping for 0.097s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...got Unknown result(s) in 0.020360594s
+Sleeping for 0.854s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...got Unknown result(s) in 0.017766362s
+Sleeping for 0.783s before next operation
+
+Total Response Time: 0,233673 seconds
+Total Runtime: 0,254868 seconds
+Minimum Operation Runtime: 0,017766 seconds (Query /home/ec2-user/bench/queries/cat3/q5.rq)
+Maximum Operation Runtime: 0,149698 seconds (Query /home/ec2-user/bench/queries/cat3/q2.rq)
+
+Operation Mix Run 2 of 5
+Current Time: 12/06/2022 15:32:12 +0000
+Operation Order for this Run is 0, 1, 2, 3, 4
+Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...started responding in 0.028047101999999997s...got 441 result(s) in 0.044845024000000004s
+Sleeping for 0.499s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...got Unknown result(s) in 0.159649741s
+Sleeping for 0.656s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...got Unknown result(s) in 0.023211289s
+Sleeping for 0.976s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...got Unknown result(s) in 0.017147956s
+Sleeping for 0.442s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...got Unknown result(s) in 0.017409797999999997s
+Sleeping for 0.449s before next operation
+
+Total Response Time: 0,245466 seconds
+Total Runtime: 0,262264 seconds
+Minimum Operation Runtime: 0,017148 seconds (Query /home/ec2-user/bench/queries/cat3/q4.rq)
+Maximum Operation Runtime: 0,159650 seconds (Query /home/ec2-user/bench/queries/cat3/q2.rq)
+
+Operation Mix Run 3 of 5
+Current Time: 12/06/2022 15:32:15 +0000
+Operation Order for this Run is 0, 1, 2, 3, 4
+Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...started responding in 0.027767497s...got 484 result(s) in 0.053170687s
+Sleeping for 0.458s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...got Unknown result(s) in 0.183955063s
+Sleeping for 0.752s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...got Unknown result(s) in 0.028075383s
+Sleeping for 0.07s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...got Unknown result(s) in 0.021491181999999998s
+Sleeping for 0.767s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...got Unknown result(s) in 0.014616939s
+Sleeping for 0.965s before next operation
+
+Total Response Time: 0,275906 seconds
+Total Runtime: 0,301309 seconds
+Minimum Operation Runtime: 0,014617 seconds (Query /home/ec2-user/bench/queries/cat3/q5.rq)
+Maximum Operation Runtime: 0,183955 seconds (Query /home/ec2-user/bench/queries/cat3/q2.rq)
+
+Operation Mix Run 4 of 5
+Current Time: 12/06/2022 15:32:18 +0000
+Operation Order for this Run is 0, 1, 2, 3, 4
+Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...started responding in 0.02129552s...got 529 result(s) in 0.036655689000000005s
+Sleeping for 0.308s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...got Unknown result(s) in 0.19080407600000002s
+Sleeping for 0.616s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...got Unknown result(s) in 0.026698312999999998s
+Sleeping for 0.823s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...got Unknown result(s) in 0.016840545s
+Sleeping for 0.823s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...got Unknown result(s) in 0.01660263s
+Sleeping for 0.474s before next operation
+
+Total Response Time: 0,272241 seconds
+Total Runtime: 0,287601 seconds
+Minimum Operation Runtime: 0,016603 seconds (Query /home/ec2-user/bench/queries/cat3/q5.rq)
+Maximum Operation Runtime: 0,190804 seconds (Query /home/ec2-user/bench/queries/cat3/q2.rq)
+
+Operation Mix Run 5 of 5
+Current Time: 12/06/2022 15:32:22 +0000
+Operation Order for this Run is 0, 1, 2, 3, 4
+Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...started responding in 0.029635802000000003s...got 576 result(s) in 0.052702289s
+Sleeping for 0.419s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...got Unknown result(s) in 0.21023s
+Sleeping for 0.89s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...got Unknown result(s) in 0.021253521s
+Sleeping for 0.338s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...got Unknown result(s) in 0.01818113s
+Sleeping for 0.511s before next operation
+Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...got Unknown result(s) in 0.017948037s
+Sleeping for 0.112s before next operation
+
+Total Response Time: 0,297248 seconds
+Total Runtime: 0,320315 seconds
+Minimum Operation Runtime: 0,017948 seconds (Query /home/ec2-user/bench/queries/cat3/q5.rq)
+Maximum Operation Runtime: 0,210230 seconds (Query /home/ec2-user/bench/queries/cat3/q2.rq)
+
+Finished Benchmarking...
+
+Operation Summary
+-----------------
+
+Operation ID 0 of type Remote SPARQL Query (/home/ec2-user/bench/queries/cat3/q1.rq)
+Total Runs: 23
+Total Errors: 0
+Total Results: 4 371
+Average Results: 190
+Total Response Time: 0,949338 seconds
+Average Response Time (Arithmetic): 0,041276 seconds
+Total Runtime: 1,328496 seconds
+Average Runtime (Arithmetic): 0,057761 seconds
+Average Runtime (Geometric): 0,056027 seconds
+Minimum Runtime: 0,038148 seconds
+Maximum Runtime: 0,104515 seconds
+Runtime Variance: 0,000249 seconds squared
+Runtime Standard Deviation: 0,015776 seconds
+
+Operations per Second: 17,312815
+Operations per Hour: 62 326,133892
+
+Operation ID 1 of type Remote SPARQL Update (/home/ec2-user/bench/queries/cat3/q2.rq)
+Total Runs: 23
+Total Errors: 0
+Total Results: 0
+Average Results: 0
+Total Response Time: 2,611000 seconds
+Average Response Time (Arithmetic): 0,113522 seconds
+Total Runtime: 2,611000 seconds
+Average Runtime (Arithmetic): 0,113522 seconds
+Average Runtime (Geometric): 0,107342 seconds
+Minimum Runtime: 0,071441 seconds
+Maximum Runtime: 0,210230 seconds
+Runtime Variance: 0,001685 seconds squared
+Runtime Standard Deviation: 0,041044 seconds
+
+Operations per Second: 8,808885
+Operations per Hour: 31 711,987501
+
+Operation ID 2 of type Remote SPARQL Update (/home/ec2-user/bench/queries/cat3/q3.rq)
+Total Runs: 23
+Total Errors: 0
+Total Results: 0
+Average Results: 0
+Total Response Time: 0,587942 seconds
+Average Response Time (Arithmetic): 0,025563 seconds
+Total Runtime: 0,587942 seconds
+Average Runtime (Arithmetic): 0,025563 seconds
+Average Runtime (Geometric): 0,024922 seconds
+Minimum Runtime: 0,019573 seconds
+Maximum Runtime: 0,052438 seconds
+Runtime Variance: 0,000047 seconds squared
+Runtime Standard Deviation: 0,006849 seconds
+
+Operations per Second: 39,119503
+Operations per Hour: 140 830,210521
+
+Operation ID 3 of type Remote SPARQL Update (/home/ec2-user/bench/queries/cat3/q4.rq)
+Total Runs: 23
+Total Errors: 0
+Total Results: 0
+Average Results: 0
+Total Response Time: 0,520956 seconds
+Average Response Time (Arithmetic): 0,022650 seconds
+Total Runtime: 0,520956 seconds
+Average Runtime (Arithmetic): 0,022650 seconds
+Average Runtime (Geometric): 0,022266 seconds
+Minimum Runtime: 0,017148 seconds
+Maximum Runtime: 0,032426 seconds
+Runtime Variance: 0,000019 seconds squared
+Runtime Standard Deviation: 0,004390 seconds
+
+Operations per Second: 44,149629
+Operations per Hour: 158 938,664113
+
+Operation ID 4 of type Remote SPARQL Update (/home/ec2-user/bench/queries/cat3/q5.rq)
+Total Runs: 23
+Total Errors: 0
+Total Results: 0
+Average Results: 0
+Total Response Time: 0,468706 seconds
+Average Response Time (Arithmetic): 0,020379 seconds
+Total Runtime: 0,468706 seconds
+Average Runtime (Arithmetic): 0,020379 seconds
+Average Runtime (Geometric): 0,019854 seconds
+Minimum Runtime: 0,014452 seconds
+Maximum Runtime: 0,033214 seconds
+Runtime Variance: 0,000025 seconds squared
+Runtime Standard Deviation: 0,005033 seconds
+
+Operations per Second: 49,071222
+Operations per Hour: 176 656,397859
+
+Operation Mix Summary
+---------------------
+
+Total Mix Runs: 5
+Total Operation Runs: 15
+Start Time: 12/06/2022 15:32:08 +0000
+End Time: 12/06/2022 15:32:24 +0000
+
+Total Errors: 0
+
+Total Response Time: 0,793613 seconds
+Average Response Time (Arithmetic): 0,264538 seconds
+Total Runtime: 0,851174 seconds
+Average Runtime (Arithmetic): 0,283725 seconds
+Average Runtime (Geometric): 0,283257 seconds
+Minimum Mix Runtime: 0,262264 seconds
+Maximum Mix Runtime: 0,301309 seconds
+Mix Runtime Variance: 0,000392 seconds squared
+Mix Runtime Standard Deviation: 0,019809 seconds
+Operation Mixes per Hour: 12 688,352826
+
+[0m

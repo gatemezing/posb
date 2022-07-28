@@ -1,0 +1,978 @@
+Running in verbose mode, run with --quiet to disable
+
+[Thread 1] General Options
+[Thread 1] ---------------
+[Thread 1] 
+[Thread 1] Query Endpoint = https://db-opoceprod.cluster-ctllocetqpml.eu-west-3.neptune.amazonaws.com:8182/sparql
+[Thread 1] Update Endpoint = https://db-opoceprod.cluster-ctllocetqpml.eu-west-3.neptune.amazonaws.com:8182/sparql
+[Thread 1] Graph Store Protocol Endpoint = not specified
+[Thread 1] Sanity Checking Level = 0
+[Thread 1] Random Operation Order = Off
+[Thread 1] Setup Mix = disabled
+[Thread 1] Teardown Mix = disabled
+[Thread 1] Timeout = 10 seconds
+[Thread 1] Max Delay between Operations = 1000 milliseconds
+[Thread 1] Halt on Timeout = false
+[Thread 1] Halt on Error = false
+[Thread 1] Halt Any = false
+[Thread 1] Result Limit = Query Specified
+[Thread 1] Result Counting = Enabled
+[Thread 1] ASK Results Format = application/sparql-results+xml
+[Thread 1] Graph Results Format = application/rdf+xml
+[Thread 1] SELECT Results Format = application/sparql-results+xml
+[Thread 1] Compression = disabled
+[Thread 1] Parallel Threads = 100
+[Thread 1] Authentication = disabled
+[Thread 1] 
+[Thread 1] Benchmark Options
+[Thread 1] ---------------
+[Thread 1] 
+[Thread 1] Warmups = 20
+[Thread 1] Runs = 5
+[Thread 1] Outliers = 1
+[Thread 1] CSV Results File = results/results_neptune_group3_parallel100.csv
+[Thread 1] XML Results File = disabled
+[Thread 1] 
+[Thread 1] 
+[Thread 1] Sanity Check skipped by user...
+[Thread 1] Starting Benchmarking...
+[Thread 1] 5 operations were loaded:
+[Thread 1] Operation ID 0 of type Remote SPARQL Query (/home/ec2-user/bench/queries/cat3/q1.rq)
+[Thread 1] # Q1:
+# LODep: select from the dataBase the list of triples, whose have to be incremented (number of comments, ..)
+#BGP: 6 
+# fixed version for bench
+
+
+PREFIX  lodep: <https://webgate.acceptance.ec.testa.eu/eparticipation/ontologies/LOD_Eparticipation/>
+
+SELECT DISTINCT  ?container ?total ?totalna ?note ?notena
+WHERE
+  {   { OPTIONAL
+          { ?container lodep:num_items_total ?total }
+        OPTIONAL
+          { ?container lodep:num_items_yes ?note }
+        OPTIONAL
+          { ?container lodep:num_items_yes_na ?notena }
+        OPTIONAL
+          { ?container lodep:num_items_total_na ?totalna }
+        FILTER ( ?container = <http://localhost:8000/eli/PROP_DIR/2016/0593/art_1/eng> )
+      }
+    UNION
+      { OPTIONAL
+          { ?container lodep:num_items_total ?total }
+        OPTIONAL
+          { ?container lodep:num_items_yes ?note }
+      }
+  }
+
+[Thread 1] 
+[Thread 1] Operation ID 1 of type Remote SPARQL Update (/home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] prefix lodep: <https://webgate.acceptance.ec.testa.eu/eparticipation/ontologies/LOD_Eparticipation/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+WITH <http://lodepart/graph> DELETE  {
+
+                ?val lodep:num_items_total ?total. 
+                ?val lodep:num_items_yes  ?note. 
+                ?val lodep:num_items_total_na ?totalna. 
+                ?val lodep:num_items_yes_na ?notena. 
+                } 
+                 # and update statistics about comments by increasing by 1
+                INSERT {
+                ?val lodep:num_items_total ?newtotal.
+                ?val lodep:num_items_yes ?newnote.
+                ?val lodep:num_items_total_na ?newtotalna.
+                ?val lodep:num_items_yes_na ?newnotena. 
+               }
+                
+               WHERE {
+                        OPTIONAL{?val lodep:num_items_total ?total. BIND ((xsd:integer(?total) + 1) AS ?newtotal)}
+                        OPTIONAL{?val lodep:num_items_total_na ?totalna. BIND ((xsd:integer(?totalna) + 1) AS ?newtotalna)}
+	                    OPTIONAL{?val lodep:num_items_yes_na ?notena. BIND ((xsd:integer(?notena) + 1) AS ?newnotena)}
+                        OPTIONAL{?val lodep:num_items_yes ?note. BIND ((xsd:integer(?note) + 1) AS ?newnote)}
+                     }
+
+
+[Thread 1] 
+[Thread 1] Operation ID 2 of type Remote SPARQL Update (/home/ec2-user/bench/queries/cat3/q3.rq)
+[Thread 1] ## Q3: insert a Thread with some attributs
+prefix lodep: <https://webgate.acceptance.ec.testa.eu/eparticipation/ontologies/LOD_Eparticipation/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX sioc: <http://rdfs.org/sioc/ns#>
+
+INSERT DATA
+ { 
+ GRAPH <http://lodepart/graph> 
+
+ { 
+     <http://localhost:8000/posts/id_user_9/20161122142401/2016/0593/art_1/eng> lodep:num_items_yes 1;
+             lodep:num_items_yes  1;
+             lodep:num_items_total 1;
+             lodep:num_items_yes_na 1;
+             a sioc:Thread;
+             lodep:num_insertion 0;
+       lodep:num_deletion 0;
+       lodep:num_substitution 0;
+       lodep:num_amendment 0;
+      lodep:num_insertion_na 0;
+      lodep:num_deletion_na 0;
+      lodep:num_substitution_na 0;
+      lodep:num_amendment_na 0;                             
+  }
+  }
+
+[Thread 1] 
+[Thread 1] Operation ID 3 of type Remote SPARQL Update (/home/ec2-user/bench/queries/cat3/q4.rq)
+[Thread 1] ## Q4: Query to put in the dataset the hierarchy of containers (has_parent or realization_of)
+## adding inverse of relations 
+PREFIX  sioc: <http://rdfs.org/sioc/ns#>
+PREFIX  lodep: <https://webgate.acceptance.ec.testa.eu/eparticipation/ontologies/LOD_Eparticipation/>
+
+WITH <http://lodepart/graph>
+INSERT  
+ {
+     ?x sioc:has_parent <http://dbpedia.org/resource/Barack_Obama,_Sr.> .
+     ?y sioc:parent_of <http://dbpedia.org/resource/Barack_Obama> .
+     ?x lodep:realization_of ?y .
+     ?y lodep:realization_by ?x . 
+
+}
+WHERE
+{
+?x sioc:has_parent ?y .
+     ?y sioc:parent_of ?x .
+     ?x lodep:realization_of ?y .
+     ?y lodep:realization_by ?x . 	
+}
+
+[Thread 1] 
+[Thread 1] Operation ID 4 of type Remote SPARQL Update (/home/ec2-user/bench/queries/cat3/q5.rq)
+[Thread 1] ## Q5: Query to insert a post 
+PREFIX  lodep: <https://webgate.acceptance.ec.testa.eu/eparticipation/ontologies/LOD_Eparticipation/>
+PREFIX  sioc: <http://rdfs.org/sioc/ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+INSERT DATA
+{
+GRAPH <http://lodepart/graph> 
+		{
+		<http://localhost:8000/posts/id_user_9/20161122142401/2016/0593/art_1/eng> a sioc:Post;
+		sioc:content "This is my comment.."@eng;
+		sioc:has_creator <http://localhost:8000/user/id_user_9>;
+		sioc:note "yes"^^rdfs:Literal;
+		sioc:created_at "2016-12-20"; 
+		sioc:has_container <http://localhost:8000/eli/PROP_DIR/2016/0593/art_1/eng>;
+		lodep:num_like 0;
+		lodep:num_dislike 0.
+		} 
+	}
+
+[Thread 1] 
+[Thread 1] Running Warmups...
+[Thread 1] 
+[Thread 1] Warmup Run 1 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 10] started responding in 1.521813249s...
+[Thread 1] got 625 result(s) in 1.806387053s
+[Thread 1] Sleeping for 0.8s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 0.290356067s
+[Thread 1] Sleeping for 0.632s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.037803771s
+[Thread 1] Sleeping for 0.233s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.034360956000000005s
+[Thread 1] Sleeping for 0.503s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.026573745s
+[Thread 1] Sleeping for 0.008s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 1,910908 seconds
+[Thread 1] Total Runtime: 2,195482 seconds
+[Thread 1] Minimum Operation Runtime: 0,026574 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+[Thread 1] Maximum Operation Runtime: 1,806387 seconds (Operation /home/ec2-user/bench/queries/cat3/q1.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 2 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 10] started responding in 0.039264765s...
+[Thread 1] got 676 result(s) in 0.128952148s
+[Thread 1] Sleeping for 0.987s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 0.265675343s
+[Thread 1] Sleeping for 0.26s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.033003774s
+[Thread 1] Sleeping for 0.14s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.023334906s
+[Thread 1] Sleeping for 0.277s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.026079341s
+[Thread 1] Sleeping for 0.869s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 0,387358 seconds
+[Thread 1] Total Runtime: 0,477046 seconds
+[Thread 1] Minimum Operation Runtime: 0,023335 seconds (Operation /home/ec2-user/bench/queries/cat3/q4.rq)
+[Thread 1] Maximum Operation Runtime: 0,265675 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 3 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 10] started responding in 0.035115943000000004s...
+[Thread 1] got 729 result(s) in 0.097677742s
+[Thread 1] Sleeping for 0.212s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 0.28707923799999996s
+[Thread 1] Sleeping for 0.545s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.027502635s
+[Thread 1] Sleeping for 0.282s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.023805607s
+[Thread 1] Sleeping for 0.752s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.018536676s
+[Thread 1] Sleeping for 0.926s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 0,392040 seconds
+[Thread 1] Total Runtime: 0,454602 seconds
+[Thread 1] Minimum Operation Runtime: 0,018537 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+[Thread 1] Maximum Operation Runtime: 0,287079 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 4 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 10] started responding in 0.0338628s...
+[Thread 1] got 784 result(s) in 0.090800859s
+[Thread 1] Sleeping for 0.24s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 0.327888758s
+[Thread 1] Sleeping for 0.617s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.024092891s
+[Thread 1] Sleeping for 0.408s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.017462221s
+[Thread 1] Sleeping for 0.815s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.023184174s
+[Thread 1] Sleeping for 0.99s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 0,426491 seconds
+[Thread 1] Total Runtime: 0,483429 seconds
+[Thread 1] Minimum Operation Runtime: 0,017462 seconds (Operation /home/ec2-user/bench/queries/cat3/q4.rq)
+[Thread 1] Maximum Operation Runtime: 0,327889 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 5 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 10] started responding in 0.031129649000000002s...
+[Thread 1] got 841 result(s) in 0.077741034s
+[Thread 1] Sleeping for 0.027s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 0.32644143400000003s
+[Thread 1] Sleeping for 0.161s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.029497581000000002s
+[Thread 1] Sleeping for 0.234s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.025969239s
+[Thread 1] Sleeping for 0.811s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.022410302s
+[Thread 1] Sleeping for 0.627s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 0,435448 seconds
+[Thread 1] Total Runtime: 0,482060 seconds
+[Thread 1] Minimum Operation Runtime: 0,022410 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+[Thread 1] Maximum Operation Runtime: 0,326441 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 6 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 10] started responding in 0.031168548s...
+[Thread 1] got 900 result(s) in 0.083288532s
+[Thread 1] Sleeping for 0.125s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 0.35622290500000003s
+[Thread 1] Sleeping for 0.852s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.035577191999999994s
+[Thread 1] Sleeping for 0.981s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.018292025s
+[Thread 1] Sleeping for 0.875s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.024793389000000002s
+[Thread 1] Sleeping for 0.59s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 0,466054 seconds
+[Thread 1] Total Runtime: 0,518174 seconds
+[Thread 1] Minimum Operation Runtime: 0,018292 seconds (Operation /home/ec2-user/bench/queries/cat3/q4.rq)
+[Thread 1] Maximum Operation Runtime: 0,356223 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 7 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 10] started responding in 0.029359028s...
+[Thread 1] got 961 result(s) in 0.070063024s
+[Thread 1] Sleeping for 0.387s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 0.39744047s
+[Thread 1] Sleeping for 0.752s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.02001143s
+[Thread 1] Sleeping for 0.004s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.023162731000000002s
+[Thread 1] Sleeping for 0.39s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.047175255s
+[Thread 1] Sleeping for 0.575s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 0,517149 seconds
+[Thread 1] Total Runtime: 0,557853 seconds
+[Thread 1] Minimum Operation Runtime: 0,020011 seconds (Operation /home/ec2-user/bench/queries/cat3/q3.rq)
+[Thread 1] Maximum Operation Runtime: 0,397440 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 8 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 12] started responding in 0.035625997s...
+[Thread 1] got 1 024 result(s) in 0.08000694400000001s
+[Thread 1] Sleeping for 0.403s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 0.421570048s
+[Thread 1] Sleeping for 0.954s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.026800971s
+[Thread 1] Sleeping for 0.496s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.018935944s
+[Thread 1] Sleeping for 0.766s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.020423688s
+[Thread 1] Sleeping for 0.454s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 0,523357 seconds
+[Thread 1] Total Runtime: 0,567738 seconds
+[Thread 1] Minimum Operation Runtime: 0,018936 seconds (Operation /home/ec2-user/bench/queries/cat3/q4.rq)
+[Thread 1] Maximum Operation Runtime: 0,421570 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 9 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 12] started responding in 0.023403123999999997s...
+[Thread 1] got 1 089 result(s) in 0.087099165s
+[Thread 1] Sleeping for 0.822s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 0.473421933s
+[Thread 1] Sleeping for 0.323s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.032461381000000004s
+[Thread 1] Sleeping for 0.14s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.02025341s
+[Thread 1] Sleeping for 0.371s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.018885648s
+[Thread 1] Sleeping for 0.272s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 0,568425 seconds
+[Thread 1] Total Runtime: 0,632122 seconds
+[Thread 1] Minimum Operation Runtime: 0,018886 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+[Thread 1] Maximum Operation Runtime: 0,473422 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 10 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 12] started responding in 0.054263981999999995s...
+[Thread 1] got 1 156 result(s) in 0.11168598299999999s
+[Thread 1] Sleeping for 0.226s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 0.506804401s
+[Thread 1] Sleeping for 0.103s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.021965250000000002s
+[Thread 1] Sleeping for 0.853s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.025976661s
+[Thread 1] Sleeping for 0.383s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.0242269s
+[Thread 1] Sleeping for 0.453s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 0,633237 seconds
+[Thread 1] Total Runtime: 0,690659 seconds
+[Thread 1] Minimum Operation Runtime: 0,021965 seconds (Operation /home/ec2-user/bench/queries/cat3/q3.rq)
+[Thread 1] Maximum Operation Runtime: 0,506804 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 11 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 12] started responding in 0.027131036s...
+[Thread 1] got 1 225 result(s) in 0.101399879s
+[Thread 1] Sleeping for 0.089s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 0.559108353s
+[Thread 1] Sleeping for 0.808s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.027242738s
+[Thread 1] Sleeping for 0.892s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.020476053s
+[Thread 1] Sleeping for 0.367s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.016219245s
+[Thread 1] Sleeping for 0.64s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 0,650177 seconds
+[Thread 1] Total Runtime: 0,724446 seconds
+[Thread 1] Minimum Operation Runtime: 0,016219 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+[Thread 1] Maximum Operation Runtime: 0,559108 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 12 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 12] started responding in 0.028658652s...
+[Thread 1] got 1 296 result(s) in 0.10263422900000001s
+[Thread 1] Sleeping for 0.516s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 0.592338112s
+[Thread 1] Sleeping for 0.876s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.019822508s
+[Thread 1] Sleeping for 0.13s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.017162309s
+[Thread 1] Sleeping for 0.338s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.021570595s
+[Thread 1] Sleeping for 0.025s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 0,679552 seconds
+[Thread 1] Total Runtime: 0,753528 seconds
+[Thread 1] Minimum Operation Runtime: 0,017162 seconds (Operation /home/ec2-user/bench/queries/cat3/q4.rq)
+[Thread 1] Maximum Operation Runtime: 0,592338 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 13 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 12] started responding in 0.028724067000000002s...
+[Thread 1] got 1 369 result(s) in 0.103772424s
+[Thread 1] Sleeping for 0.492s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 0.634143937s
+[Thread 1] Sleeping for 0.117s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.020444111s
+[Thread 1] Sleeping for 0.894s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.020391789s
+[Thread 1] Sleeping for 0.759s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.014216709s
+[Thread 1] Sleeping for 0.52s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 0,717921 seconds
+[Thread 1] Total Runtime: 0,792969 seconds
+[Thread 1] Minimum Operation Runtime: 0,014217 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+[Thread 1] Maximum Operation Runtime: 0,634144 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 14 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 12] started responding in 0.029534504s...
+[Thread 1] got 1 444 result(s) in 0.12132198s
+[Thread 1] Sleeping for 0.289s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 0.6628617480000001s
+[Thread 1] Sleeping for 0.445s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.01901653s
+[Thread 1] Sleeping for 0.468s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.016198168s
+[Thread 1] Sleeping for 0.09s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.015797715s
+[Thread 1] Sleeping for 0.399s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 0,743409 seconds
+[Thread 1] Total Runtime: 0,835196 seconds
+[Thread 1] Minimum Operation Runtime: 0,015798 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+[Thread 1] Maximum Operation Runtime: 0,662862 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 15 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 12] started responding in 0.022017314s...
+[Thread 1] got 1 521 result(s) in 0.11003802s
+[Thread 1] Sleeping for 0.92s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 0.791498391s
+[Thread 1] Sleeping for 0.116s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.027362657999999998s
+[Thread 1] Sleeping for 0.158s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.016450647s
+[Thread 1] Sleeping for 0.402s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.014899048s
+[Thread 1] Sleeping for 0.141s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 0,872228 seconds
+[Thread 1] Total Runtime: 0,960249 seconds
+[Thread 1] Minimum Operation Runtime: 0,014899 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+[Thread 1] Maximum Operation Runtime: 0,791498 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 16 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 12] started responding in 0.029464044s...
+[Thread 1] got 1 600 result(s) in 0.12512758s
+[Thread 1] Sleeping for 0.033s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 0.8209069170000001s
+[Thread 1] Sleeping for 0.035s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.026105322s
+[Thread 1] Sleeping for 0.682s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.016296928999999998s
+[Thread 1] Sleeping for 0.181s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.015188868s
+[Thread 1] Sleeping for 0.672s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 0,907962 seconds
+[Thread 1] Total Runtime: 1,003626 seconds
+[Thread 1] Minimum Operation Runtime: 0,015189 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+[Thread 1] Maximum Operation Runtime: 0,820907 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 17 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 12] started responding in 0.026665579000000002s...
+[Thread 1] got 1 681 result(s) in 0.12843641s
+[Thread 1] Sleeping for 0.462s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 0.8632787580000001s
+[Thread 1] Sleeping for 0.73s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.020859711s
+[Thread 1] Sleeping for 0.392s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.023114599s
+[Thread 1] Sleeping for 0.614s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.017972231s
+[Thread 1] Sleeping for 0.558s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 0,951891 seconds
+[Thread 1] Total Runtime: 1,053662 seconds
+[Thread 1] Minimum Operation Runtime: 0,017972 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+[Thread 1] Maximum Operation Runtime: 0,863279 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 18 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 12] started responding in 0.029846509s...
+[Thread 1] got 1 764 result(s) in 0.142643131s
+[Thread 1] Sleeping for 0.749s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 0.949337878s
+[Thread 1] Sleeping for 0.424s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.023800899s
+[Thread 1] Sleeping for 0.048s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.015971191s
+[Thread 1] Sleeping for 0.222s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.014237074s
+[Thread 1] Sleeping for 0.218s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 1,033194 seconds
+[Thread 1] Total Runtime: 1,145990 seconds
+[Thread 1] Minimum Operation Runtime: 0,014237 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+[Thread 1] Maximum Operation Runtime: 0,949338 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 19 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 12] started responding in 0.023792313s...
+[Thread 1] got 1 849 result(s) in 0.146420288s
+[Thread 1] Sleeping for 0.497s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 1.023823413s
+[Thread 1] Sleeping for 0.791s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.019307486999999998s
+[Thread 1] Sleeping for 0.454s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.016628467s
+[Thread 1] Sleeping for 0.865s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.017777787s
+[Thread 1] Sleeping for 0.184s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 1,101329 seconds
+[Thread 1] Total Runtime: 1,223957 seconds
+[Thread 1] Minimum Operation Runtime: 0,016628 seconds (Operation /home/ec2-user/bench/queries/cat3/q4.rq)
+[Thread 1] Maximum Operation Runtime: 1,023823 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 20 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 12] started responding in 0.026915912s...
+[Thread 1] got 1 936 result(s) in 0.15101303100000002s
+[Thread 1] Sleeping for 0.09s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 0.9813644960000001s
+[Thread 1] Sleeping for 0.382s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.038815221000000004s
+[Thread 1] Sleeping for 0.622s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.016228331000000002s
+[Thread 1] Sleeping for 0.958s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.016052413999999997s
+[Thread 1] Sleeping for 0.831s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 1,079376 seconds
+[Thread 1] Total Runtime: 1,203473 seconds
+[Thread 1] Minimum Operation Runtime: 0,016052 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+[Thread 1] Maximum Operation Runtime: 0,981364 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Running Benchmarks...
+[Thread 1] 
+[Thread 1] Start Time: 12/06/2022 10:57:54 +0000
+
+[Thread 12] Parallel Client manager starting...
+[Thread 12] Created Parallel Client ID 1
+[Thread 12] Created Parallel Client ID 2
+[Thread 12] Created Parallel Client ID 3
+[Thread 12] Created Parallel Client ID 4
+[Thread 12] Created Parallel Client ID 5
+[Thread 12] Created Parallel Client ID 6
+[Thread 12] Created Parallel Client ID 7
+[Thread 12] Created Parallel Client ID 8
+[Thread 12] Created Parallel Client ID 9
+[Thread 12] Created Parallel Client ID 10
+[Thread 12] Created Parallel Client ID 11
+[Thread 12] Created Parallel Client ID 12
+[Thread 12] Created Parallel Client ID 13
+[Thread 12] Created Parallel Client ID 14
+[Thread 12] Created Parallel Client ID 15
+[Thread 12] Created Parallel Client ID 16
+[Thread 12] Created Parallel Client ID 17
+[Thread 12] Created Parallel Client ID 18
+[Thread 12] Created Parallel Client ID 19
+[Thread 12] Created Parallel Client ID 20
+[Thread 12] Created Parallel Client ID 21
+[Thread 12] Created Parallel Client ID 22
+[Thread 12] Created Parallel Client ID 23
+[Thread 12] Created Parallel Client ID 24
+[Thread 12] Created Parallel Client ID 25
+[Thread 12] Created Parallel Client ID 26
+[Thread 12] Created Parallel Client ID 27
+[Thread 12] Created Parallel Client ID 28
+[Thread 12] Created Parallel Client ID 29
+[Thread 12] Created Parallel Client ID 30
+[Thread 12] Created Parallel Client ID 31
+[Thread 12] Created Parallel Client ID 32
+[Thread 12] Created Parallel Client ID 33
+[Thread 12] Created Parallel Client ID 34
+[Thread 12] Created Parallel Client ID 35
+[Thread 12] Created Parallel Client ID 36
+[Thread 12] Created Parallel Client ID 37
+[Thread 12] Created Parallel Client ID 38
+[Thread 12] Created Parallel Client ID 39
+[Thread 12] Created Parallel Client ID 40
+[Thread 12] Created Parallel Client ID 41
+[Thread 12] Created Parallel Client ID 42
+[Thread 12] Created Parallel Client ID 43
+[Thread 12] Created Parallel Client ID 44
+[Thread 12] Created Parallel Client ID 45
+[Thread 12] Created Parallel Client ID 46
+[Thread 12] Created Parallel Client ID 47
+[Thread 12] Created Parallel Client ID 48
+[Thread 12] Created Parallel Client ID 49
+[Thread 12] Created Parallel Client ID 50
+[Thread 12] Created Parallel Client ID 51
+[Thread 12] Created Parallel Client ID 52
+[Thread 12] Created Parallel Client ID 53
+[Thread 12] Created Parallel Client ID 54
+[Thread 12] Created Parallel Client ID 55
+[Thread 12] Created Parallel Client ID 56
+[Thread 12] Created Parallel Client ID 57
+[Thread 12] Created Parallel Client ID 58
+[Thread 12] Created Parallel Client ID 59
+[Thread 12] Created Parallel Client ID 60
+[Thread 12] Created Parallel Client ID 61
+[Thread 12] Created Parallel Client ID 62
+[Thread 12] Created Parallel Client ID 63
+[Thread 12] Created Parallel Client ID 64
+[Thread 12] Created Parallel Client ID 65
+[Thread 12] Created Parallel Client ID 66
+[Thread 12] Created Parallel Client ID 67
+[Thread 12] Created Parallel Client ID 68
+[Thread 12] Created Parallel Client ID 69
+[Thread 12] Created Parallel Client ID 70
+[Thread 12] Created Parallel Client ID 71
+[Thread 12] Created Parallel Client ID 72
+[Thread 12] Created Parallel Client ID 73
+[Thread 12] Created Parallel Client ID 74
+[Thread 12] Created Parallel Client ID 75
+[Thread 12] Created Parallel Client ID 76
+[Thread 12] Created Parallel Client ID 77
+[Thread 12] Created Parallel Client ID 78
+[Thread 12] Created Parallel Client ID 79
+[Thread 12] Created Parallel Client ID 80
+[Thread 12] Created Parallel Client ID 81
+[Thread 12] Created Parallel Client ID 82
+[Thread 12] Created Parallel Client ID 83
+[Thread 12] Created Parallel Client ID 84
+[Thread 12] Created Parallel Client ID 85
+[Thread 12] Created Parallel Client ID 86
+[Thread 12] Created Parallel Client ID 87
+[Thread 12] Created Parallel Client ID 88
+[Thread 12] Created Parallel Client ID 89
+[Thread 12] Created Parallel Client ID 90
+[Thread 12] Created Parallel Client ID 91
+[Thread 12] Created Parallel Client ID 92
+[Thread 12] Created Parallel Client ID 93
+[Thread 12] Created Parallel Client ID 94
+[Thread 12] Created Parallel Client ID 95
+[Thread 12] Created Parallel Client ID 96
+[Thread 12] Created Parallel Client ID 97
+[Thread 12] Created Parallel Client ID 98
+[Thread 12] Created Parallel Client ID 99
+[Thread 12] Created Parallel Client ID 100
+[Thread 12] Parallel Client manager is starting clients...
+
+[Thread 10] Client 1 starting new operation mix run
+[Thread 10] Current Time: 12/06/2022 10:57:54 +0000
+
+[Thread 13] Client 2 starting new operation mix run
+[Thread 13] Current Time: 12/06/2022 10:57:54 +0000
+
+[Thread 14] Client 3 starting new operation mix run
+[Thread 14] Current Time: 12/06/2022 10:57:54 +0000
+
+[Thread 15] Client 4 starting new operation mix run
+[Thread 15] Current Time: 12/06/2022 10:57:54 +0000
+
+[Thread 16] Client 5 starting new operation mix run
+[Thread 16] Current Time: 12/06/2022 10:57:54 +0000
+
+[Thread 112] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 112] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 116] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 116] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 115] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 115] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 114] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 114] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 113] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 113] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 108] started responding in 0.038075708s...
+[Thread 110] started responding in 0.058393547s...
+[Thread 109] started responding in 0.06849290999999999s...
+[Thread 111] started responding in 0.07565145s...
+[Thread 107] started responding in 0.079846783s...
+[Thread 115] got 2 025 result(s) in 0.27383401199999996s
+[Thread 115] Sleeping for 0.721s before next operation
+
+[Thread 116] got 2 025 result(s) in 0.273527063s
+[Thread 116] Sleeping for 0.084s before next operation
+
+[Thread 114] got 2 025 result(s) in 0.278571342s
+[Thread 114] Sleeping for 0.786s before next operation
+
+[Thread 113] got 2 025 result(s) in 0.26123234s
+[Thread 113] Sleeping for 0.524s before next operation
+
+[Thread 112] got 2 025 result(s) in 0.298163605s
+[Thread 112] Sleeping for 0.791s before next operation
+
+[Thread 116] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...
+[Thread 113] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...log4j:WARN No appenders could be found for logger (net.sf.sparql.benchmarking.operations.update.callables.AbstractUpdateCallable).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+[Thread 113] got error after 0.091339049s: 500 - Internal Server Error
+[Thread 113] Sleeping for 0.732s before next operation
+
+[Thread 115] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...
+[Thread 114] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...
+[Thread 112] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...
+[Thread 115] got error after 0.399767678s: 500 - Internal Server Error
+[Thread 115] Sleeping for 0.154s before next operation
+
+[Thread 114] got error after 0.336208933s: 500 - Internal Server Error
+[Thread 114] Sleeping for 0.387s before next operation
+
+[Thread 116] got Unknown result(s) in 1.085510103s
+[Thread 116] Sleeping for 0.209s before next operation
+
+[Thread 112] got error after 0.36031515000000003s: 500 - Internal Server Error
+[Thread 112] Sleeping for 0.652s before next operation
+
+[Thread 115] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 115] got Unknown result(s) in 0.021209901s
+[Thread 115] Sleeping for 0.984s before next operation
+
+[Thread 113] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 113] got Unknown result(s) in 0.020938536s
+[Thread 113] Sleeping for 0.127s before next operation
+
+[Thread 116] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 116] got Unknown result(s) in 0.011865875000000001s
+[Thread 116] Sleeping for 0.835s before next operation
+
+[Thread 113] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...
+[Thread 114] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 114] got Unknown result(s) in 0.011611517s
+[Thread 114] Sleeping for 0.774s before next operation
+
+[Thread 113] got Unknown result(s) in 0.023814985s
+[Thread 113] Sleeping for 0.044s before next operation
+[Thread 113] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 113] got Unknown result(s) in 0.015732408s
+[Thread 113] Sleeping for 0.584s before next operation
+
+[Thread 112] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 112] got Unknown result(s) in 0.019200433s
+[Thread 112] Sleeping for 0.604s before next operation
+
+[Thread 13] Operation Mix Run 1 by Client 2
+[Thread 13] 
+[Thread 13] Total Response Time: 0,231672 seconds
+[Thread 13] Total Runtime: 0,413057 seconds
+[Thread 13] Minimum Operation Runtime: 0,015732 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+[Thread 13] Maximum Operation Runtime: 0,261232 seconds (Operation /home/ec2-user/bench/queries/cat3/q1.rq)
+[Thread 13] 
+
+[Thread 116] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 116] got Unknown result(s) in 0.018354169s
+[Thread 116] Sleeping for 0.745s before next operation
+
+[Thread 115] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...
+[Thread 114] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...
+[Thread 115] got Unknown result(s) in 0.018794324s
+[Thread 115] Sleeping for 0.621s before next operation
+
+[Thread 114] got Unknown result(s) in 0.014998136s
+[Thread 114] Sleeping for 0.193s before next operation
+
+[Thread 112] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 112] got Unknown result(s) in 0.022114227s
+[Thread 112] Sleeping for 0.411s before next operation
+
+[Thread 114] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 114] got Unknown result(s) in 0.017105231s
+[Thread 114] Sleeping for 0.342s before next operation
+
+[Thread 14] Operation Mix Run 2 by Client 3
+[Thread 14] 
+[Thread 14] Total Response Time: 0,418000 seconds
+[Thread 14] Total Runtime: 0,658495 seconds
+[Thread 14] Minimum Operation Runtime: 0,011612 seconds (Operation /home/ec2-user/bench/queries/cat3/q3.rq)
+[Thread 14] Maximum Operation Runtime: 0,336209 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 14] 
+
+[Thread 112] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 112] got Unknown result(s) in 0.024235713s
+[Thread 112] Sleeping for 0.425s before next operation
+
+[Thread 115] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 115] got Unknown result(s) in 0.014794046s
+[Thread 115] Sleeping for 0.378s before next operation
+
+[Thread 116] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 116] got Unknown result(s) in 0.018410476s
+[Thread 116] Sleeping for 0.312s before next operation
+
+[Thread 15] Operation Mix Run 3 by Client 4
+[Thread 15] 
+[Thread 15] Total Response Time: 0,523059 seconds
+[Thread 15] Total Runtime: 0,728400 seconds
+[Thread 15] Minimum Operation Runtime: 0,014794 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+[Thread 15] Maximum Operation Runtime: 0,399768 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 15] 
+
+[Thread 16] Operation Mix Run 4 by Client 5
+[Thread 16] 
+[Thread 16] Total Response Time: 1,192534 seconds
+[Thread 16] Total Runtime: 1,407668 seconds
+[Thread 16] Minimum Operation Runtime: 0,011866 seconds (Operation /home/ec2-user/bench/queries/cat3/q3.rq)
+[Thread 16] Maximum Operation Runtime: 1,085510 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 16] 
+
+[Thread 10] Operation Mix Run 5 by Client 1
+[Thread 10] 
+[Thread 10] Total Response Time: 0,501517 seconds
+[Thread 10] Total Runtime: 0,724029 seconds
+[Thread 10] Minimum Operation Runtime: 0,019200 seconds (Operation /home/ec2-user/bench/queries/cat3/q3.rq)
+[Thread 10] Maximum Operation Runtime: 0,360315 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 10] 
+
+[Thread 1] Finished Benchmarking...
+[Thread 1] 
+[Thread 1] Operation Summary
+[Thread 1] -----------------
+[Thread 1] 
+[Thread 1] Operation ID 0 of type Remote SPARQL Query (/home/ec2-user/bench/queries/cat3/q1.rq)
+[Thread 1] Total Runs: 23
+[Thread 1] Total Errors: 0
+[Thread 1] Total Results: 33 009
+[Thread 1] Average Results: 1 435
+[Thread 1] Total Response Time: 0,877045 seconds
+[Thread 1] Average Response Time (Arithmetic): 0,038132 seconds
+[Thread 1] Total Runtime: 3,375388 seconds
+[Thread 1] Actual Runtime: 4,262999 seconds
+[Thread 1] Average Runtime (Arithmetic): 0,146756 seconds
+[Thread 1] Actual Average Runtime (Arithmetic): 0,185348 seconds
+[Thread 1] Average Runtime (Geometric): 0,132824 seconds
+[Thread 1] Minimum Runtime: 0,077741 seconds
+[Thread 1] Maximum Runtime: 0,298164 seconds
+[Thread 1] Runtime Variance: 0,005373 seconds squared
+[Thread 1] Runtime Standard Deviation: 0,073299 seconds
+[Thread 1] 
+[Thread 1] Operations per Second: 6,814032
+[Thread 1] Actual Operations per Second: 5,395263
+[Thread 1] Operations per Hour: 24 530,515239
+[Thread 1] Actual Operations per Hour: 19 422,948201
+[Thread 1] 
+[Thread 1] Operation ID 1 of type Remote SPARQL Update (/home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] Total Runs: 23
+[Thread 1] Total Errors: 3
+[Thread 1] Errors by Category: 
+[Thread 1]   No Error: 20 error(s)
+[Thread 1] Total Results: 0
+[Thread 1] Average Results: 0
+[Thread 1] Total Response Time: 12,627854 seconds
+[Thread 1] Average Response Time (Arithmetic): 0,549037 seconds
+[Thread 1] Total Runtime: 12,627854 seconds
+[Thread 1] Actual Runtime: 12,745663 seconds
+[Thread 1] Average Runtime (Arithmetic): 0,549037 seconds
+[Thread 1] Actual Average Runtime (Arithmetic): 0,554159 seconds
+[Thread 1] Average Runtime (Geometric): 0,500581 seconds
+[Thread 1] Minimum Runtime: 0,265675 seconds
+[Thread 1] Maximum Runtime: 1,023823 seconds
+[Thread 1] Runtime Variance: 0,060345 seconds squared
+[Thread 1] Runtime Standard Deviation: 0,245651 seconds
+[Thread 1] 
+[Thread 1] Operations per Second: 1,821370
+[Thread 1] Actual Operations per Second: 1,804535
+[Thread 1] Operations per Hour: 6 556,933399
+[Thread 1] Actual Operations per Hour: 6 496,327463
+[Thread 1] 
+[Thread 1] Operation ID 2 of type Remote SPARQL Update (/home/ec2-user/bench/queries/cat3/q3.rq)
+[Thread 1] Total Runs: 23
+[Thread 1] Total Errors: 0
+[Thread 1] Total Results: 0
+[Thread 1] Average Results: 0
+[Thread 1] Total Response Time: 0,565894 seconds
+[Thread 1] Average Response Time (Arithmetic): 0,024604 seconds
+[Thread 1] Total Runtime: 0,565894 seconds
+[Thread 1] Actual Runtime: 0,638819 seconds
+[Thread 1] Average Runtime (Arithmetic): 0,024604 seconds
+[Thread 1] Actual Average Runtime (Arithmetic): 0,027775 seconds
+[Thread 1] Average Runtime (Geometric): 0,023853 seconds
+[Thread 1] Minimum Runtime: 0,011866 seconds
+[Thread 1] Maximum Runtime: 0,037804 seconds
+[Thread 1] Runtime Variance: 0,000038 seconds squared
+[Thread 1] Runtime Standard Deviation: 0,006178 seconds
+[Thread 1] 
+[Thread 1] Operations per Second: 40,643685
+[Thread 1] Actual Operations per Second: 36,003957
+[Thread 1] Operations per Hour: 146 317,267535
+[Thread 1] Actual Operations per Hour: 129 614,244605
+[Thread 1] 
+[Thread 1] Operation ID 3 of type Remote SPARQL Update (/home/ec2-user/bench/queries/cat3/q4.rq)
+[Thread 1] Total Runs: 23
+[Thread 1] Total Errors: 0
+[Thread 1] Total Results: 0
+[Thread 1] Average Results: 0
+[Thread 1] Total Response Time: 0,459189 seconds
+[Thread 1] Average Response Time (Arithmetic): 0,019965 seconds
+[Thread 1] Total Runtime: 0,459189 seconds
+[Thread 1] Actual Runtime: 0,530161 seconds
+[Thread 1] Average Runtime (Arithmetic): 0,019965 seconds
+[Thread 1] Actual Average Runtime (Arithmetic): 0,023050 seconds
+[Thread 1] Average Runtime (Geometric): 0,019709 seconds
+[Thread 1] Minimum Runtime: 0,015971 seconds
+[Thread 1] Maximum Runtime: 0,025977 seconds
+[Thread 1] Runtime Variance: 0,000011 seconds squared
+[Thread 1] Runtime Standard Deviation: 0,003312 seconds
+[Thread 1] 
+[Thread 1] Operations per Second: 50,088316
+[Thread 1] Actual Operations per Second: 43,383039
+[Thread 1] Operations per Hour: 180 317,936586
+[Thread 1] Actual Operations per Hour: 156 178,939938
+[Thread 1] 
+[Thread 1] Operation ID 4 of type Remote SPARQL Update (/home/ec2-user/bench/queries/cat3/q5.rq)
+[Thread 1] Total Runs: 23
+[Thread 1] Total Errors: 0
+[Thread 1] Total Results: 0
+[Thread 1] Average Results: 0
+[Thread 1] Total Response Time: 0,445107 seconds
+[Thread 1] Average Response Time (Arithmetic): 0,019352 seconds
+[Thread 1] Total Runtime: 0,445107 seconds
+[Thread 1] Actual Runtime: 0,530650 seconds
+[Thread 1] Average Runtime (Arithmetic): 0,019352 seconds
+[Thread 1] Actual Average Runtime (Arithmetic): 0,023072 seconds
+[Thread 1] Average Runtime (Geometric): 0,018977 seconds
+[Thread 1] Minimum Runtime: 0,014237 seconds
+[Thread 1] Maximum Runtime: 0,026574 seconds
+[Thread 1] Runtime Variance: 0,000016 seconds squared
+[Thread 1] Runtime Standard Deviation: 0,003968 seconds
+[Thread 1] 
+[Thread 1] Operations per Second: 51,673004
+[Thread 1] Actual Operations per Second: 43,343096
+[Thread 1] Operations per Hour: 186 022,814148
+[Thread 1] Actual Operations per Hour: 156 035,146917
+[Thread 1] 
+[Thread 1] Operation Mix Summary
+[Thread 1] ---------------------
+[Thread 1] 
+[Thread 1] Total Mix Runs: 5
+[Thread 1] Total Operation Runs: 15
+[Thread 1] Start Time: 12/06/2022 10:57:54 +0000
+[Thread 1] End Time: 12/06/2022 10:57:58 +0000
+[Thread 1] 
+[Thread 1] Total Errors: 3
+[Thread 1] Errors by Category: 
+[Thread 1]   HTTP Server Error (5xx): 3 error(s)
+[Thread 1] 
+[Thread 1] Total Response Time: 1,442575 seconds
+[Thread 1] Average Response Time (Arithmetic): 0,480858 seconds
+[Thread 1] Total Runtime: 2,110924 seconds
+[Thread 1] Actual Runtime: 18,699013 seconds
+[Thread 1] Average Runtime (Arithmetic): 0,703641 seconds
+[Thread 1] Actual Average Runtime (Arithmetic): 6,233004 seconds
+[Thread 1] Average Runtime (Geometric): 0,702899 seconds
+[Thread 1] Minimum Mix Runtime: 0,658495 seconds
+[Thread 1] Maximum Mix Runtime: 0,728400 seconds
+[Thread 1] Mix Runtime Variance: 0,001533 seconds squared
+[Thread 1] Mix Runtime Standard Deviation: 0,039159 seconds
+[Thread 1] Operation Mixes per Hour: 5 116,242333
+[Thread 1] Actual Operation Mixes per Hour: 577,570584
+[Thread 1] 
+[0m

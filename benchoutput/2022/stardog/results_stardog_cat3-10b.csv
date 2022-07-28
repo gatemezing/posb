@@ -1,0 +1,35 @@
+Total Response Time,Average Response Time (Arithmetic),Total Runtime,Average Runtime (Arithmetic),Average Runtime (Geometric),Minimum Mix Runtime,Maximum Mix Runtime,Variance,Standard Deviation,Operation Mixes per Hour
+1.6811654759999999,0.5603884920000001,1.766399565,0.588799855,0.581779828584664,0.485093016,0.707785966,0.01257312960956311,0.11212996749113553,6114.131940470672
+Options Summary,
+Query Endpoint,http://localhost:5820/opoceGen10b/query
+Update Endpoint,http://localhost:5820/opoceGen10b/update
+Graph Store Endpoint,null
+Sanity Checking Level,0
+Warmups,20
+Runs,5
+Random Operation Order,true
+Outliers,1
+Timeout,10s
+Max Delay between Operations,1000s
+Result Limit,Query Specified
+ASK Results Format,application/sparql-results+xml
+Graph Results Format,application/rdf+xml
+SELECT Results Format,application/sparql-results+xml
+Parallel Threads,1
+Result Counting,false
+,
+Run Summary,
+Run,Total Response Time,Total Runtime,Min Query Runtime,Max Query Runtime
+1,0.35093167,0.372485994,0.007194823,0.292151212
+2,0.465405898,0.485093016,0.008039930999999998,0.40449347999999996
+3,0.540161885,0.573520583,0.0077392,0.477395581
+4,0.675597693,0.707785966,0.007587741,0.614303848
+5,0.877311742,0.913216125,0.00774141,0.8127345319999999
+,
+Operation Summary,
+Operation,Type,Total Response Time,Average Response Time (Arithmetic),Total Runtime,Average Runtime (Arithmetic),Average Runtime (Geometric),Min Runtime,Max Runtime,Variance,Standard Deviation,Queries per Second,Queries per Hour
+/home/ubuntu/bench/queries/cat3/q1.rq,Remote SPARQL Query,0.33563651299999997,0.014592891,0.545856272,0.023732880999999997,2.1282581702411134E7,0.01351394,0.055115154,1.6473116997931534E-4,0.01283476411856935,42.13563452325911,151688.2842837328
+/home/ubuntu/bench/queries/cat3/q2.rq,Remote SPARQL Update,3.168133046,0.137744915,3.168133046,0.137744915,7.47906141214489E7,0.0202577,0.614303848,0.02700178687891976,0.16432220446099108,7.259796123871433,26135.26604593716
+/home/ubuntu/bench/queries/cat3/q3.rq,Remote SPARQL Update,0.198311802,0.008622252,0.198311802,0.008622252,8561844.366079092,0.007196455,0.011776650999999999,1.1938089141951103E-6,0.001092615629668142,115.97898089733401,417524.33123040246
+/home/ubuntu/bench/queries/cat3/q4.rq,Remote SPARQL Update,0.26769308,0.011638829,0.26769308,0.011638829,1.1511703778692354E7,0.009849541,0.014966369,3.3235221019123502E-6,0.0018230529619054818,85.91929652029427,309309.46747305937
+/home/ubuntu/bench/queries/cat3/q5.rq,Remote SPARQL Update,0.695402125,0.030234874999999998,0.695402125,0.030234874999999998,2.9891129384413704E7,0.025956981,0.049746498,2.690032841230255E-5,0.005186552652032229,33.07438843388637,119067.79836199092

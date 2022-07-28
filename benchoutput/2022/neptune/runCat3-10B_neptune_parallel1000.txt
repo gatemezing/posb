@@ -1,0 +1,1879 @@
+Running in verbose mode, run with --quiet to disable
+
+[Thread 1] General Options
+[Thread 1] ---------------
+[Thread 1] 
+[Thread 1] Query Endpoint = https://opoce10b.cluster-ctllocetqpml.eu-west-3.neptune.amazonaws.com:8182/sparql
+[Thread 1] Update Endpoint = https://opoce10b.cluster-ctllocetqpml.eu-west-3.neptune.amazonaws.com:8182/sparql
+[Thread 1] Graph Store Protocol Endpoint = not specified
+[Thread 1] Sanity Checking Level = 0
+[Thread 1] Random Operation Order = Off
+[Thread 1] Setup Mix = disabled
+[Thread 1] Teardown Mix = disabled
+[Thread 1] Timeout = 10 seconds
+[Thread 1] Max Delay between Operations = 1000 milliseconds
+[Thread 1] Halt on Timeout = false
+[Thread 1] Halt on Error = false
+[Thread 1] Halt Any = false
+[Thread 1] Result Limit = Query Specified
+[Thread 1] Result Counting = Enabled
+[Thread 1] ASK Results Format = application/sparql-results+xml
+[Thread 1] Graph Results Format = application/rdf+xml
+[Thread 1] SELECT Results Format = application/sparql-results+xml
+[Thread 1] Compression = disabled
+[Thread 1] Parallel Threads = 1000
+[Thread 1] Authentication = disabled
+[Thread 1] 
+[Thread 1] Benchmark Options
+[Thread 1] ---------------
+[Thread 1] 
+[Thread 1] Warmups = 20
+[Thread 1] Runs = 5
+[Thread 1] Outliers = 1
+[Thread 1] CSV Results File = results/results_neptune_group3_10B_parallel1000.csv
+[Thread 1] XML Results File = disabled
+[Thread 1] 
+[Thread 1] 
+[Thread 1] Sanity Check skipped by user...
+[Thread 1] Starting Benchmarking...
+[Thread 1] 5 operations were loaded:
+[Thread 1] Operation ID 0 of type Remote SPARQL Query (/home/ec2-user/bench/queries/cat3/q1.rq)
+[Thread 1] # Q1:
+# LODep: select from the dataBase the list of triples, whose have to be incremented (number of comments, ..)
+#BGP: 6 
+# fixed version for bench
+
+
+PREFIX  lodep: <https://webgate.acceptance.ec.testa.eu/eparticipation/ontologies/LOD_Eparticipation/>
+
+SELECT DISTINCT  ?container ?total ?totalna ?note ?notena
+WHERE
+  {   { OPTIONAL
+          { ?container lodep:num_items_total ?total }
+        OPTIONAL
+          { ?container lodep:num_items_yes ?note }
+        OPTIONAL
+          { ?container lodep:num_items_yes_na ?notena }
+        OPTIONAL
+          { ?container lodep:num_items_total_na ?totalna }
+        FILTER ( ?container = <http://localhost:8000/eli/PROP_DIR/2016/0593/art_1/eng> )
+      }
+    UNION
+      { OPTIONAL
+          { ?container lodep:num_items_total ?total }
+        OPTIONAL
+          { ?container lodep:num_items_yes ?note }
+      }
+  }
+
+[Thread 1] 
+[Thread 1] Operation ID 1 of type Remote SPARQL Update (/home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] prefix lodep: <https://webgate.acceptance.ec.testa.eu/eparticipation/ontologies/LOD_Eparticipation/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+WITH <http://lodepart/graph> DELETE  {
+
+                ?val lodep:num_items_total ?total. 
+                ?val lodep:num_items_yes  ?note. 
+                ?val lodep:num_items_total_na ?totalna. 
+                ?val lodep:num_items_yes_na ?notena. 
+                } 
+                 # and update statistics about comments by increasing by 1
+                INSERT {
+                ?val lodep:num_items_total ?newtotal.
+                ?val lodep:num_items_yes ?newnote.
+                ?val lodep:num_items_total_na ?newtotalna.
+                ?val lodep:num_items_yes_na ?newnotena. 
+               }
+                
+               WHERE {
+                        OPTIONAL{?val lodep:num_items_total ?total. BIND ((xsd:integer(?total) + 1) AS ?newtotal)}
+                        OPTIONAL{?val lodep:num_items_total_na ?totalna. BIND ((xsd:integer(?totalna) + 1) AS ?newtotalna)}
+	                    OPTIONAL{?val lodep:num_items_yes_na ?notena. BIND ((xsd:integer(?notena) + 1) AS ?newnotena)}
+                        OPTIONAL{?val lodep:num_items_yes ?note. BIND ((xsd:integer(?note) + 1) AS ?newnote)}
+                     }
+
+
+[Thread 1] 
+[Thread 1] Operation ID 2 of type Remote SPARQL Update (/home/ec2-user/bench/queries/cat3/q3.rq)
+[Thread 1] ## Q3: insert a Thread with some attributs
+prefix lodep: <https://webgate.acceptance.ec.testa.eu/eparticipation/ontologies/LOD_Eparticipation/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX sioc: <http://rdfs.org/sioc/ns#>
+
+INSERT DATA
+ { 
+ GRAPH <http://lodepart/graph> 
+
+ { 
+     <http://localhost:8000/posts/id_user_9/20161122142401/2016/0593/art_1/eng> lodep:num_items_yes 1;
+             lodep:num_items_yes  1;
+             lodep:num_items_total 1;
+             lodep:num_items_yes_na 1;
+             a sioc:Thread;
+             lodep:num_insertion 0;
+       lodep:num_deletion 0;
+       lodep:num_substitution 0;
+       lodep:num_amendment 0;
+      lodep:num_insertion_na 0;
+      lodep:num_deletion_na 0;
+      lodep:num_substitution_na 0;
+      lodep:num_amendment_na 0;                             
+  }
+  }
+
+[Thread 1] 
+[Thread 1] Operation ID 3 of type Remote SPARQL Update (/home/ec2-user/bench/queries/cat3/q4.rq)
+[Thread 1] ## Q4: Query to put in the dataset the hierarchy of containers (has_parent or realization_of)
+## adding inverse of relations 
+PREFIX  sioc: <http://rdfs.org/sioc/ns#>
+PREFIX  lodep: <https://webgate.acceptance.ec.testa.eu/eparticipation/ontologies/LOD_Eparticipation/>
+
+WITH <http://lodepart/graph>
+INSERT  
+ {
+     ?x sioc:has_parent <http://dbpedia.org/resource/Barack_Obama,_Sr.> .
+     ?y sioc:parent_of <http://dbpedia.org/resource/Barack_Obama> .
+     ?x lodep:realization_of ?y .
+     ?y lodep:realization_by ?x . 
+
+}
+WHERE
+{
+?x sioc:has_parent ?y .
+     ?y sioc:parent_of ?x .
+     ?x lodep:realization_of ?y .
+     ?y lodep:realization_by ?x . 	
+}
+
+[Thread 1] 
+[Thread 1] Operation ID 4 of type Remote SPARQL Update (/home/ec2-user/bench/queries/cat3/q5.rq)
+[Thread 1] ## Q5: Query to insert a post 
+PREFIX  lodep: <https://webgate.acceptance.ec.testa.eu/eparticipation/ontologies/LOD_Eparticipation/>
+PREFIX  sioc: <http://rdfs.org/sioc/ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+INSERT DATA
+{
+GRAPH <http://lodepart/graph> 
+		{
+		<http://localhost:8000/posts/id_user_9/20161122142401/2016/0593/art_1/eng> a sioc:Post;
+		sioc:content "This is my comment.."@eng;
+		sioc:has_creator <http://localhost:8000/user/id_user_9>;
+		sioc:note "yes"^^rdfs:Literal;
+		sioc:created_at "2016-12-20"; 
+		sioc:has_container <http://localhost:8000/eli/PROP_DIR/2016/0593/art_1/eng>;
+		lodep:num_like 0;
+		lodep:num_dislike 0.
+		} 
+	}
+
+[Thread 1] 
+[Thread 1] Running Warmups...
+[Thread 1] 
+[Thread 1] Warmup Run 1 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 10] started responding in 1.494484409s...
+[Thread 1] got 2 116 result(s) in 2.0280457s
+[Thread 1] Sleeping for 0.388s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 1.001185727s
+[Thread 1] Sleeping for 0.97s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.03120043s
+[Thread 1] Sleeping for 0.138s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.036184939s
+[Thread 1] Sleeping for 0.548s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.032724906s
+[Thread 1] Sleeping for 0.344s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 2,595780 seconds
+[Thread 1] Total Runtime: 3,129342 seconds
+[Thread 1] Minimum Operation Runtime: 0,031200 seconds (Operation /home/ec2-user/bench/queries/cat3/q3.rq)
+[Thread 1] Maximum Operation Runtime: 2,028046 seconds (Operation /home/ec2-user/bench/queries/cat3/q1.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 2 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 10] started responding in 0.037996838s...
+[Thread 1] got 2 209 result(s) in 0.230085552s
+[Thread 1] Sleeping for 0.731s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 1.213487913s
+[Thread 1] Sleeping for 0.717s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.028576875999999998s
+[Thread 1] Sleeping for 0.479s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.020502565s
+[Thread 1] Sleeping for 0.78s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.019520727999999998s
+[Thread 1] Sleeping for 0.115s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 1,320085 seconds
+[Thread 1] Total Runtime: 1,512174 seconds
+[Thread 1] Minimum Operation Runtime: 0,019521 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+[Thread 1] Maximum Operation Runtime: 1,213488 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 3 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 10] started responding in 0.033143996s...
+[Thread 1] got 2 304 result(s) in 0.20553665699999998s
+[Thread 1] Sleeping for 0.95s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 1.309170065s
+[Thread 1] Sleeping for 0.091s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.031140749s
+[Thread 1] Sleeping for 0.498s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.029659484s
+[Thread 1] Sleeping for 0.263s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.0213034s
+[Thread 1] Sleeping for 0.03s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 1,424418 seconds
+[Thread 1] Total Runtime: 1,596810 seconds
+[Thread 1] Minimum Operation Runtime: 0,021303 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+[Thread 1] Maximum Operation Runtime: 1,309170 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 4 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 10] started responding in 0.033670567s...
+[Thread 1] got 2 401 result(s) in 0.20417194s
+[Thread 1] Sleeping for 0.027s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 1.342206032s
+[Thread 1] Sleeping for 0.513s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.020287311s
+[Thread 1] Sleeping for 0.408s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.024504902000000002s
+[Thread 1] Sleeping for 0.801s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.027048649999999997s
+[Thread 1] Sleeping for 0.504s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 1,447717 seconds
+[Thread 1] Total Runtime: 1,618219 seconds
+[Thread 1] Minimum Operation Runtime: 0,020287 seconds (Operation /home/ec2-user/bench/queries/cat3/q3.rq)
+[Thread 1] Maximum Operation Runtime: 1,342206 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 5 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 10] started responding in 0.025047441s...
+[Thread 1] got 2 500 result(s) in 0.183566408s
+[Thread 1] Sleeping for 0.704s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 1.245358073s
+[Thread 1] Sleeping for 0.982s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.026556525s
+[Thread 1] Sleeping for 0.272s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.021647367s
+[Thread 1] Sleeping for 0.907s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.016456741s
+[Thread 1] Sleeping for 0.124s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 1,335066 seconds
+[Thread 1] Total Runtime: 1,493585 seconds
+[Thread 1] Minimum Operation Runtime: 0,016457 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+[Thread 1] Maximum Operation Runtime: 1,245358 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 6 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 10] started responding in 0.02721078s...
+[Thread 1] got 2 601 result(s) in 0.18648666s
+[Thread 1] Sleeping for 0.106s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 1.3151623890000002s
+[Thread 1] Sleeping for 0.941s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.025051711999999997s
+[Thread 1] Sleeping for 0.224s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.015170098s
+[Thread 1] Sleeping for 0.083s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.016647127s
+[Thread 1] Sleeping for 0.391s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 1,399242 seconds
+[Thread 1] Total Runtime: 1,558518 seconds
+[Thread 1] Minimum Operation Runtime: 0,015170 seconds (Operation /home/ec2-user/bench/queries/cat3/q4.rq)
+[Thread 1] Maximum Operation Runtime: 1,315162 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 7 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 10] started responding in 0.026689914000000002s...
+[Thread 1] got 2 704 result(s) in 0.20245083s
+[Thread 1] Sleeping for 0.255s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 1.3737883690000001s
+[Thread 1] Sleeping for 0.997s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.022565622s
+[Thread 1] Sleeping for 0.339s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.016787233000000002s
+[Thread 1] Sleeping for 0.999s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.018554628s
+[Thread 1] Sleeping for 0.446s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 1,458386 seconds
+[Thread 1] Total Runtime: 1,634147 seconds
+[Thread 1] Minimum Operation Runtime: 0,016787 seconds (Operation /home/ec2-user/bench/queries/cat3/q4.rq)
+[Thread 1] Maximum Operation Runtime: 1,373788 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 8 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 10] started responding in 0.032401104s...
+[Thread 1] got 2 809 result(s) in 0.21507467700000002s
+[Thread 1] Sleeping for 0.727s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 1.4786213190000002s
+[Thread 1] Sleeping for 0.492s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.022439846s
+[Thread 1] Sleeping for 0.743s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.01486405s
+[Thread 1] Sleeping for 0.862s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.016932079000000003s
+[Thread 1] Sleeping for 0.278s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 1,565258 seconds
+[Thread 1] Total Runtime: 1,747932 seconds
+[Thread 1] Minimum Operation Runtime: 0,014864 seconds (Operation /home/ec2-user/bench/queries/cat3/q4.rq)
+[Thread 1] Maximum Operation Runtime: 1,478621 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 9 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 10] started responding in 0.027037251999999998s...
+[Thread 1] got 2 916 result(s) in 0.22599849s
+[Thread 1] Sleeping for 0.015s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 1.532686715s
+[Thread 1] Sleeping for 0.591s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.021485133s
+[Thread 1] Sleeping for 0.871s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.017607372000000003s
+[Thread 1] Sleeping for 0.664s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.019113638999999998s
+[Thread 1] Sleeping for 0.175s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 1,617930 seconds
+[Thread 1] Total Runtime: 1,816891 seconds
+[Thread 1] Minimum Operation Runtime: 0,017607 seconds (Operation /home/ec2-user/bench/queries/cat3/q4.rq)
+[Thread 1] Maximum Operation Runtime: 1,532687 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 10 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 10] started responding in 0.030426403s...
+[Thread 1] got 3 025 result(s) in 0.23779782900000002s
+[Thread 1] Sleeping for 0.311s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 1.873453485s
+[Thread 1] Sleeping for 0.422s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.023434476s
+[Thread 1] Sleeping for 0.768s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.014239466000000001s
+[Thread 1] Sleeping for 0.45s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.023283601s
+[Thread 1] Sleeping for 0.154s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 1,964837 seconds
+[Thread 1] Total Runtime: 2,172209 seconds
+[Thread 1] Minimum Operation Runtime: 0,014239 seconds (Operation /home/ec2-user/bench/queries/cat3/q4.rq)
+[Thread 1] Maximum Operation Runtime: 1,873453 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 11 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 10] started responding in 0.025720181s...
+[Thread 1] got 3 136 result(s) in 0.24567359300000002s
+[Thread 1] Sleeping for 0.301s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 2.028345786s
+[Thread 1] Sleeping for 0.927s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.019808704s
+[Thread 1] Sleeping for 0.987s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.020213036s
+[Thread 1] Sleeping for 0.425s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.018882239s
+[Thread 1] Sleeping for 0.208s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 2,112970 seconds
+[Thread 1] Total Runtime: 2,332923 seconds
+[Thread 1] Minimum Operation Runtime: 0,018882 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+[Thread 1] Maximum Operation Runtime: 2,028346 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 12 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 10] started responding in 0.02541036s...
+[Thread 1] got 3 249 result(s) in 0.26755402500000003s
+[Thread 1] Sleeping for 0.072s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 1.809302502s
+[Thread 1] Sleeping for 0.03s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.019476044s
+[Thread 1] Sleeping for 0.481s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.022138020999999997s
+[Thread 1] Sleeping for 0.832s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.015819857s
+[Thread 1] Sleeping for 0.052s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 1,892147 seconds
+[Thread 1] Total Runtime: 2,134290 seconds
+[Thread 1] Minimum Operation Runtime: 0,015820 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+[Thread 1] Maximum Operation Runtime: 1,809303 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 13 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 10] started responding in 0.021227556s...
+[Thread 1] got 3 364 result(s) in 0.25954873700000003s
+[Thread 1] Sleeping for 0.255s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 1.8665507829999999s
+[Thread 1] Sleeping for 0.23s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.016355415s
+[Thread 1] Sleeping for 0.197s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.0172994s
+[Thread 1] Sleeping for 0.06s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.017893271s
+[Thread 1] Sleeping for 0.394s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 1,939326 seconds
+[Thread 1] Total Runtime: 2,177648 seconds
+[Thread 1] Minimum Operation Runtime: 0,016355 seconds (Operation /home/ec2-user/bench/queries/cat3/q3.rq)
+[Thread 1] Maximum Operation Runtime: 1,866551 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 14 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 10] started responding in 0.027370311999999997s...
+[Thread 1] got 3 481 result(s) in 0.268289439s
+[Thread 1] Sleeping for 0.458s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 2.0047309909999997s
+[Thread 1] Sleeping for 0.708s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.017108802s
+[Thread 1] Sleeping for 0.625s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.050964789s
+[Thread 1] Sleeping for 0.604s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.016437151s
+[Thread 1] Sleeping for 0.401s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 2,116612 seconds
+[Thread 1] Total Runtime: 2,357531 seconds
+[Thread 1] Minimum Operation Runtime: 0,016437 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+[Thread 1] Maximum Operation Runtime: 2,004731 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 15 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 10] started responding in 0.022155836s...
+[Thread 1] got 3 600 result(s) in 0.258060403s
+[Thread 1] Sleeping for 0.465s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 2.186627626s
+[Thread 1] Sleeping for 0.465s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.034440768s
+[Thread 1] Sleeping for 0.552s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.026087060999999998s
+[Thread 1] Sleeping for 0.794s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.013848282s
+[Thread 1] Sleeping for 0.631s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 2,283160 seconds
+[Thread 1] Total Runtime: 2,519064 seconds
+[Thread 1] Minimum Operation Runtime: 0,013848 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+[Thread 1] Maximum Operation Runtime: 2,186628 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 16 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 10] started responding in 0.023600167s...
+[Thread 1] got 3 721 result(s) in 0.295257447s
+[Thread 1] Sleeping for 0.588s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 2.327928553s
+[Thread 1] Sleeping for 0.297s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.021227731s
+[Thread 1] Sleeping for 0.285s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.021041052s
+[Thread 1] Sleeping for 0.855s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.014857969s
+[Thread 1] Sleeping for 0.45s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 2,408655 seconds
+[Thread 1] Total Runtime: 2,680313 seconds
+[Thread 1] Minimum Operation Runtime: 0,014858 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+[Thread 1] Maximum Operation Runtime: 2,327929 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 17 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 10] started responding in 0.01959964s...
+[Thread 1] got 3 844 result(s) in 0.301516713s
+[Thread 1] Sleeping for 0.661s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 2.28797318s
+[Thread 1] Sleeping for 0.495s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.018284500000000002s
+[Thread 1] Sleeping for 0.005s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.016434044000000002s
+[Thread 1] Sleeping for 0.622s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.018777234s
+[Thread 1] Sleeping for 0.926s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 2,361069 seconds
+[Thread 1] Total Runtime: 2,642986 seconds
+[Thread 1] Minimum Operation Runtime: 0,016434 seconds (Operation /home/ec2-user/bench/queries/cat3/q4.rq)
+[Thread 1] Maximum Operation Runtime: 2,287973 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 18 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 10] started responding in 0.024295292s...
+[Thread 1] got 3 969 result(s) in 0.319285797s
+[Thread 1] Sleeping for 0.18s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 2.4399067s
+[Thread 1] Sleeping for 0.786s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.015496803s
+[Thread 1] Sleeping for 0.4s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.012493943s
+[Thread 1] Sleeping for 0.39s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.017009097s
+[Thread 1] Sleeping for 0.954s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 2,509202 seconds
+[Thread 1] Total Runtime: 2,804192 seconds
+[Thread 1] Minimum Operation Runtime: 0,012494 seconds (Operation /home/ec2-user/bench/queries/cat3/q4.rq)
+[Thread 1] Maximum Operation Runtime: 2,439907 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 19 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 10] started responding in 0.018169183000000002s...
+[Thread 1] got 4 096 result(s) in 0.332295026s
+[Thread 1] Sleeping for 0.092s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 2.545722038s
+[Thread 1] Sleeping for 0.999s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.020996006s
+[Thread 1] Sleeping for 0.502s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.013335099s
+[Thread 1] Sleeping for 0.748s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.01463241s
+[Thread 1] Sleeping for 0.339s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 2,612855 seconds
+[Thread 1] Total Runtime: 2,926981 seconds
+[Thread 1] Minimum Operation Runtime: 0,013335 seconds (Operation /home/ec2-user/bench/queries/cat3/q4.rq)
+[Thread 1] Maximum Operation Runtime: 2,545722 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Warmup Run 20 of 20
+[Thread 1] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 10] started responding in 0.025536646s...
+[Thread 1] got 4 225 result(s) in 0.347966771s
+[Thread 1] Sleeping for 0.508s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...[Thread 1] got Unknown result(s) in 2.701832841s
+[Thread 1] Sleeping for 0.069s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1] got Unknown result(s) in 0.016671136s
+[Thread 1] Sleeping for 0.734s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1] got Unknown result(s) in 0.023203767s
+[Thread 1] Sleeping for 0.374s before next operation
+[Thread 1] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1] got Unknown result(s) in 0.01698498s
+[Thread 1] Sleeping for 0.584s before next operation
+[Thread 1] 
+[Thread 1] Total Response Time: 2,784229 seconds
+[Thread 1] Total Runtime: 3,106659 seconds
+[Thread 1] Minimum Operation Runtime: 0,016671 seconds (Operation /home/ec2-user/bench/queries/cat3/q3.rq)
+[Thread 1] Maximum Operation Runtime: 2,701833 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] 
+[Thread 1] Running Benchmarks...
+[Thread 1] 
+[Thread 1] Start Time: 12/06/2022 15:40:28 +0000
+
+[Thread 10] Parallel Client manager starting...
+[Thread 10] Created Parallel Client ID 1
+[Thread 10] Created Parallel Client ID 2
+[Thread 10] Created Parallel Client ID 3
+[Thread 10] Created Parallel Client ID 4
+[Thread 10] Created Parallel Client ID 5
+[Thread 10] Created Parallel Client ID 6
+[Thread 10] Created Parallel Client ID 7
+[Thread 10] Created Parallel Client ID 8
+[Thread 10] Created Parallel Client ID 9
+[Thread 10] Created Parallel Client ID 10
+[Thread 10] Created Parallel Client ID 11
+[Thread 10] Created Parallel Client ID 12
+[Thread 10] Created Parallel Client ID 13
+[Thread 10] Created Parallel Client ID 14
+[Thread 10] Created Parallel Client ID 15
+[Thread 10] Created Parallel Client ID 16
+[Thread 10] Created Parallel Client ID 17
+[Thread 10] Created Parallel Client ID 18
+[Thread 10] Created Parallel Client ID 19
+[Thread 10] Created Parallel Client ID 20
+[Thread 10] Created Parallel Client ID 21
+[Thread 10] Created Parallel Client ID 22
+[Thread 10] Created Parallel Client ID 23
+[Thread 10] Created Parallel Client ID 24
+[Thread 10] Created Parallel Client ID 25
+[Thread 10] Created Parallel Client ID 26
+[Thread 10] Created Parallel Client ID 27
+[Thread 10] Created Parallel Client ID 28
+[Thread 10] Created Parallel Client ID 29
+[Thread 10] Created Parallel Client ID 30
+[Thread 10] Created Parallel Client ID 31
+[Thread 10] Created Parallel Client ID 32
+[Thread 10] Created Parallel Client ID 33
+[Thread 10] Created Parallel Client ID 34
+[Thread 10] Created Parallel Client ID 35
+[Thread 10] Created Parallel Client ID 36
+[Thread 10] Created Parallel Client ID 37
+[Thread 10] Created Parallel Client ID 38
+[Thread 10] Created Parallel Client ID 39
+[Thread 10] Created Parallel Client ID 40
+[Thread 10] Created Parallel Client ID 41
+[Thread 10] Created Parallel Client ID 42
+[Thread 10] Created Parallel Client ID 43
+[Thread 10] Created Parallel Client ID 44
+[Thread 10] Created Parallel Client ID 45
+[Thread 10] Created Parallel Client ID 46
+[Thread 10] Created Parallel Client ID 47
+[Thread 10] Created Parallel Client ID 48
+[Thread 10] Created Parallel Client ID 49
+[Thread 10] Created Parallel Client ID 50
+[Thread 10] Created Parallel Client ID 51
+[Thread 10] Created Parallel Client ID 52
+[Thread 10] Created Parallel Client ID 53
+[Thread 10] Created Parallel Client ID 54
+[Thread 10] Created Parallel Client ID 55
+[Thread 10] Created Parallel Client ID 56
+[Thread 10] Created Parallel Client ID 57
+[Thread 10] Created Parallel Client ID 58
+[Thread 10] Created Parallel Client ID 59
+[Thread 10] Created Parallel Client ID 60
+[Thread 10] Created Parallel Client ID 61
+[Thread 10] Created Parallel Client ID 62
+[Thread 10] Created Parallel Client ID 63
+[Thread 10] Created Parallel Client ID 64
+[Thread 10] Created Parallel Client ID 65
+[Thread 10] Created Parallel Client ID 66
+[Thread 10] Created Parallel Client ID 67
+[Thread 10] Created Parallel Client ID 68
+[Thread 10] Created Parallel Client ID 69
+[Thread 10] Created Parallel Client ID 70
+[Thread 10] Created Parallel Client ID 71
+[Thread 10] Created Parallel Client ID 72
+[Thread 10] Created Parallel Client ID 73
+[Thread 10] Created Parallel Client ID 74
+[Thread 10] Created Parallel Client ID 75
+[Thread 10] Created Parallel Client ID 76
+[Thread 10] Created Parallel Client ID 77
+[Thread 10] Created Parallel Client ID 78
+[Thread 10] Created Parallel Client ID 79
+[Thread 10] Created Parallel Client ID 80
+[Thread 10] Created Parallel Client ID 81
+[Thread 10] Created Parallel Client ID 82
+[Thread 10] Created Parallel Client ID 83
+[Thread 10] Created Parallel Client ID 84
+[Thread 10] Created Parallel Client ID 85
+[Thread 10] Created Parallel Client ID 86
+[Thread 10] Created Parallel Client ID 87
+[Thread 10] Created Parallel Client ID 88
+[Thread 10] Created Parallel Client ID 89
+[Thread 10] Created Parallel Client ID 90
+[Thread 10] Created Parallel Client ID 91
+[Thread 10] Created Parallel Client ID 92
+[Thread 10] Created Parallel Client ID 93
+[Thread 10] Created Parallel Client ID 94
+[Thread 10] Created Parallel Client ID 95
+[Thread 10] Created Parallel Client ID 96
+[Thread 10] Created Parallel Client ID 97
+[Thread 10] Created Parallel Client ID 98
+[Thread 10] Created Parallel Client ID 99
+[Thread 10] Created Parallel Client ID 100
+[Thread 10] Created Parallel Client ID 101
+[Thread 10] Created Parallel Client ID 102
+[Thread 10] Created Parallel Client ID 103
+[Thread 10] Created Parallel Client ID 104
+[Thread 10] Created Parallel Client ID 105
+[Thread 10] Created Parallel Client ID 106
+[Thread 10] Created Parallel Client ID 107
+[Thread 10] Created Parallel Client ID 108
+[Thread 10] Created Parallel Client ID 109
+[Thread 10] Created Parallel Client ID 110
+[Thread 10] Created Parallel Client ID 111
+[Thread 10] Created Parallel Client ID 112
+[Thread 10] Created Parallel Client ID 113
+[Thread 10] Created Parallel Client ID 114
+[Thread 10] Created Parallel Client ID 115
+[Thread 10] Created Parallel Client ID 116
+[Thread 10] Created Parallel Client ID 117
+[Thread 10] Created Parallel Client ID 118
+[Thread 10] Created Parallel Client ID 119
+[Thread 10] Created Parallel Client ID 120
+[Thread 10] Created Parallel Client ID 121
+[Thread 10] Created Parallel Client ID 122
+[Thread 10] Created Parallel Client ID 123
+[Thread 10] Created Parallel Client ID 124
+[Thread 10] Created Parallel Client ID 125
+[Thread 10] Created Parallel Client ID 126
+[Thread 10] Created Parallel Client ID 127
+[Thread 10] Created Parallel Client ID 128
+[Thread 10] Created Parallel Client ID 129
+[Thread 10] Created Parallel Client ID 130
+[Thread 10] Created Parallel Client ID 131
+[Thread 10] Created Parallel Client ID 132
+[Thread 10] Created Parallel Client ID 133
+[Thread 10] Created Parallel Client ID 134
+[Thread 10] Created Parallel Client ID 135
+[Thread 10] Created Parallel Client ID 136
+[Thread 10] Created Parallel Client ID 137
+[Thread 10] Created Parallel Client ID 138
+[Thread 10] Created Parallel Client ID 139
+[Thread 10] Created Parallel Client ID 140
+[Thread 10] Created Parallel Client ID 141
+[Thread 10] Created Parallel Client ID 142
+[Thread 10] Created Parallel Client ID 143
+[Thread 10] Created Parallel Client ID 144
+[Thread 10] Created Parallel Client ID 145
+[Thread 10] Created Parallel Client ID 146
+[Thread 10] Created Parallel Client ID 147
+[Thread 10] Created Parallel Client ID 148
+[Thread 10] Created Parallel Client ID 149
+[Thread 10] Created Parallel Client ID 150
+[Thread 10] Created Parallel Client ID 151
+[Thread 10] Created Parallel Client ID 152
+[Thread 10] Created Parallel Client ID 153
+[Thread 10] Created Parallel Client ID 154
+[Thread 10] Created Parallel Client ID 155
+[Thread 10] Created Parallel Client ID 156
+[Thread 10] Created Parallel Client ID 157
+[Thread 10] Created Parallel Client ID 158
+[Thread 10] Created Parallel Client ID 159
+[Thread 10] Created Parallel Client ID 160
+[Thread 10] Created Parallel Client ID 161
+[Thread 10] Created Parallel Client ID 162
+[Thread 10] Created Parallel Client ID 163
+[Thread 10] Created Parallel Client ID 164
+[Thread 10] Created Parallel Client ID 165
+[Thread 10] Created Parallel Client ID 166
+[Thread 10] Created Parallel Client ID 167
+[Thread 10] Created Parallel Client ID 168
+[Thread 10] Created Parallel Client ID 169
+[Thread 10] Created Parallel Client ID 170
+[Thread 10] Created Parallel Client ID 171
+[Thread 10] Created Parallel Client ID 172
+[Thread 10] Created Parallel Client ID 173
+[Thread 10] Created Parallel Client ID 174
+[Thread 10] Created Parallel Client ID 175
+[Thread 10] Created Parallel Client ID 176
+[Thread 10] Created Parallel Client ID 177
+[Thread 10] Created Parallel Client ID 178
+[Thread 10] Created Parallel Client ID 179
+[Thread 10] Created Parallel Client ID 180
+[Thread 10] Created Parallel Client ID 181
+[Thread 10] Created Parallel Client ID 182
+[Thread 10] Created Parallel Client ID 183
+[Thread 10] Created Parallel Client ID 184
+[Thread 10] Created Parallel Client ID 185
+[Thread 10] Created Parallel Client ID 186
+[Thread 10] Created Parallel Client ID 187
+[Thread 10] Created Parallel Client ID 188
+[Thread 10] Created Parallel Client ID 189
+[Thread 10] Created Parallel Client ID 190
+[Thread 10] Created Parallel Client ID 191
+[Thread 10] Created Parallel Client ID 192
+[Thread 10] Created Parallel Client ID 193
+[Thread 10] Created Parallel Client ID 194
+[Thread 10] Created Parallel Client ID 195
+[Thread 10] Created Parallel Client ID 196
+[Thread 10] Created Parallel Client ID 197
+[Thread 10] Created Parallel Client ID 198
+[Thread 10] Created Parallel Client ID 199
+[Thread 10] Created Parallel Client ID 200
+[Thread 10] Created Parallel Client ID 201
+[Thread 10] Created Parallel Client ID 202
+[Thread 10] Created Parallel Client ID 203
+[Thread 10] Created Parallel Client ID 204
+[Thread 10] Created Parallel Client ID 205
+[Thread 10] Created Parallel Client ID 206
+[Thread 10] Created Parallel Client ID 207
+[Thread 10] Created Parallel Client ID 208
+[Thread 10] Created Parallel Client ID 209
+[Thread 10] Created Parallel Client ID 210
+[Thread 10] Created Parallel Client ID 211
+[Thread 10] Created Parallel Client ID 212
+[Thread 10] Created Parallel Client ID 213
+[Thread 10] Created Parallel Client ID 214
+[Thread 10] Created Parallel Client ID 215
+[Thread 10] Created Parallel Client ID 216
+[Thread 10] Created Parallel Client ID 217
+[Thread 10] Created Parallel Client ID 218
+[Thread 10] Created Parallel Client ID 219
+[Thread 10] Created Parallel Client ID 220
+[Thread 10] Created Parallel Client ID 221
+[Thread 10] Created Parallel Client ID 222
+[Thread 10] Created Parallel Client ID 223
+[Thread 10] Created Parallel Client ID 224
+[Thread 10] Created Parallel Client ID 225
+[Thread 10] Created Parallel Client ID 226
+[Thread 10] Created Parallel Client ID 227
+[Thread 10] Created Parallel Client ID 228
+[Thread 10] Created Parallel Client ID 229
+[Thread 10] Created Parallel Client ID 230
+[Thread 10] Created Parallel Client ID 231
+[Thread 10] Created Parallel Client ID 232
+[Thread 10] Created Parallel Client ID 233
+[Thread 10] Created Parallel Client ID 234
+[Thread 10] Created Parallel Client ID 235
+[Thread 10] Created Parallel Client ID 236
+[Thread 10] Created Parallel Client ID 237
+[Thread 10] Created Parallel Client ID 238
+[Thread 10] Created Parallel Client ID 239
+[Thread 10] Created Parallel Client ID 240
+[Thread 10] Created Parallel Client ID 241
+[Thread 10] Created Parallel Client ID 242
+[Thread 10] Created Parallel Client ID 243
+[Thread 10] Created Parallel Client ID 244
+[Thread 10] Created Parallel Client ID 245
+[Thread 10] Created Parallel Client ID 246
+[Thread 10] Created Parallel Client ID 247
+[Thread 10] Created Parallel Client ID 248
+[Thread 10] Created Parallel Client ID 249
+[Thread 10] Created Parallel Client ID 250
+[Thread 10] Created Parallel Client ID 251
+[Thread 10] Created Parallel Client ID 252
+[Thread 10] Created Parallel Client ID 253
+[Thread 10] Created Parallel Client ID 254
+[Thread 10] Created Parallel Client ID 255
+[Thread 10] Created Parallel Client ID 256
+[Thread 10] Created Parallel Client ID 257
+[Thread 10] Created Parallel Client ID 258
+[Thread 10] Created Parallel Client ID 259
+[Thread 10] Created Parallel Client ID 260
+[Thread 10] Created Parallel Client ID 261
+[Thread 10] Created Parallel Client ID 262
+[Thread 10] Created Parallel Client ID 263
+[Thread 10] Created Parallel Client ID 264
+[Thread 10] Created Parallel Client ID 265
+[Thread 10] Created Parallel Client ID 266
+[Thread 10] Created Parallel Client ID 267
+[Thread 10] Created Parallel Client ID 268
+[Thread 10] Created Parallel Client ID 269
+[Thread 10] Created Parallel Client ID 270
+[Thread 10] Created Parallel Client ID 271
+[Thread 10] Created Parallel Client ID 272
+[Thread 10] Created Parallel Client ID 273
+[Thread 10] Created Parallel Client ID 274
+[Thread 10] Created Parallel Client ID 275
+[Thread 10] Created Parallel Client ID 276
+[Thread 10] Created Parallel Client ID 277
+[Thread 10] Created Parallel Client ID 278
+[Thread 10] Created Parallel Client ID 279
+[Thread 10] Created Parallel Client ID 280
+[Thread 10] Created Parallel Client ID 281
+[Thread 10] Created Parallel Client ID 282
+[Thread 10] Created Parallel Client ID 283
+[Thread 10] Created Parallel Client ID 284
+[Thread 10] Created Parallel Client ID 285
+[Thread 10] Created Parallel Client ID 286
+[Thread 10] Created Parallel Client ID 287
+[Thread 10] Created Parallel Client ID 288
+[Thread 10] Created Parallel Client ID 289
+[Thread 10] Created Parallel Client ID 290
+[Thread 10] Created Parallel Client ID 291
+[Thread 10] Created Parallel Client ID 292
+[Thread 10] Created Parallel Client ID 293
+[Thread 10] Created Parallel Client ID 294
+[Thread 10] Created Parallel Client ID 295
+[Thread 10] Created Parallel Client ID 296
+[Thread 10] Created Parallel Client ID 297
+[Thread 10] Created Parallel Client ID 298
+[Thread 10] Created Parallel Client ID 299
+[Thread 10] Created Parallel Client ID 300
+[Thread 10] Created Parallel Client ID 301
+[Thread 10] Created Parallel Client ID 302
+[Thread 10] Created Parallel Client ID 303
+[Thread 10] Created Parallel Client ID 304
+[Thread 10] Created Parallel Client ID 305
+[Thread 10] Created Parallel Client ID 306
+[Thread 10] Created Parallel Client ID 307
+[Thread 10] Created Parallel Client ID 308
+[Thread 10] Created Parallel Client ID 309
+[Thread 10] Created Parallel Client ID 310
+[Thread 10] Created Parallel Client ID 311
+[Thread 10] Created Parallel Client ID 312
+[Thread 10] Created Parallel Client ID 313
+[Thread 10] Created Parallel Client ID 314
+[Thread 10] Created Parallel Client ID 315
+[Thread 10] Created Parallel Client ID 316
+[Thread 10] Created Parallel Client ID 317
+[Thread 10] Created Parallel Client ID 318
+[Thread 10] Created Parallel Client ID 319
+[Thread 10] Created Parallel Client ID 320
+[Thread 10] Created Parallel Client ID 321
+[Thread 10] Created Parallel Client ID 322
+[Thread 10] Created Parallel Client ID 323
+[Thread 10] Created Parallel Client ID 324
+[Thread 10] Created Parallel Client ID 325
+[Thread 10] Created Parallel Client ID 326
+[Thread 10] Created Parallel Client ID 327
+[Thread 10] Created Parallel Client ID 328
+[Thread 10] Created Parallel Client ID 329
+[Thread 10] Created Parallel Client ID 330
+[Thread 10] Created Parallel Client ID 331
+[Thread 10] Created Parallel Client ID 332
+[Thread 10] Created Parallel Client ID 333
+[Thread 10] Created Parallel Client ID 334
+[Thread 10] Created Parallel Client ID 335
+[Thread 10] Created Parallel Client ID 336
+[Thread 10] Created Parallel Client ID 337
+[Thread 10] Created Parallel Client ID 338
+[Thread 10] Created Parallel Client ID 339
+[Thread 10] Created Parallel Client ID 340
+[Thread 10] Created Parallel Client ID 341
+[Thread 10] Created Parallel Client ID 342
+[Thread 10] Created Parallel Client ID 343
+[Thread 10] Created Parallel Client ID 344
+[Thread 10] Created Parallel Client ID 345
+[Thread 10] Created Parallel Client ID 346
+[Thread 10] Created Parallel Client ID 347
+[Thread 10] Created Parallel Client ID 348
+[Thread 10] Created Parallel Client ID 349
+[Thread 10] Created Parallel Client ID 350
+[Thread 10] Created Parallel Client ID 351
+[Thread 10] Created Parallel Client ID 352
+[Thread 10] Created Parallel Client ID 353
+[Thread 10] Created Parallel Client ID 354
+[Thread 10] Created Parallel Client ID 355
+[Thread 10] Created Parallel Client ID 356
+[Thread 10] Created Parallel Client ID 357
+[Thread 10] Created Parallel Client ID 358
+[Thread 10] Created Parallel Client ID 359
+[Thread 10] Created Parallel Client ID 360
+[Thread 10] Created Parallel Client ID 361
+[Thread 10] Created Parallel Client ID 362
+[Thread 10] Created Parallel Client ID 363
+[Thread 10] Created Parallel Client ID 364
+[Thread 10] Created Parallel Client ID 365
+[Thread 10] Created Parallel Client ID 366
+[Thread 10] Created Parallel Client ID 367
+[Thread 10] Created Parallel Client ID 368
+[Thread 10] Created Parallel Client ID 369
+[Thread 10] Created Parallel Client ID 370
+[Thread 10] Created Parallel Client ID 371
+[Thread 10] Created Parallel Client ID 372
+[Thread 10] Created Parallel Client ID 373
+[Thread 10] Created Parallel Client ID 374
+[Thread 10] Created Parallel Client ID 375
+[Thread 10] Created Parallel Client ID 376
+[Thread 10] Created Parallel Client ID 377
+[Thread 10] Created Parallel Client ID 378
+[Thread 10] Created Parallel Client ID 379
+[Thread 10] Created Parallel Client ID 380
+[Thread 10] Created Parallel Client ID 381
+[Thread 10] Created Parallel Client ID 382
+[Thread 10] Created Parallel Client ID 383
+[Thread 10] Created Parallel Client ID 384
+[Thread 10] Created Parallel Client ID 385
+[Thread 10] Created Parallel Client ID 386
+[Thread 10] Created Parallel Client ID 387
+[Thread 10] Created Parallel Client ID 388
+[Thread 10] Created Parallel Client ID 389
+[Thread 10] Created Parallel Client ID 390
+[Thread 10] Created Parallel Client ID 391
+[Thread 10] Created Parallel Client ID 392
+[Thread 10] Created Parallel Client ID 393
+[Thread 10] Created Parallel Client ID 394
+[Thread 10] Created Parallel Client ID 395
+[Thread 10] Created Parallel Client ID 396
+[Thread 10] Created Parallel Client ID 397
+[Thread 10] Created Parallel Client ID 398
+[Thread 10] Created Parallel Client ID 399
+[Thread 10] Created Parallel Client ID 400
+[Thread 10] Created Parallel Client ID 401
+[Thread 10] Created Parallel Client ID 402
+[Thread 10] Created Parallel Client ID 403
+[Thread 10] Created Parallel Client ID 404
+[Thread 10] Created Parallel Client ID 405
+[Thread 10] Created Parallel Client ID 406
+[Thread 10] Created Parallel Client ID 407
+[Thread 10] Created Parallel Client ID 408
+[Thread 10] Created Parallel Client ID 409
+[Thread 10] Created Parallel Client ID 410
+[Thread 10] Created Parallel Client ID 411
+[Thread 10] Created Parallel Client ID 412
+[Thread 10] Created Parallel Client ID 413
+[Thread 10] Created Parallel Client ID 414
+[Thread 10] Created Parallel Client ID 415
+[Thread 10] Created Parallel Client ID 416
+[Thread 10] Created Parallel Client ID 417
+[Thread 10] Created Parallel Client ID 418
+[Thread 10] Created Parallel Client ID 419
+[Thread 10] Created Parallel Client ID 420
+[Thread 10] Created Parallel Client ID 421
+[Thread 10] Created Parallel Client ID 422
+[Thread 10] Created Parallel Client ID 423
+[Thread 10] Created Parallel Client ID 424
+[Thread 10] Created Parallel Client ID 425
+[Thread 10] Created Parallel Client ID 426
+[Thread 10] Created Parallel Client ID 427
+[Thread 10] Created Parallel Client ID 428
+[Thread 10] Created Parallel Client ID 429
+[Thread 10] Created Parallel Client ID 430
+[Thread 10] Created Parallel Client ID 431
+[Thread 10] Created Parallel Client ID 432
+[Thread 10] Created Parallel Client ID 433
+[Thread 10] Created Parallel Client ID 434
+[Thread 10] Created Parallel Client ID 435
+[Thread 10] Created Parallel Client ID 436
+[Thread 10] Created Parallel Client ID 437
+[Thread 10] Created Parallel Client ID 438
+[Thread 10] Created Parallel Client ID 439
+[Thread 10] Created Parallel Client ID 440
+[Thread 10] Created Parallel Client ID 441
+[Thread 10] Created Parallel Client ID 442
+[Thread 10] Created Parallel Client ID 443
+[Thread 10] Created Parallel Client ID 444
+[Thread 10] Created Parallel Client ID 445
+[Thread 10] Created Parallel Client ID 446
+[Thread 10] Created Parallel Client ID 447
+[Thread 10] Created Parallel Client ID 448
+[Thread 10] Created Parallel Client ID 449
+[Thread 10] Created Parallel Client ID 450
+[Thread 10] Created Parallel Client ID 451
+[Thread 10] Created Parallel Client ID 452
+[Thread 10] Created Parallel Client ID 453
+[Thread 10] Created Parallel Client ID 454
+[Thread 10] Created Parallel Client ID 455
+[Thread 10] Created Parallel Client ID 456
+[Thread 10] Created Parallel Client ID 457
+[Thread 10] Created Parallel Client ID 458
+[Thread 10] Created Parallel Client ID 459
+[Thread 10] Created Parallel Client ID 460
+[Thread 10] Created Parallel Client ID 461
+[Thread 10] Created Parallel Client ID 462
+[Thread 10] Created Parallel Client ID 463
+[Thread 10] Created Parallel Client ID 464
+[Thread 10] Created Parallel Client ID 465
+[Thread 10] Created Parallel Client ID 466
+[Thread 10] Created Parallel Client ID 467
+[Thread 10] Created Parallel Client ID 468
+[Thread 10] Created Parallel Client ID 469
+[Thread 10] Created Parallel Client ID 470
+[Thread 10] Created Parallel Client ID 471
+[Thread 10] Created Parallel Client ID 472
+[Thread 10] Created Parallel Client ID 473
+[Thread 10] Created Parallel Client ID 474
+[Thread 10] Created Parallel Client ID 475
+[Thread 10] Created Parallel Client ID 476
+[Thread 10] Created Parallel Client ID 477
+[Thread 10] Created Parallel Client ID 478
+[Thread 10] Created Parallel Client ID 479
+[Thread 10] Created Parallel Client ID 480
+[Thread 10] Created Parallel Client ID 481
+[Thread 10] Created Parallel Client ID 482
+[Thread 10] Created Parallel Client ID 483
+[Thread 10] Created Parallel Client ID 484
+[Thread 10] Created Parallel Client ID 485
+[Thread 10] Created Parallel Client ID 486
+[Thread 10] Created Parallel Client ID 487
+[Thread 10] Created Parallel Client ID 488
+[Thread 10] Created Parallel Client ID 489
+[Thread 10] Created Parallel Client ID 490
+[Thread 10] Created Parallel Client ID 491
+[Thread 10] Created Parallel Client ID 492
+[Thread 10] Created Parallel Client ID 493
+[Thread 10] Created Parallel Client ID 494
+[Thread 10] Created Parallel Client ID 495
+[Thread 10] Created Parallel Client ID 496
+[Thread 10] Created Parallel Client ID 497
+[Thread 10] Created Parallel Client ID 498
+[Thread 10] Created Parallel Client ID 499
+[Thread 10] Created Parallel Client ID 500
+[Thread 10] Created Parallel Client ID 501
+[Thread 10] Created Parallel Client ID 502
+[Thread 10] Created Parallel Client ID 503
+[Thread 10] Created Parallel Client ID 504
+[Thread 10] Created Parallel Client ID 505
+[Thread 10] Created Parallel Client ID 506
+[Thread 10] Created Parallel Client ID 507
+[Thread 10] Created Parallel Client ID 508
+[Thread 10] Created Parallel Client ID 509
+[Thread 10] Created Parallel Client ID 510
+[Thread 10] Created Parallel Client ID 511
+[Thread 10] Created Parallel Client ID 512
+[Thread 10] Created Parallel Client ID 513
+[Thread 10] Created Parallel Client ID 514
+[Thread 10] Created Parallel Client ID 515
+[Thread 10] Created Parallel Client ID 516
+[Thread 10] Created Parallel Client ID 517
+[Thread 10] Created Parallel Client ID 518
+[Thread 10] Created Parallel Client ID 519
+[Thread 10] Created Parallel Client ID 520
+[Thread 10] Created Parallel Client ID 521
+[Thread 10] Created Parallel Client ID 522
+[Thread 10] Created Parallel Client ID 523
+[Thread 10] Created Parallel Client ID 524
+[Thread 10] Created Parallel Client ID 525
+[Thread 10] Created Parallel Client ID 526
+[Thread 10] Created Parallel Client ID 527
+[Thread 10] Created Parallel Client ID 528
+[Thread 10] Created Parallel Client ID 529
+[Thread 10] Created Parallel Client ID 530
+[Thread 10] Created Parallel Client ID 531
+[Thread 10] Created Parallel Client ID 532
+[Thread 10] Created Parallel Client ID 533
+[Thread 10] Created Parallel Client ID 534
+[Thread 10] Created Parallel Client ID 535
+[Thread 10] Created Parallel Client ID 536
+[Thread 10] Created Parallel Client ID 537
+[Thread 10] Created Parallel Client ID 538
+[Thread 10] Created Parallel Client ID 539
+[Thread 10] Created Parallel Client ID 540
+[Thread 10] Created Parallel Client ID 541
+[Thread 10] Created Parallel Client ID 542
+[Thread 10] Created Parallel Client ID 543
+[Thread 10] Created Parallel Client ID 544
+[Thread 10] Created Parallel Client ID 545
+[Thread 10] Created Parallel Client ID 546
+[Thread 10] Created Parallel Client ID 547
+[Thread 10] Created Parallel Client ID 548
+[Thread 10] Created Parallel Client ID 549
+[Thread 10] Created Parallel Client ID 550
+[Thread 10] Created Parallel Client ID 551
+[Thread 10] Created Parallel Client ID 552
+[Thread 10] Created Parallel Client ID 553
+[Thread 10] Created Parallel Client ID 554
+[Thread 10] Created Parallel Client ID 555
+[Thread 10] Created Parallel Client ID 556
+[Thread 10] Created Parallel Client ID 557
+[Thread 10] Created Parallel Client ID 558
+[Thread 10] Created Parallel Client ID 559
+[Thread 10] Created Parallel Client ID 560
+[Thread 10] Created Parallel Client ID 561
+[Thread 10] Created Parallel Client ID 562
+[Thread 10] Created Parallel Client ID 563
+[Thread 10] Created Parallel Client ID 564
+[Thread 10] Created Parallel Client ID 565
+[Thread 10] Created Parallel Client ID 566
+[Thread 10] Created Parallel Client ID 567
+[Thread 10] Created Parallel Client ID 568
+[Thread 10] Created Parallel Client ID 569
+[Thread 10] Created Parallel Client ID 570
+[Thread 10] Created Parallel Client ID 571
+[Thread 10] Created Parallel Client ID 572
+[Thread 10] Created Parallel Client ID 573
+[Thread 10] Created Parallel Client ID 574
+[Thread 10] Created Parallel Client ID 575
+[Thread 10] Created Parallel Client ID 576
+[Thread 10] Created Parallel Client ID 577
+[Thread 10] Created Parallel Client ID 578
+[Thread 10] Created Parallel Client ID 579
+[Thread 10] Created Parallel Client ID 580
+[Thread 10] Created Parallel Client ID 581
+[Thread 10] Created Parallel Client ID 582
+[Thread 10] Created Parallel Client ID 583
+[Thread 10] Created Parallel Client ID 584
+[Thread 10] Created Parallel Client ID 585
+[Thread 10] Created Parallel Client ID 586
+[Thread 10] Created Parallel Client ID 587
+[Thread 10] Created Parallel Client ID 588
+[Thread 10] Created Parallel Client ID 589
+[Thread 10] Created Parallel Client ID 590
+[Thread 10] Created Parallel Client ID 591
+[Thread 10] Created Parallel Client ID 592
+[Thread 10] Created Parallel Client ID 593
+[Thread 10] Created Parallel Client ID 594
+[Thread 10] Created Parallel Client ID 595
+[Thread 10] Created Parallel Client ID 596
+[Thread 10] Created Parallel Client ID 597
+[Thread 10] Created Parallel Client ID 598
+[Thread 10] Created Parallel Client ID 599
+[Thread 10] Created Parallel Client ID 600
+[Thread 10] Created Parallel Client ID 601
+[Thread 10] Created Parallel Client ID 602
+[Thread 10] Created Parallel Client ID 603
+[Thread 10] Created Parallel Client ID 604
+[Thread 10] Created Parallel Client ID 605
+[Thread 10] Created Parallel Client ID 606
+[Thread 10] Created Parallel Client ID 607
+[Thread 10] Created Parallel Client ID 608
+[Thread 10] Created Parallel Client ID 609
+[Thread 10] Created Parallel Client ID 610
+[Thread 10] Created Parallel Client ID 611
+[Thread 10] Created Parallel Client ID 612
+[Thread 10] Created Parallel Client ID 613
+[Thread 10] Created Parallel Client ID 614
+[Thread 10] Created Parallel Client ID 615
+[Thread 10] Created Parallel Client ID 616
+[Thread 10] Created Parallel Client ID 617
+[Thread 10] Created Parallel Client ID 618
+[Thread 10] Created Parallel Client ID 619
+[Thread 10] Created Parallel Client ID 620
+[Thread 10] Created Parallel Client ID 621
+[Thread 10] Created Parallel Client ID 622
+[Thread 10] Created Parallel Client ID 623
+[Thread 10] Created Parallel Client ID 624
+[Thread 10] Created Parallel Client ID 625
+[Thread 10] Created Parallel Client ID 626
+[Thread 10] Created Parallel Client ID 627
+[Thread 10] Created Parallel Client ID 628
+[Thread 10] Created Parallel Client ID 629
+[Thread 10] Created Parallel Client ID 630
+[Thread 10] Created Parallel Client ID 631
+[Thread 10] Created Parallel Client ID 632
+[Thread 10] Created Parallel Client ID 633
+[Thread 10] Created Parallel Client ID 634
+[Thread 10] Created Parallel Client ID 635
+[Thread 10] Created Parallel Client ID 636
+[Thread 10] Created Parallel Client ID 637
+[Thread 10] Created Parallel Client ID 638
+[Thread 10] Created Parallel Client ID 639
+[Thread 10] Created Parallel Client ID 640
+[Thread 10] Created Parallel Client ID 641
+[Thread 10] Created Parallel Client ID 642
+[Thread 10] Created Parallel Client ID 643
+[Thread 10] Created Parallel Client ID 644
+[Thread 10] Created Parallel Client ID 645
+[Thread 10] Created Parallel Client ID 646
+[Thread 10] Created Parallel Client ID 647
+[Thread 10] Created Parallel Client ID 648
+[Thread 10] Created Parallel Client ID 649
+[Thread 10] Created Parallel Client ID 650
+[Thread 10] Created Parallel Client ID 651
+[Thread 10] Created Parallel Client ID 652
+[Thread 10] Created Parallel Client ID 653
+[Thread 10] Created Parallel Client ID 654
+[Thread 10] Created Parallel Client ID 655
+[Thread 10] Created Parallel Client ID 656
+[Thread 10] Created Parallel Client ID 657
+[Thread 10] Created Parallel Client ID 658
+[Thread 10] Created Parallel Client ID 659
+[Thread 10] Created Parallel Client ID 660
+[Thread 10] Created Parallel Client ID 661
+[Thread 10] Created Parallel Client ID 662
+[Thread 10] Created Parallel Client ID 663
+[Thread 10] Created Parallel Client ID 664
+[Thread 10] Created Parallel Client ID 665
+[Thread 10] Created Parallel Client ID 666
+[Thread 10] Created Parallel Client ID 667
+[Thread 10] Created Parallel Client ID 668
+[Thread 10] Created Parallel Client ID 669
+[Thread 10] Created Parallel Client ID 670
+[Thread 10] Created Parallel Client ID 671
+[Thread 10] Created Parallel Client ID 672
+[Thread 10] Created Parallel Client ID 673
+[Thread 10] Created Parallel Client ID 674
+[Thread 10] Created Parallel Client ID 675
+[Thread 10] Created Parallel Client ID 676
+[Thread 10] Created Parallel Client ID 677
+[Thread 10] Created Parallel Client ID 678
+[Thread 10] Created Parallel Client ID 679
+[Thread 10] Created Parallel Client ID 680
+[Thread 10] Created Parallel Client ID 681
+[Thread 10] Created Parallel Client ID 682
+[Thread 10] Created Parallel Client ID 683
+[Thread 10] Created Parallel Client ID 684
+[Thread 10] Created Parallel Client ID 685
+[Thread 10] Created Parallel Client ID 686
+[Thread 10] Created Parallel Client ID 687
+[Thread 10] Created Parallel Client ID 688
+[Thread 10] Created Parallel Client ID 689
+[Thread 10] Created Parallel Client ID 690
+[Thread 10] Created Parallel Client ID 691
+[Thread 10] Created Parallel Client ID 692
+[Thread 10] Created Parallel Client ID 693
+[Thread 10] Created Parallel Client ID 694
+[Thread 10] Created Parallel Client ID 695
+[Thread 10] Created Parallel Client ID 696
+[Thread 10] Created Parallel Client ID 697
+[Thread 10] Created Parallel Client ID 698
+[Thread 10] Created Parallel Client ID 699
+[Thread 10] Created Parallel Client ID 700
+[Thread 10] Created Parallel Client ID 701
+[Thread 10] Created Parallel Client ID 702
+[Thread 10] Created Parallel Client ID 703
+[Thread 10] Created Parallel Client ID 704
+[Thread 10] Created Parallel Client ID 705
+[Thread 10] Created Parallel Client ID 706
+[Thread 10] Created Parallel Client ID 707
+[Thread 10] Created Parallel Client ID 708
+[Thread 10] Created Parallel Client ID 709
+[Thread 10] Created Parallel Client ID 710
+[Thread 10] Created Parallel Client ID 711
+[Thread 10] Created Parallel Client ID 712
+[Thread 10] Created Parallel Client ID 713
+[Thread 10] Created Parallel Client ID 714
+[Thread 10] Created Parallel Client ID 715
+[Thread 10] Created Parallel Client ID 716
+[Thread 10] Created Parallel Client ID 717
+[Thread 10] Created Parallel Client ID 718
+[Thread 10] Created Parallel Client ID 719
+[Thread 10] Created Parallel Client ID 720
+[Thread 10] Created Parallel Client ID 721
+[Thread 10] Created Parallel Client ID 722
+[Thread 10] Created Parallel Client ID 723
+[Thread 10] Created Parallel Client ID 724
+[Thread 10] Created Parallel Client ID 725
+[Thread 10] Created Parallel Client ID 726
+[Thread 10] Created Parallel Client ID 727
+[Thread 10] Created Parallel Client ID 728
+[Thread 10] Created Parallel Client ID 729
+[Thread 10] Created Parallel Client ID 730
+[Thread 10] Created Parallel Client ID 731
+[Thread 10] Created Parallel Client ID 732
+[Thread 10] Created Parallel Client ID 733
+[Thread 10] Created Parallel Client ID 734
+[Thread 10] Created Parallel Client ID 735
+[Thread 10] Created Parallel Client ID 736
+[Thread 10] Created Parallel Client ID 737
+[Thread 10] Created Parallel Client ID 738
+[Thread 10] Created Parallel Client ID 739
+[Thread 10] Created Parallel Client ID 740
+[Thread 10] Created Parallel Client ID 741
+[Thread 10] Created Parallel Client ID 742
+[Thread 10] Created Parallel Client ID 743
+[Thread 10] Created Parallel Client ID 744
+[Thread 10] Created Parallel Client ID 745
+[Thread 10] Created Parallel Client ID 746
+[Thread 10] Created Parallel Client ID 747
+[Thread 10] Created Parallel Client ID 748
+[Thread 10] Created Parallel Client ID 749
+[Thread 10] Created Parallel Client ID 750
+[Thread 10] Created Parallel Client ID 751
+[Thread 10] Created Parallel Client ID 752
+[Thread 10] Created Parallel Client ID 753
+[Thread 10] Created Parallel Client ID 754
+[Thread 10] Created Parallel Client ID 755
+[Thread 10] Created Parallel Client ID 756
+[Thread 10] Created Parallel Client ID 757
+[Thread 10] Created Parallel Client ID 758
+[Thread 10] Created Parallel Client ID 759
+[Thread 10] Created Parallel Client ID 760
+[Thread 10] Created Parallel Client ID 761
+[Thread 10] Created Parallel Client ID 762
+[Thread 10] Created Parallel Client ID 763
+[Thread 10] Created Parallel Client ID 764
+[Thread 10] Created Parallel Client ID 765
+[Thread 10] Created Parallel Client ID 766
+[Thread 10] Created Parallel Client ID 767
+[Thread 10] Created Parallel Client ID 768
+[Thread 10] Created Parallel Client ID 769
+[Thread 10] Created Parallel Client ID 770
+[Thread 10] Created Parallel Client ID 771
+[Thread 10] Created Parallel Client ID 772
+[Thread 10] Created Parallel Client ID 773
+[Thread 10] Created Parallel Client ID 774
+[Thread 10] Created Parallel Client ID 775
+[Thread 10] Created Parallel Client ID 776
+[Thread 10] Created Parallel Client ID 777
+[Thread 10] Created Parallel Client ID 778
+[Thread 10] Created Parallel Client ID 779
+[Thread 10] Created Parallel Client ID 780
+[Thread 10] Created Parallel Client ID 781
+[Thread 10] Created Parallel Client ID 782
+[Thread 10] Created Parallel Client ID 783
+[Thread 10] Created Parallel Client ID 784
+[Thread 10] Created Parallel Client ID 785
+[Thread 10] Created Parallel Client ID 786
+[Thread 10] Created Parallel Client ID 787
+[Thread 10] Created Parallel Client ID 788
+[Thread 10] Created Parallel Client ID 789
+[Thread 10] Created Parallel Client ID 790
+[Thread 10] Created Parallel Client ID 791
+[Thread 10] Created Parallel Client ID 792
+[Thread 10] Created Parallel Client ID 793
+[Thread 10] Created Parallel Client ID 794
+[Thread 10] Created Parallel Client ID 795
+[Thread 10] Created Parallel Client ID 796
+[Thread 10] Created Parallel Client ID 797
+[Thread 10] Created Parallel Client ID 798
+[Thread 10] Created Parallel Client ID 799
+[Thread 10] Created Parallel Client ID 800
+[Thread 10] Created Parallel Client ID 801
+[Thread 10] Created Parallel Client ID 802
+[Thread 10] Created Parallel Client ID 803
+[Thread 10] Created Parallel Client ID 804
+[Thread 10] Created Parallel Client ID 805
+[Thread 10] Created Parallel Client ID 806
+[Thread 10] Created Parallel Client ID 807
+[Thread 10] Created Parallel Client ID 808
+[Thread 10] Created Parallel Client ID 809
+[Thread 10] Created Parallel Client ID 810
+[Thread 10] Created Parallel Client ID 811
+[Thread 10] Created Parallel Client ID 812
+[Thread 10] Created Parallel Client ID 813
+[Thread 10] Created Parallel Client ID 814
+[Thread 10] Created Parallel Client ID 815
+[Thread 10] Created Parallel Client ID 816
+[Thread 10] Created Parallel Client ID 817
+[Thread 10] Created Parallel Client ID 818
+[Thread 10] Created Parallel Client ID 819
+[Thread 10] Created Parallel Client ID 820
+[Thread 10] Created Parallel Client ID 821
+[Thread 10] Created Parallel Client ID 822
+[Thread 10] Created Parallel Client ID 823
+[Thread 10] Created Parallel Client ID 824
+[Thread 10] Created Parallel Client ID 825
+[Thread 10] Created Parallel Client ID 826
+[Thread 10] Created Parallel Client ID 827
+[Thread 10] Created Parallel Client ID 828
+[Thread 10] Created Parallel Client ID 829
+[Thread 10] Created Parallel Client ID 830
+[Thread 10] Created Parallel Client ID 831
+[Thread 10] Created Parallel Client ID 832
+[Thread 10] Created Parallel Client ID 833
+[Thread 10] Created Parallel Client ID 834
+[Thread 10] Created Parallel Client ID 835
+[Thread 10] Created Parallel Client ID 836
+[Thread 10] Created Parallel Client ID 837
+[Thread 10] Created Parallel Client ID 838
+[Thread 10] Created Parallel Client ID 839
+[Thread 10] Created Parallel Client ID 840
+[Thread 10] Created Parallel Client ID 841
+[Thread 10] Created Parallel Client ID 842
+[Thread 10] Created Parallel Client ID 843
+[Thread 10] Created Parallel Client ID 844
+[Thread 10] Created Parallel Client ID 845
+[Thread 10] Created Parallel Client ID 846
+[Thread 10] Created Parallel Client ID 847
+[Thread 10] Created Parallel Client ID 848
+[Thread 10] Created Parallel Client ID 849
+[Thread 10] Created Parallel Client ID 850
+[Thread 10] Created Parallel Client ID 851
+[Thread 10] Created Parallel Client ID 852
+[Thread 10] Created Parallel Client ID 853
+[Thread 10] Created Parallel Client ID 854
+[Thread 10] Created Parallel Client ID 855
+[Thread 10] Created Parallel Client ID 856
+[Thread 10] Created Parallel Client ID 857
+[Thread 10] Created Parallel Client ID 858
+[Thread 10] Created Parallel Client ID 859
+[Thread 10] Created Parallel Client ID 860
+[Thread 10] Created Parallel Client ID 861
+[Thread 10] Created Parallel Client ID 862
+[Thread 10] Created Parallel Client ID 863
+[Thread 10] Created Parallel Client ID 864
+[Thread 10] Created Parallel Client ID 865
+[Thread 10] Created Parallel Client ID 866
+[Thread 10] Created Parallel Client ID 867
+[Thread 10] Created Parallel Client ID 868
+[Thread 10] Created Parallel Client ID 869
+[Thread 10] Created Parallel Client ID 870
+[Thread 10] Created Parallel Client ID 871
+[Thread 10] Created Parallel Client ID 872
+[Thread 10] Created Parallel Client ID 873
+[Thread 10] Created Parallel Client ID 874
+[Thread 10] Created Parallel Client ID 875
+[Thread 10] Created Parallel Client ID 876
+[Thread 10] Created Parallel Client ID 877
+[Thread 10] Created Parallel Client ID 878
+[Thread 10] Created Parallel Client ID 879
+[Thread 10] Created Parallel Client ID 880
+[Thread 10] Created Parallel Client ID 881
+[Thread 10] Created Parallel Client ID 882
+[Thread 10] Created Parallel Client ID 883
+[Thread 10] Created Parallel Client ID 884
+[Thread 10] Created Parallel Client ID 885
+[Thread 10] Created Parallel Client ID 886
+[Thread 10] Created Parallel Client ID 887
+[Thread 10] Created Parallel Client ID 888
+[Thread 10] Created Parallel Client ID 889
+[Thread 10] Created Parallel Client ID 890
+[Thread 10] Created Parallel Client ID 891
+[Thread 10] Created Parallel Client ID 892
+[Thread 10] Created Parallel Client ID 893
+[Thread 10] Created Parallel Client ID 894
+[Thread 10] Created Parallel Client ID 895
+[Thread 10] Created Parallel Client ID 896
+[Thread 10] Created Parallel Client ID 897
+[Thread 10] Created Parallel Client ID 898
+[Thread 10] Created Parallel Client ID 899
+[Thread 10] Created Parallel Client ID 900
+[Thread 10] Created Parallel Client ID 901
+[Thread 10] Created Parallel Client ID 902
+[Thread 10] Created Parallel Client ID 903
+[Thread 10] Created Parallel Client ID 904
+[Thread 10] Created Parallel Client ID 905
+[Thread 10] Created Parallel Client ID 906
+[Thread 10] Created Parallel Client ID 907
+[Thread 10] Created Parallel Client ID 908
+[Thread 10] Created Parallel Client ID 909
+[Thread 10] Created Parallel Client ID 910
+[Thread 10] Created Parallel Client ID 911
+[Thread 10] Created Parallel Client ID 912
+[Thread 10] Created Parallel Client ID 913
+[Thread 10] Created Parallel Client ID 914
+[Thread 10] Created Parallel Client ID 915
+[Thread 10] Created Parallel Client ID 916
+[Thread 10] Created Parallel Client ID 917
+[Thread 10] Created Parallel Client ID 918
+[Thread 10] Created Parallel Client ID 919
+[Thread 10] Created Parallel Client ID 920
+[Thread 10] Created Parallel Client ID 921
+[Thread 10] Created Parallel Client ID 922
+[Thread 10] Created Parallel Client ID 923
+[Thread 10] Created Parallel Client ID 924
+[Thread 10] Created Parallel Client ID 925
+[Thread 10] Created Parallel Client ID 926
+[Thread 10] Created Parallel Client ID 927
+[Thread 10] Created Parallel Client ID 928
+[Thread 10] Created Parallel Client ID 929
+[Thread 10] Created Parallel Client ID 930
+[Thread 10] Created Parallel Client ID 931
+[Thread 10] Created Parallel Client ID 932
+[Thread 10] Created Parallel Client ID 933
+[Thread 10] Created Parallel Client ID 934
+[Thread 10] Created Parallel Client ID 935
+[Thread 10] Created Parallel Client ID 936
+[Thread 10] Created Parallel Client ID 937
+[Thread 10] Created Parallel Client ID 938
+[Thread 10] Created Parallel Client ID 939
+[Thread 10] Created Parallel Client ID 940
+[Thread 10] Created Parallel Client ID 941
+[Thread 10] Created Parallel Client ID 942
+[Thread 10] Created Parallel Client ID 943
+[Thread 10] Created Parallel Client ID 944
+[Thread 10] Created Parallel Client ID 945
+[Thread 10] Created Parallel Client ID 946
+[Thread 10] Created Parallel Client ID 947
+[Thread 10] Created Parallel Client ID 948
+[Thread 10] Created Parallel Client ID 949
+[Thread 10] Created Parallel Client ID 950
+[Thread 10] Created Parallel Client ID 951
+[Thread 10] Created Parallel Client ID 952
+[Thread 10] Created Parallel Client ID 953
+[Thread 10] Created Parallel Client ID 954
+[Thread 10] Created Parallel Client ID 955
+[Thread 10] Created Parallel Client ID 956
+[Thread 10] Created Parallel Client ID 957
+[Thread 10] Created Parallel Client ID 958
+[Thread 10] Created Parallel Client ID 959
+[Thread 10] Created Parallel Client ID 960
+[Thread 10] Created Parallel Client ID 961
+[Thread 10] Created Parallel Client ID 962
+[Thread 10] Created Parallel Client ID 963
+[Thread 10] Created Parallel Client ID 964
+[Thread 10] Created Parallel Client ID 965
+[Thread 10] Created Parallel Client ID 966
+[Thread 10] Created Parallel Client ID 967
+[Thread 10] Created Parallel Client ID 968
+[Thread 10] Created Parallel Client ID 969
+[Thread 10] Created Parallel Client ID 970
+[Thread 10] Created Parallel Client ID 971
+[Thread 10] Created Parallel Client ID 972
+[Thread 10] Created Parallel Client ID 973
+[Thread 10] Created Parallel Client ID 974
+[Thread 10] Created Parallel Client ID 975
+[Thread 10] Created Parallel Client ID 976
+[Thread 10] Created Parallel Client ID 977
+[Thread 10] Created Parallel Client ID 978
+[Thread 10] Created Parallel Client ID 979
+[Thread 10] Created Parallel Client ID 980
+[Thread 10] Created Parallel Client ID 981
+[Thread 10] Created Parallel Client ID 982
+[Thread 10] Created Parallel Client ID 983
+[Thread 10] Created Parallel Client ID 984
+[Thread 10] Created Parallel Client ID 985
+[Thread 10] Created Parallel Client ID 986
+[Thread 10] Created Parallel Client ID 987
+[Thread 10] Created Parallel Client ID 988
+[Thread 10] Created Parallel Client ID 989
+[Thread 10] Created Parallel Client ID 990
+[Thread 10] Created Parallel Client ID 991
+[Thread 10] Created Parallel Client ID 992
+[Thread 10] Created Parallel Client ID 993
+[Thread 10] Created Parallel Client ID 994
+[Thread 10] Created Parallel Client ID 995
+[Thread 10] Created Parallel Client ID 996
+[Thread 10] Created Parallel Client ID 997
+[Thread 10] Created Parallel Client ID 998
+[Thread 10] Created Parallel Client ID 999
+[Thread 10] Created Parallel Client ID 1000
+[Thread 10] Parallel Client manager is starting clients...
+
+[Thread 414] Client 403 starting new operation mix run
+[Thread 414] Current Time: 12/06/2022 15:40:29 +0000
+
+[Thread 212] Client 201 starting new operation mix run
+[Thread 212] Current Time: 12/06/2022 15:40:29 +0000
+
+[Thread 207] Client 196 starting new operation mix run
+[Thread 207] Current Time: 12/06/2022 15:40:29 +0000
+
+[Thread 415] Client 404 starting new operation mix run
+[Thread 415] Current Time: 12/06/2022 15:40:29 +0000
+
+[Thread 208] Client 197 starting new operation mix run
+[Thread 208] Current Time: 12/06/2022 15:40:29 +0000
+
+[Thread 422] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 422] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 1015] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1015] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 1014] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1014] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 1012] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1012] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 1013] Operation Order for this Run is 0, 1, 2, 3, 4
+[Thread 1013] Running Operation /home/ec2-user/bench/queries/cat3/q1.rq...
+[Thread 886] started responding in 0.15366811100000002s...
+[Thread 885] started responding in 0.147550408s...
+[Thread 1011] started responding in 0.15380866399999998s...
+[Thread 1010] started responding in 0.166642259s...
+[Thread 1009] started responding in 0.159510021s...
+[Thread 1013] got 4 356 result(s) in 0.644532451s
+[Thread 1013] Sleeping for 0.273s before next operation
+
+[Thread 1012] got 4 356 result(s) in 0.635020368s
+[Thread 1012] Sleeping for 0.76s before next operation
+
+[Thread 1015] got 4 356 result(s) in 0.6451517229999999s
+[Thread 1015] Sleeping for 0.999s before next operation
+
+[Thread 1014] got 4 356 result(s) in 0.643238744s
+[Thread 1014] Sleeping for 0.914s before next operation
+
+[Thread 422] got 4 356 result(s) in 0.65514083s
+[Thread 422] Sleeping for 0.064s before next operation
+[Thread 422] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...
+[Thread 1013] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...
+[Thread 1012] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...
+[Thread 1014] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...
+[Thread 1015] Running Operation /home/ec2-user/bench/queries/cat3/q2.rq...log4j:WARN No appenders could be found for logger (net.sf.sparql.benchmarking.operations.update.callables.AbstractUpdateCallable).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+
+[Thread 1013] got error after 1.560160304s: 500 - Internal Server Error
+[Thread 1013] Sleeping for 0.401s before next operation
+[Thread 1013] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 1013] got Unknown result(s) in 0.018366966999999998s
+[Thread 1013] Sleeping for 0.578s before next operation
+
+[Thread 1012] got error after 1.548722392s: 500 - Internal Server Error
+[Thread 1012] Sleeping for 0.877s before next operation
+
+[Thread 1014] got error after 1.4848432580000002s: 500 - Internal Server Error
+[Thread 1014] Sleeping for 0.826s before next operation
+
+[Thread 1015] got error after 1.4856815810000001s: 500 - Internal Server Error
+[Thread 1015] Sleeping for 0.665s before next operation
+
+[Thread 1013] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1013] got Unknown result(s) in 0.018624704000000002s
+[Thread 1013] Sleeping for 0.672s before next operation
+
+[Thread 1015] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...
+[Thread 1012] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...
+[Thread 1014] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...
+[Thread 1013] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1013] got Unknown result(s) in 0.013476698s
+[Thread 1013] Sleeping for 0.441s before next operation
+
+[Thread 207] Operation Mix Run 1 by Client 196
+[Thread 207] 
+[Thread 207] Total Response Time: 1,777271 seconds
+[Thread 207] Total Runtime: 2,255161 seconds
+[Thread 207] Minimum Operation Runtime: 0,013477 seconds (Operation /home/ec2-user/bench/queries/cat3/q5.rq)
+[Thread 207] Maximum Operation Runtime: 1,560160 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 207] 
+
+[Thread 422] got Unknown result(s) in 3.956809774s
+[Thread 422] Sleeping for 0.067s before next operation
+
+[Thread 1015] got error after 0.878013229s: 500 - Internal Server Error
+[Thread 1015] Sleeping for 0.997s before next operation
+
+[Thread 1014] got Unknown result(s) in 0.802368908s
+[Thread 1014] Sleeping for 0.164s before next operation
+
+[Thread 1012] got error after 0.850817834s: 500 - Internal Server Error
+[Thread 1012] Sleeping for 0.269s before next operation
+
+[Thread 422] Running Operation /home/ec2-user/bench/queries/cat3/q3.rq...[Thread 422] got Unknown result(s) in 0.015013067s
+[Thread 422] Sleeping for 0.306s before next operation
+
+[Thread 1014] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1014] got Unknown result(s) in 0.017063501s
+[Thread 1014] Sleeping for 0.689s before next operation
+
+[Thread 1012] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1012] got Unknown result(s) in 0.016130104s
+[Thread 1012] Sleeping for 0.875s before next operation
+
+[Thread 422] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 422] got Unknown result(s) in 0.017103719000000003s
+[Thread 422] Sleeping for 0.221s before next operation
+[Thread 422] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 422] got Unknown result(s) in 0.020333623s
+[Thread 422] Sleeping for 0.246s before next operation
+
+[Thread 1014] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1014] got Unknown result(s) in 0.018338146s
+[Thread 1014] Sleeping for 0.019s before next operation
+
+[Thread 414] Operation Mix Run 2 by Client 403
+[Thread 414] 
+[Thread 414] Total Response Time: 4,162928 seconds
+[Thread 414] Total Runtime: 4,664401 seconds
+[Thread 414] Minimum Operation Runtime: 0,015013 seconds (Operation /home/ec2-user/bench/queries/cat3/q3.rq)
+[Thread 414] Maximum Operation Runtime: 3,956810 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 414] 
+
+[Thread 415] Operation Mix Run 3 by Client 404
+[Thread 415] 
+[Thread 415] Total Response Time: 2,470164 seconds
+[Thread 415] Total Runtime: 2,965853 seconds
+[Thread 415] Minimum Operation Runtime: 0,017064 seconds (Operation /home/ec2-user/bench/queries/cat3/q4.rq)
+[Thread 415] Maximum Operation Runtime: 1,484843 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 415] 
+
+[Thread 1015] Running Operation /home/ec2-user/bench/queries/cat3/q4.rq...[Thread 1015] got Unknown result(s) in 0.012940618000000001s
+[Thread 1015] Sleeping for 0.24s before next operation
+
+[Thread 1012] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1012] got Unknown result(s) in 0.021518713000000002s
+[Thread 1012] Sleeping for 0.91s before next operation
+
+[Thread 1015] Running Operation /home/ec2-user/bench/queries/cat3/q5.rq...[Thread 1015] got Unknown result(s) in 0.014115049000000001s
+[Thread 1015] Sleeping for 0.79s before next operation
+
+[Thread 208] Operation Mix Run 4 by Client 197
+[Thread 208] 
+[Thread 208] Total Response Time: 2,550260 seconds
+[Thread 208] Total Runtime: 3,035902 seconds
+[Thread 208] Minimum Operation Runtime: 0,012941 seconds (Operation /home/ec2-user/bench/queries/cat3/q4.rq)
+[Thread 208] Maximum Operation Runtime: 1,485682 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 208] 
+
+[Thread 212] Operation Mix Run 5 by Client 201
+[Thread 212] 
+[Thread 212] Total Response Time: 2,590998 seconds
+[Thread 212] Total Runtime: 3,072209 seconds
+[Thread 212] Minimum Operation Runtime: 0,016130 seconds (Operation /home/ec2-user/bench/queries/cat3/q4.rq)
+[Thread 212] Maximum Operation Runtime: 1,548722 seconds (Operation /home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 212] 
+
+[Thread 1] Finished Benchmarking...
+[Thread 1] 
+[Thread 1] Operation Summary
+[Thread 1] -----------------
+[Thread 1] 
+[Thread 1] Operation ID 0 of type Remote SPARQL Query (/home/ec2-user/bench/queries/cat3/q1.rq)
+[Thread 1] Total Runs: 23
+[Thread 1] Total Errors: 0
+[Thread 1] Total Results: 79 434
+[Thread 1] Average Results: 3 453
+[Thread 1] Total Response Time: 1,262841 seconds
+[Thread 1] Average Response Time (Arithmetic): 0,054906 seconds
+[Thread 1] Total Runtime: 7,826135 seconds
+[Thread 1] Actual Runtime: 7,617989 seconds
+[Thread 1] Average Runtime (Arithmetic): 0,340267 seconds
+[Thread 1] Actual Average Runtime (Arithmetic): 0,331217 seconds
+[Thread 1] Average Runtime (Geometric): 0,308724 seconds
+[Thread 1] Minimum Runtime: 0,186487 seconds
+[Thread 1] Maximum Runtime: 0,655141 seconds
+[Thread 1] Runtime Variance: 0,028673 seconds squared
+[Thread 1] Runtime Standard Deviation: 0,169332 seconds
+[Thread 1] 
+[Thread 1] Operations per Second: 2,938871
+[Thread 1] Actual Operations per Second: 3,019170
+[Thread 1] Operations per Hour: 10 579,935459
+[Thread 1] Actual Operations per Hour: 10 869,010904
+[Thread 1] 
+[Thread 1] Operation ID 1 of type Remote SPARQL Update (/home/ec2-user/bench/queries/cat3/q2.rq)
+[Thread 1] Total Runs: 23
+[Thread 1] Total Errors: 4
+[Thread 1] Errors by Category: 
+[Thread 1]   No Error: 19 error(s)
+[Thread 1] Total Results: 0
+[Thread 1] Average Results: 0
+[Thread 1] Total Response Time: 40,962263 seconds
+[Thread 1] Average Response Time (Arithmetic): 1,780968 seconds
+[Thread 1] Total Runtime: 40,962263 seconds
+[Thread 1] Actual Runtime: 39,950934 seconds
+[Thread 1] Average Runtime (Arithmetic): 1,780968 seconds
+[Thread 1] Actual Average Runtime (Arithmetic): 1,736997 seconds
+[Thread 1] Average Runtime (Geometric): 1,728178 seconds
+[Thread 1] Minimum Runtime: 1,213488 seconds
+[Thread 1] Maximum Runtime: 2,701833 seconds
+[Thread 1] Runtime Variance: 0,206963 seconds squared
+[Thread 1] Runtime Standard Deviation: 0,454932 seconds
+[Thread 1] 
+[Thread 1] Operations per Second: 0,561492
+[Thread 1] Actual Operations per Second: 0,575706
+[Thread 1] Operations per Hour: 2 021,372702
+[Thread 1] Actual Operations per Hour: 2 072,542296
+[Thread 1] 
+[Thread 1] Operation ID 2 of type Remote SPARQL Update (/home/ec2-user/bench/queries/cat3/q3.rq)
+[Thread 1] Total Runs: 23
+[Thread 1] Total Errors: 1
+[Thread 1] Errors by Category: 
+[Thread 1]   No Error: 22 error(s)
+[Thread 1] Total Results: 0
+[Thread 1] Average Results: 0
+[Thread 1] Total Response Time: 2,124158 seconds
+[Thread 1] Average Response Time (Arithmetic): 0,092355 seconds
+[Thread 1] Total Runtime: 2,124158 seconds
+[Thread 1] Actual Runtime: 1,387252 seconds
+[Thread 1] Average Runtime (Arithmetic): 0,092355 seconds
+[Thread 1] Actual Average Runtime (Arithmetic): 0,060315 seconds
+[Thread 1] Average Runtime (Geometric): 0,029995 seconds
+[Thread 1] Minimum Runtime: 0,015497 seconds
+[Thread 1] Maximum Runtime: 0,850818 seconds
+[Thread 1] Runtime Variance: 0,053756 seconds squared
+[Thread 1] Runtime Standard Deviation: 0,231854 seconds
+[Thread 1] 
+[Thread 1] Operations per Second: 10,827818
+[Thread 1] Actual Operations per Second: 16,579542
+[Thread 1] Operations per Hour: 38 980,145982
+[Thread 1] Actual Operations per Hour: 59 686,351209
+[Thread 1] 
+[Thread 1] Operation ID 3 of type Remote SPARQL Update (/home/ec2-user/bench/queries/cat3/q4.rq)
+[Thread 1] Total Runs: 23
+[Thread 1] Total Errors: 0
+[Thread 1] Total Results: 0
+[Thread 1] Average Results: 0
+[Thread 1] Total Response Time: 0,452782 seconds
+[Thread 1] Average Response Time (Arithmetic): 0,019686 seconds
+[Thread 1] Total Runtime: 0,452782 seconds
+[Thread 1] Actual Runtime: 0,542735 seconds
+[Thread 1] Average Runtime (Arithmetic): 0,019686 seconds
+[Thread 1] Actual Average Runtime (Arithmetic): 0,023597 seconds
+[Thread 1] Average Runtime (Geometric): 0,019043 seconds
+[Thread 1] Minimum Runtime: 0,012941 seconds
+[Thread 1] Maximum Runtime: 0,036185 seconds
+[Thread 1] Runtime Variance: 0,000031 seconds squared
+[Thread 1] Runtime Standard Deviation: 0,005545 seconds
+[Thread 1] 
+[Thread 1] Operations per Second: 50,797119
+[Thread 1] Actual Operations per Second: 42,377929
+[Thread 1] Operations per Hour: 182 869,626757
+[Thread 1] Actual Operations per Hour: 152 560,544394
+[Thread 1] 
+[Thread 1] Operation ID 4 of type Remote SPARQL Update (/home/ec2-user/bench/queries/cat3/q5.rq)
+[Thread 1] Total Runs: 23
+[Thread 1] Total Errors: 0
+[Thread 1] Total Results: 0
+[Thread 1] Average Results: 0
+[Thread 1] Total Response Time: 0,418309 seconds
+[Thread 1] Average Response Time (Arithmetic): 0,018187 seconds
+[Thread 1] Total Runtime: 0,418309 seconds
+[Thread 1] Actual Runtime: 0,485081 seconds
+[Thread 1] Average Runtime (Arithmetic): 0,018187 seconds
+[Thread 1] Actual Average Runtime (Arithmetic): 0,021090 seconds
+[Thread 1] Average Runtime (Geometric): 0,017953 seconds
+[Thread 1] Minimum Runtime: 0,013848 seconds
+[Thread 1] Maximum Runtime: 0,027049 seconds
+[Thread 1] Runtime Variance: 0,000010 seconds squared
+[Thread 1] Runtime Standard Deviation: 0,003098 seconds
+[Thread 1] 
+[Thread 1] Operations per Second: 54,983329
+[Thread 1] Actual Operations per Second: 47,414780
+[Thread 1] Operations per Hour: 197 939,983607
+[Thread 1] Actual Operations per Hour: 170 693,208828
+[Thread 1] 
+[Thread 1] Operation Mix Summary
+[Thread 1] ---------------------
+[Thread 1] 
+[Thread 1] Total Mix Runs: 5
+[Thread 1] Total Operation Runs: 15
+[Thread 1] Start Time: 12/06/2022 15:40:28 +0000
+[Thread 1] End Time: 12/06/2022 15:40:36 +0000
+[Thread 1] 
+[Thread 1] Total Errors: 5
+[Thread 1] Errors by Category: 
+[Thread 1]   HTTP Server Error (5xx): 5 error(s)
+[Thread 1] 
+[Thread 1] Total Response Time: 7,611422 seconds
+[Thread 1] Average Response Time (Arithmetic): 2,537141 seconds
+[Thread 1] Total Runtime: 9,073964 seconds
+[Thread 1] Actual Runtime: 49,062359 seconds
+[Thread 1] Average Runtime (Arithmetic): 3,024655 seconds
+[Thread 1] Actual Average Runtime (Arithmetic): 16,354120 seconds
+[Thread 1] Average Runtime (Geometric): 3,024331 seconds
+[Thread 1] Minimum Mix Runtime: 2,965853 seconds
+[Thread 1] Maximum Mix Runtime: 3,072209 seconds
+[Thread 1] Mix Runtime Variance: 0,002923 seconds squared
+[Thread 1] Mix Runtime Standard Deviation: 0,054063 seconds
+[Thread 1] Operation Mixes per Hour: 1 190,218498
+[Thread 1] Actual Operation Mixes per Hour: 220,128021
+[Thread 1] 
+[0m

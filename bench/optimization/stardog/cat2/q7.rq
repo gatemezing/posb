@@ -1,0 +1,46 @@
+#Q7: Query for setting the adopted flag
+# Updates June 2022: some properties were deprecated about legal_event. 
+# Added info about normalization + change the value about filter for celex numbers
+
+#DEFINE input:inference "cdm_rule_set"
+# updates: some properties were deprecated about legal_event. Added info about normalization + change the value about filter for celex numbers
+# update date: June 3rd, 2022 
+
+PREFIX cdm: <http://publications.europa.eu/ontology/cdm#> 
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT *
+WHERE {
+
+?dossier cdm:dossier_contains_event ?event1.
+OPTIONAL {?dossier cdm:dossier_adopted-proposal ?adopted.}
+?event1 cdm:event_has_type_concept_type_event ?eventType1.
+?event1 cdm:event_date ?date1.
+#FILTER ( 
+#?eventType1=<http://publications.europa.eu/resource/authority/event/PUB_OJ> 
+#)
+?event1 cdm:event_contains_work ?adoptedWork1.
+?adoptedWork1 owl:sameAs ?adoptedWorkSameAs1.
+FILTER (regex(str(?adoptedWorkSameAs1),'celex/[2345][0-9][0-9][0-9][0-9][AEX]'))
+OPTIONAL{ 
+?dossier cdm:dossier_contains_event ?event2.
+?event2 cdm:event_has_type_concept_type_event ?eventType2.
+?event2 cdm:event_date ?date2. 
+#FILTER ( 
+#?eventType2=<http://publications.europa.eu/resource/authority/event/PUB_OJ> 
+#)
+?event2 cdm:event_contains_work ?adoptedWork2.
+?adoptedWork2 owl:sameAs ?adoptedWorkSameAs2.
+FILTER (regex(str(?adoptedWorkSameAs2),'celex/[2345][0-9][0-9][0-9][0-9][AEX]'))
+}
+
+MINUS 
+{ 
+?dossier cdm:dossier_adopted-proposal ?adopted.
+FILTER(?adopted="true" ^^<http://www.w3.org/2001/XMLSchema#boolean>)
+?dossier cdm:dossier_date_adopted ?dateadopted.
+}  
+
+
+} 

@@ -1,0 +1,25 @@
+########################################################################
+## Q16 --> Preleg_testSet.sparql ##
+## CONMAT Dossier monitoring: retrieveing procedure URIs with leading 0s
+## BGP: 1
+#########################################################################
+
+# updates: Changed filter regex _0 for ?sAa, with _0, /1, /2
+# update date: June, 2022
+
+PREFIX cdm: <http://publications.europa.eu/ontology/cdm#> 
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?idCOM ?e ?d ?sAa
+WHERE {
+
+?act cdm:work_id_document ?idCOM .
+FILTER (?idCOM='comnat:JOIN_2014_0041_FIN'^^xsd:string || ?idCOM='comnat:COM_2014_0748_FIN'^^xsd:string || ?idCOM='comnat:COM_2014_0733_FIN'^^xsd:string || ?idCOM='comnat:COM_2014_0724_FIN'^^xsd:string || ?idCOM='comnat:COM_2014_0719_FIN'^^xsd:string || ?idCOM='comnat:COM_2014_0716_FIN'^^xsd:string || ?idCOM='comnat:COM_2014_0688_FIN'^^xsd:string || ?idCOM='comnat:COM_2015_0569_FIN'^^xsd:string || ?idCOM='comnat:COM_2015_0627_FIN'^^xsd:string || ?idCOM='comnat:COM_2015_0639_FIN'^^xsd:string ||?idCOM='comnat:COM_2015_0552_FIN'^^xsd:string || ?idCOM='comnat:COM_2016_0106_FIN'^^xsd:string || ?idCOM='comnat:COM_2016_0107_FIN'^^xsd:string || ?idCOM='comnat:COM_2016_0140_FIN'^^xsd:string || ?idCOM='comnat:COM_2016_0141_FIN'^^xsd:string)
+?act owl:sameAs ?sA .
+?e cdm:event_legal_contains_work ?act ; 
+   cdm:event_legal_part_of_dossier ?d .
+?d owl:sameAs ?sAa
+FILTER (regex (?sAa, '/1') || regex (?sAa, '/2') || regex (?sAa, '_0'))
+
+} ORDER BY ?idCOM 

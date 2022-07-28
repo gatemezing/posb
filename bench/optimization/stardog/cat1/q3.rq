@@ -1,0 +1,19 @@
+#Q3. %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+## Goal: Compute non-inferred concise bounded branch description
+##Note that this time we compute the concise bounded description of a branch notice, not its
+## symmetric equivalent. CDB is enough for representation of embedded works. 
+## Requirements:We intend to use the query for on-the-fly notice generation. 
+
+#DEFINE sql:describe-mode "CBD"
+prefix cdm: <http://publications.europa.eu/ontology/cdm#> 
+prefix owl: <http://www.w3.org/2002/07/owl#> 
+
+describe ?s ?e ?m where {
+	# substitute cellar id here
+	values ?w {<http://publications.europa.eu/resource/cellar/6df75a83-c084-11e3-86f9-01aa75ed71a1>}
+	?s owl:sameAs? ?w.
+	?e cdm:expression_belongs_to_work ?s;
+	# substitute language code here
+	cdm:expression_uses_language <http://publications.europa.eu/resource/authority/language/POR>.
+	optional{?m cdm:manifestation_manifests_expression ?e.}
+}

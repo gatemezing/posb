@@ -1,4 +1,6 @@
- 
+ // credit: @gatemezing
+ // June, 2022
+// TODO: check the difference when langtag kept in the data
 :params { lang_uri: "http://publications.europa.eu/resource/authority/language/ENG", langvalue: "ENG" }
 
 match (l)<-[:expression_uses_language]-(e)-[:expression_belongs_to_work]->(w)
@@ -8,8 +10,7 @@ optional match (m1)-[:manifestation_manifests_expression]->(e1), (m1)-[:manifest
 optional match (w)-[:work_created_by_agent]->(:Concept)-[:prefLabel]->(pfl)
 where pfl.prefLabel=$langvalue
 optional match (w:work)-[:work_is_about_concept_eurovoc]->(:Concept)-[:prefLabel]->(sbl) 
-//TODO: filter by lang in sbl
-
+where sbl.prefLabel=$langvalue
 
 return collect(distinct w.uri) as cellarURIs, 
         l.expression_title as title,

@@ -1,0 +1,23 @@
+#################################################
+## Q15: Not normalized query (not used):
+## List contains documents with titles ##########
+## test with doc Celex 52014SC0183
+## exple of ${language}= ENG, FRA, ITA, DEUS
+## BGP: 1
+###################################################
+
+prefix cdm: <http://publications.europa.eu/ontology/cdm#>
+prefix owl: <http://www.w3.org/2002/07/owl#> 
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+
+# oracle optimization
+
+# Turn off some special character escaping  
+PREFIX ORACLE_SEM_HT_NS: <http://oracle.com/semtech#ESCAPE_STR_FUNC=F,DISABLE_REGEX_UNESC>
+
+PREFIX ORACLE_SEM_FS_NS:   
+<http://oracle.com/semtech#timeout=60,degree=8,ods=6>
+
+Select ?summary ?title where { {select DISTINCT ?summary where {?s owl:sameAs/cdm:resource_legal_id_celex "52014SC0183"^^xsd:string;owl:sameAs/^cdm:summary_summarizes_work ?summary. } } 
+OPTIONAL {?summary ^cdm:expression_belongs_to_work ?e. 
+  ?e cdm:expression_uses_language <http://publications.europa.eu/resource/authority/language/ENG>; cdm:expression_title ?title.}}

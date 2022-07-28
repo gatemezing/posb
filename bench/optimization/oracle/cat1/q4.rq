@@ -1,0 +1,44 @@
+#Q4. %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+## Goal: Retrieve language specific information required for the decoding of concepts from named authority lists. 
+## Remarks: Input = concept uri + 2-char language code. In order to harmonize and standardize the codes and the associated labels used in the Publications Office
+## the MDR team maintains a number of tables, controlled vocabularies or value lists.
+## Requirements: We intend to use the query for on-the-fly notice generation.
+
+## oracle optimization changing single VALUES by the equivalent BIND
+
+# Turn off some special character escaping  
+PREFIX ORACLE_SEM_HT_NS: <http://oracle.com/semtech#ESCAPE_STR_FUNC=F,DISABLE_REGEX_UNESC>
+
+PREFIX ORACLE_SEM_FS_NS:   
+<http://oracle.com/semtech#timeout=60,degree=8,ods=6>
+prefix cdm: <http://publications.europa.eu/ontology/cdm#> 
+prefix dc: <http://purl.org/dc/elements/1.1/>
+prefix at: <http://publications.europa.eu/ontology/authority> 
+construct
+{
+	?s ?p ?o.
+}
+where
+{
+	# substitute concept uri here
+	#values ?s {<http://publications.europa.eu/resource/authority/language/POR>}
+	BIND(<http://publications.europa.eu/resource/authority/language/POR> AS ?s)
+	{
+	select ?s ?o ?p where
+	{
+		?s ?p ?o.
+		bind(lang(?o) as ?lang)
+		filter( ?lang = "" )
+		}
+	} 
+	UNION
+	{
+		select ?s ?o ?p where 
+		{
+		?s ?p ?o.
+		bind(lang(?o) as ?lang)
+		# substitute language code here
+		filter( ?lang = "en" )
+		}
+	}
+} 

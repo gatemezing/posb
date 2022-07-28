@@ -1,0 +1,12 @@
+#Q1:Total number of resource_legal:
+# BGP: 1
+ 
+#DEFINE input:inference "cdm_rule_set"
+#DEFINE input:same-as "yes"
+prefix cdm: <http://publications.europa.eu/ontology/cdm#>
+select  (count (distinct ?lr ) as ?total) 
+ where {
+?lr cdm:work_date_creation_legacy ?dat_cre.
+?lr a cdm:resource_legal .
+FILTER (!regex(str(?dat_cre), "^2016-"))
+}

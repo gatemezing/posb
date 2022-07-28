@@ -1,0 +1,711 @@
+total
+962997
+duration cat2 q1:  2096 ms
+count
+2501
+duration cat2 q2:  16781 ms
+duration cat2 q3:  867 ms
+celex, n
+NULL, (:_GraphConfig {_classLabel: "Class", _handleRDFTypes: 0, _subClassOfRel: "SCO", _handleMultival: 0, _objectPropertyLabel: "Relationship", _rangeRel: "RANGE", _domainRel: "DOMAIN", _keepLangTag: TRUE, _keepCustomDataTypes: FALSE, _handleVocabUris: 2, _applyNeo4jNaming: FALSE, _subPropertyOfRel: "SPO", _dataTypePropertyLabel: "Property"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/8b1632f7-40db-4969-9208-f8ee6a44a883", lastModificationDate: 2017-01-11T05:44:03.703+01:00})
+NULL, (:Resource:DatatypeProperty {uri: "http://publications.europa.eu/ontology/cdm#manifestation_official-journal_part_durability", comment: "Indication of the durability of the legal resource (as seen by the printer).
+Values such as \"DUR\""})
+NULL, (:Resource:Class {uri: "http://publications.europa.eu/resource/authority/Gender"})
+NULL, (:Resource:person {lastModificationDate: 2017-12-22T05:22:20.141+01:00, creationDate: 2016-09-23T16:23:09.620+02:00, uri: "http://publications.europa.eu/resource/cellar/7b4803dd-c0dd-43dc-b1f7-559ac57388ae"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/26cb186f-551c-4d7a-a1fd-527747c87c82", lastModificationDate: 2017-01-11T03:10:25.266+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T19:50:21.200+01:00, creationDate: 2016-10-04T18:24:21.341+02:00, uri: "http://publications.europa.eu/resource/cellar/6beac168-c2fd-428c-b48b-7c9a5ae1bf46"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/ba370bd9-692f-44e0-9a6b-69a89956b251", lastModificationDate: 2017-01-11T05:35:27.188+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/54cae178-cbd6-11e5-a4b5-01aa75ed71a1", lastModificationDate: 2017-01-10T21:48:57.531+01:00})
+NULL, (:Resource:DatatypeProperty {uri: "http://publications.europa.eu/ontology/tdm#stream_page_number_logical"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-10T18:11:44.829+01:00, creationDate: 2016-11-18T13:32:12.326+01:00, uri: "http://publications.europa.eu/resource/cellar/02610f09-0963-4856-91c5-e11a354964b3"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/f0a3590f-bf3f-11e5-9e54-01aa75ed71a1", lastModificationDate: 2018-10-12T16:56:54.680+02:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T08:33:42.732+01:00, creationDate: 2016-11-16T15:39:40.885+01:00, uri: "http://publications.europa.eu/resource/cellar/86dd965a-cef9-4f2b-af69-1f48e8b0b23f"})
+NULL, (:Resource:person {lastModificationDate: 2019-01-08T01:31:05.464+01:00, creationDate: 2017-04-20T09:25:24.717+02:00, uri: "http://publications.europa.eu/resource/cellar/851c5fc4-259a-11e7-ab65-01aa75ed71a1"})
+NULL, (:Resource:organization {lastModificationDate: 2020-05-20T14:34:17.508+02:00, uri: "http://publications.europa.eu/resource/cellar/6fba1d2e-f931-45c8-a694-df6b35288429", build_info: "reception-ID: PO-20200520-1967; environment: PROD; newCERES: 4.8.0; IMMC2CDM: 3.0.3; rules: mtf/rules-mtf.xml#51472#2019-10-08; builddate: 2020-05-20T12:06:30.029;"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T19:48:40.672+01:00, creationDate: 2016-10-03T13:14:23.652+02:00, uri: "http://publications.europa.eu/resource/cellar/19d3c310-ec69-4a95-9be9-7929182dff59"})
+NULL, (:Resource:person {lastModificationDate: 2017-11-27T19:19:50.342+01:00, creationDate: 2017-06-05T05:51:44.225+02:00, uri: "http://publications.europa.eu/resource/cellar/d8ada3d1-3b99-46c5-99c8-a4c41173cbe8"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/52cdb96c-a765-4805-b743-37eafd1d6ab9", lastModificationDate: 2017-01-09T14:28:02.265+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T12:31:32.838+02:00, creationDate: 2017-01-20T08:00:02.656+01:00, uri: "http://publications.europa.eu/resource/cellar/4e5c06cb-cb1f-4d1d-8793-63508de5663c"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T08:41:51.257+01:00, creationDate: 2016-12-14T22:35:08.708+01:00, uri: "http://publications.europa.eu/resource/cellar/78d00ab4-a447-423f-ba08-c918c561da6e"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/6e66ebe9-b65e-4217-9377-ca8e7ccb2c86", lastModificationDate: 2018-12-06T04:47:20.214+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/ac430c3b-ca44-11e5-a4b5-01aa75ed71a1", lastModificationDate: 2017-01-11T02:59:03.228+01:00})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/42ee6960-0789-470a-bf94-a2535605ad35", lastModificationDate: 2018-11-16T04:50:50.195+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/23189407-2b92-4d9c-bb17-4adb11c2b333", lastModificationDate: 2017-01-11T05:27:44.176+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-10T00:13:57.069+01:00, creationDate: 2016-11-09T18:22:15.887+01:00, uri: "http://publications.europa.eu/resource/cellar/823b8431-5732-4f3f-a46d-54374360cd16"})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T15:44:58.049+02:00, creationDate: 2017-05-16T04:51:56.997+02:00, uri: "http://publications.europa.eu/resource/cellar/a017409b-39e2-11e7-a08e-01aa75ed71a1"})
+NULL, (:Resource:ObjectProperty {uri: "http://publications.europa.eu/ontology/cdm#implemented_by"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T14:59:51.005+01:00, creationDate: 2016-09-21T18:29:58.446+02:00, uri: "http://publications.europa.eu/resource/cellar/1663f149-7686-430b-bd62-f8b1b8504a9b"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T10:45:27.269+01:00, creationDate: 2016-09-22T18:31:53.426+02:00, uri: "http://publications.europa.eu/resource/cellar/9966ad8c-c454-4a0c-bc12-ae6e7094bf27"})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T15:14:47.030+02:00, creationDate: 2016-07-20T09:06:40.175+02:00, uri: "http://publications.europa.eu/resource/cellar/81a625e8-4e48-11e6-89bd-01aa75ed71a1"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T09:03:12.250+01:00, creationDate: 2016-10-25T12:05:42.522+02:00, uri: "http://publications.europa.eu/resource/cellar/96a7f78e-9a9a-11e6-9bca-01aa75ed71a1"})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T15:11:50.900+02:00, creationDate: 2016-11-30T04:09:52.179+01:00, uri: "http://publications.europa.eu/resource/cellar/b0301f66-3caa-47cf-84f1-b76b622b52f6"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T09:39:20.544+01:00, creationDate: 2016-11-28T12:40:23.152+01:00, uri: "http://publications.europa.eu/resource/cellar/32646e83-e5df-4f29-b58c-66363f68f537"})
+NULL, (:Resource:DatatypeProperty {comment: "This property provides a permuted search string for the label.
+It is:
+- Generated by the back-office system, based on the literal form of the SKOS preferred or alternate label.
+- Provided as a hidden SKOS label.@en", uri: "http://eurovoc.europa.eu/schema#permutedLiteralForm", importRule: "The following SPARQL query should have an empty result list:
+SELECT lang(?nPT)
+ WHERE {
+  ?label rdf:type xl:Label .
+  ?label xl:literalForm ?lit .
+  ?label xl:permutedLiteralForm ?permLit .
+  FILTER ( lang(?lit) != lang(?permLit) ) }
+
+The seach string is made available as a hidden SKOS label:
+CONSTRUCT { ?c skos:hiddenLabel ?pl, ?al . }
+WHERE {
+      ?c rdf:type skos:Concept .
+      ?c xl:prefLabel ?pt .
+      ?pt ev:permutedLiteralForm ?pl .
+} UNION {
+      ?c rdf:type skos:Concept .
+      ?c xl:altLabel ?npt .
+      ?npt ev:permutedLiteralForm ?al .
+}@en"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/2dcf6f0c-1063-4d06-8c33-63e626ab8e0f", lastModificationDate: 2019-01-25T05:13:20.207+01:00})
+NULL, (:Resource:organization {lastModificationDate: 2017-08-02T04:51:45.655+02:00, creationDate: 2017-07-28T05:24:00.749+02:00, uri: "http://publications.europa.eu/resource/cellar/32a454cf-7344-11e7-b2f2-01aa75ed71a1"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/da72f8ff-b441-11e5-8d3c-01aa75ed71a1", lastModificationDate: 2017-01-11T04:13:08.849+01:00})
+NULL, (:Resource:ObjectProperty {uri: "http://publications.europa.eu/ontology/cdm#person_reports_on_document_budget_ep", comment: ""})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/e6b02dbc-14c5-47f3-b4fd-a290af0f182b", lastModificationDate: 2017-01-11T03:30:42.501+01:00})
+NULL, (:Resource:person {lastModificationDate: 2018-02-09T05:30:08.046+01:00, creationDate: 2016-09-06T11:20:50.202+02:00, uri: "http://publications.europa.eu/resource/cellar/6828fb8d-34ee-450c-a9aa-c4ca0079ddb4"})
+NULL, (:Resource:ObjectProperty {uri: "http://publications.europa.eu/ontology/cdm#creates"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/6ac5c612-4470-4662-a47c-23edf92507e6", lastModificationDate: 2017-11-16T07:14:30.214+01:00})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/7e07ac3d-6f62-47a9-bb19-c0268fb5c556", lastModificationDate: 2018-02-15T15:16:20.802+01:00})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/a1ac3191-933e-11e5-983e-01aa75ed71a1", lastModificationDate: 2019-01-24T05:25:58.094+01:00})
+NULL, (:Resource:agent:organization {lastModificationDate: 2018-10-20T04:20:41.520+02:00, creationDate: 2017-06-02T11:15:51.811+02:00, uri: "http://publications.europa.eu/resource/cellar/c9b6fa77-715d-404e-80a2-97ffcc5fa968"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/fb8d868b-cc73-4e49-9d5c-843fc77018aa", lastModificationDate: 2017-01-11T13:09:20.374+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/55bb005c-ccda-4f02-8c68-cbb93b2235b7", lastModificationDate: 2017-01-11T02:50:46.496+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/895f8cbd-f088-46ac-9007-6dc301294edc", lastModificationDate: 2017-01-11T15:31:26.768+01:00})
+NULL, (:Resource:person {lastModificationDate: 2017-09-22T04:51:21.925+02:00, creationDate: 2017-09-22T04:51:22.759+02:00, uri: "http://publications.europa.eu/resource/cellar/eae09766-9f40-11e7-b92d-01aa75ed71a1"})
+NULL, (:Resource:person {lastModificationDate: 2017-09-25T05:01:20.209+02:00, creationDate: 2017-09-25T04:49:32.405+02:00, uri: "http://publications.europa.eu/resource/cellar/2869c5aa-a19c-11e7-b92d-01aa75ed71a1"})
+NULL, (:Resource:organization {uri: "http://publications.europa.eu/resource/cellar/892a3597-82be-11e5-b8b7-01aa75ed71a1", lastModificationDate: 2018-06-27T20:43:42.204+02:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/35892a20-7039-451a-b296-a7b9aff7ae87", lastModificationDate: 2017-01-09T15:40:06.879+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T18:05:41.808+01:00, creationDate: 2016-12-20T14:25:34.481+01:00, uri: "http://publications.europa.eu/resource/cellar/8ba31e77-9430-415a-8fa4-5f1c53f4e7ef"})
+NULL, (:Resource:agent:organization {lastModificationDate: 2018-10-20T04:19:11.126+02:00, creationDate: 2016-09-23T10:44:14.028+02:00, uri: "http://publications.europa.eu/resource/cellar/063a13ad-d4a6-49f6-8f8e-81003f9f0876"})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T15:05:29.639+02:00, creationDate: 2016-11-09T19:25:15.217+01:00, uri: "http://publications.europa.eu/resource/cellar/59226ec8-bc09-4825-8193-8e5be3179eb9"})
+NULL, (:Resource:agent:organization {lastModificationDate: 2018-10-20T03:19:02.181+02:00, creationDate: 2016-09-06T12:20:46.500+02:00, uri: "http://publications.europa.eu/resource/cellar/b00ca0bd-ba1d-4efd-bb40-ae7706b91280"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/d1c7ba82-2dad-488e-a079-5d9580235108", lastModificationDate: 2017-01-11T09:55:51.573+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/4653e3dd-97f6-11e5-983e-01aa75ed71a1", lastModificationDate: 2017-01-11T05:24:06.555+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T17:30:30.842+01:00, creationDate: 2016-12-21T10:05:02.963+01:00, uri: "http://publications.europa.eu/resource/cellar/8edaa0cf-c75c-11e6-a6db-01aa75ed71a1"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T08:26:04.819+01:00, creationDate: 2016-09-06T11:01:41.703+02:00, uri: "http://publications.europa.eu/resource/cellar/c8025cd9-73fe-488d-b82a-f33a5d66117d"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/f2f21976-1ddb-4015-a4ad-02abc186e2cc", lastModificationDate: 2017-01-09T16:16:11.362+01:00})
+NULL, (:Resource:organization {lastModificationDate: 2021-03-01T12:57:01.372+01:00, uri: "http://publications.europa.eu/resource/cellar/608a32f3-0d00-4c46-a0f7-6483f4144a23", build_info: "reception-ID: PO-20210301-2078; environment: PROD; newCERES: 4.13.2; IMMC2CDM: 3.2.2; rules: mtf/rules-mtf.xml#51472#2019-10-08; builddate: 2021-03-01T12:49:26.029;"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/e8e51e50-1b28-11e6-ba9a-01aa75ed71a1", lastModificationDate: 2018-10-12T17:09:28.452+02:00})
+NULL, (:Resource:DatatypeProperty {in_notice: "true", comment: "Sequential number of the nth corrigendum. Relevant for legal analysis: true", to_be_indexed: "true", uri: "http://publications.europa.eu/ontology/cdm#resource_legal_number_corrigendum"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/206af8b0-c815-489b-b015-955a52646eb4", lastModificationDate: 2018-06-20T05:43:20.124+02:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/fa52edca-69ae-424e-bbaf-d3ccd56698db", lastModificationDate: 2017-01-09T15:19:46.424+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T11:43:13.395+01:00, creationDate: 2016-10-06T19:26:05.239+02:00, uri: "http://publications.europa.eu/resource/cellar/ce8b4e2d-2558-4027-b0f0-c47cb3d7b5b0"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T17:38:10.181+01:00, creationDate: 2016-11-09T23:15:20.479+01:00, uri: "http://publications.europa.eu/resource/cellar/6b5302be-cdaa-432b-b90c-83bfb7355f3d"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T10:11:39.637+01:00, creationDate: 2016-12-06T09:56:12.019+01:00, uri: "http://publications.europa.eu/resource/cellar/43290380-c1aa-41e2-a323-4eed2fb3bf6e"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T09:03:31.203+01:00, creationDate: 2016-11-09T14:04:14.016+01:00, uri: "http://publications.europa.eu/resource/cellar/ce9f3a57-d087-4b59-874f-87d870eed38d"})
+NULL, (:Resource:Class {uri: "http://data.europa.eu/54i#FinancialInstrument"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/3fd935c7-b50d-11e5-8d3c-01aa75ed71a1", lastModificationDate: 2017-01-11T06:42:15.488+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T20:45:57.142+01:00, creationDate: 2016-12-08T18:17:35.385+01:00, uri: "http://publications.europa.eu/resource/cellar/bc1aa6aa-46e4-4fa2-9162-ede5a6da033b"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/2f63f09c-49e8-4a3c-805c-061402294852", lastModificationDate: 2018-10-12T12:46:20.672+02:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T09:16:22.414+01:00, creationDate: 2016-11-23T22:09:22.385+01:00, uri: "http://publications.europa.eu/resource/cellar/398e3bfe-6e9d-4f85-8275-6360143ee579"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-09T17:21:28.728+01:00, creationDate: 2016-12-02T03:21:10.643+01:00, uri: "http://publications.europa.eu/resource/cellar/d0eda80d-9156-4c8a-a60f-7f028c105952"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/baa5522c-a41f-42e3-b0c1-8a3bc96af6bf", lastModificationDate: 2018-09-06T04:49:32.857+02:00})
+NULL, (:Resource:ObjectProperty {uri: "http://data.europa.eu/54i#isApplicableFor", comment: "e.g. Public Service X is applicable for Territory Y (is a Location)
+However, this property is not restricted to PublicService/Location Domain/Range@en"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T08:26:03.286+01:00, creationDate: 2016-08-19T11:13:30.353+02:00, uri: "http://publications.europa.eu/resource/cellar/40eeb8ee-e273-4760-9668-d6079f68fcec"})
+NULL, (:Resource:organization {uri: "http://publications.europa.eu/resource/cellar/aa4c3d03-2d8f-4bc9-853d-4c61ee61cbab", lastModificationDate: 2019-02-28T04:44:30.137+01:00})
+NULL, (:Resource:DatatypeProperty {uri: "http://publications.europa.eu/ontology/cdm#resource_legal_procedure_comment", comment: "Comment on the corresponding legal procedure.
+Obsolete, only maintained for backwards compatibility. Relevant for legal analysis: true."})
+NULL, (:Resource:agent:organization {lastModificationDate: 2018-10-20T04:09:24.285+02:00, creationDate: 2017-02-10T08:28:33.427+01:00, uri: "http://publications.europa.eu/resource/cellar/6c045c0c-21c5-4622-8a30-a418d20ebb1c"})
+NULL, (:Resource:ObjectProperty {in_notice: "true", comment: "Name of the person (EP member or member of CoR or EESC) who reports on the relevant act.
+This property will be deprecated and replaced with work_reported_by_person. Role RAPP. Relevant for legal analysis: true", uri: "http://publications.europa.eu/ontology/cdm#opinion_consultation_eesc_reported_by_person"})
+NULL, (:Resource:person {lastModificationDate: 2018-04-16T04:55:40.463+02:00, creationDate: 2017-01-12T07:41:51.251+01:00, uri: "http://publications.europa.eu/resource/cellar/32e482eb-d892-11e6-ad7c-01aa75ed71a1"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/6ccf4369-f4fd-40e2-9a9d-ab3a6e0ca06b", lastModificationDate: 2017-01-11T11:12:49.441+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T11:42:06.328+01:00, creationDate: 2016-10-05T14:34:31.506+02:00, uri: "http://publications.europa.eu/resource/cellar/cda13875-41d7-471f-bac6-343b8b9cba91"})
+NULL, (:Resource:person {lastModificationDate: 2017-09-25T05:09:40.138+02:00, creationDate: 2017-09-25T04:55:40.559+02:00, uri: "http://publications.europa.eu/resource/cellar/03dfb7d5-a19d-11e7-b92d-01aa75ed71a1"})
+NULL, (:Resource:Class {uri: "http://publications.europa.eu/ontology/cdm#concept", comment: " a cognitive unit of meaning (Wikipedia).
+
+Note: Being the \"subject\" (http://purl.org/dc/terms/subject) of a particular work is a specific role of a given concept
+
+Note: Concept is a subclass of skos:Concept (= http://www.w3.org/2004/02/skos/core#Concept)
+
+A concept will typically be encoded using a suitable vocabulary encoding scheme (controlled vocabulary, taxonomy, or thesaurus)"})
+NULL, (:Resource:Class {date: "Corresponds to DEC_REVIEW in resource-type table", uri: "http://publications.europa.eu/ontology/cdm#decision_review_cjeu"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-09T19:05:44.486+01:00, creationDate: 2016-11-24T20:03:17.889+01:00, uri: "http://publications.europa.eu/resource/cellar/f19cd4c1-914f-4fee-9fba-22c4552a9f2e"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T10:19:35.101+01:00, creationDate: 2017-01-04T11:12:33.587+01:00, uri: "http://publications.europa.eu/resource/cellar/05c2c8ab-681b-48a7-abac-406d47f1d324"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-09T17:00:03.712+01:00, creationDate: 2016-11-09T13:02:49.661+01:00, uri: "http://publications.europa.eu/resource/cellar/19f503d0-5e39-4180-a9a6-42300373a196"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/64f9e2f8-727b-11e5-9317-01aa75ed71a1", lastModificationDate: 2019-01-14T04:51:50.114+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/0234d9a0-53c8-4468-b5f5-516ad59da2de", lastModificationDate: 2017-01-11T06:07:13.315+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T15:53:37.425+02:00, creationDate: 2016-09-30T19:21:47.180+02:00, uri: "http://publications.europa.eu/resource/cellar/14c10d7a-441e-48be-b84d-e0dfd2dd8efd"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T09:41:40.633+01:00, creationDate: 2016-12-01T00:12:21.166+01:00, uri: "http://publications.europa.eu/resource/cellar/3783215b-ab22-429d-aae6-99d592dae455"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-09T18:17:00.661+01:00, creationDate: 2016-11-17T17:23:42.829+01:00, uri: "http://publications.europa.eu/resource/cellar/2d04cec6-1c94-4a8a-b870-2406cfa06dbc"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T10:47:13.237+01:00, creationDate: 2016-10-25T09:31:49.608+02:00, uri: "http://publications.europa.eu/resource/cellar/1768ca21-9a85-11e6-9bca-01aa75ed71a1"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T10:56:20.918+01:00, creationDate: 2016-11-30T16:58:42.064+01:00, uri: "http://publications.europa.eu/resource/cellar/7e5605d1-268b-4bd0-9437-37886b0404b4"})
+NULL, (:Resource:DatatypeProperty {uri: "http://publications.europa.eu/ontology/cdm#transliterated_country"})
+duration cat2 q4:  904 ms
+duration cat2 q5:  72512 ms
+duration cat2 q6:  71761 ms
+total
+962997
+duration cat2 q1:  2031 ms
+count
+2501
+duration cat2 q2:  16278 ms
+duration cat2 q3:  873 ms
+celex, n
+NULL, (:_GraphConfig {_classLabel: "Class", _handleRDFTypes: 0, _subClassOfRel: "SCO", _handleMultival: 0, _objectPropertyLabel: "Relationship", _rangeRel: "RANGE", _domainRel: "DOMAIN", _keepLangTag: TRUE, _keepCustomDataTypes: FALSE, _handleVocabUris: 2, _applyNeo4jNaming: FALSE, _subPropertyOfRel: "SPO", _dataTypePropertyLabel: "Property"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/8b1632f7-40db-4969-9208-f8ee6a44a883", lastModificationDate: 2017-01-11T05:44:03.703+01:00})
+NULL, (:Resource:DatatypeProperty {uri: "http://publications.europa.eu/ontology/cdm#manifestation_official-journal_part_durability", comment: "Indication of the durability of the legal resource (as seen by the printer).
+Values such as \"DUR\""})
+NULL, (:Resource:Class {uri: "http://publications.europa.eu/resource/authority/Gender"})
+NULL, (:Resource:person {lastModificationDate: 2017-12-22T05:22:20.141+01:00, creationDate: 2016-09-23T16:23:09.620+02:00, uri: "http://publications.europa.eu/resource/cellar/7b4803dd-c0dd-43dc-b1f7-559ac57388ae"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/26cb186f-551c-4d7a-a1fd-527747c87c82", lastModificationDate: 2017-01-11T03:10:25.266+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T19:50:21.200+01:00, creationDate: 2016-10-04T18:24:21.341+02:00, uri: "http://publications.europa.eu/resource/cellar/6beac168-c2fd-428c-b48b-7c9a5ae1bf46"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/ba370bd9-692f-44e0-9a6b-69a89956b251", lastModificationDate: 2017-01-11T05:35:27.188+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/54cae178-cbd6-11e5-a4b5-01aa75ed71a1", lastModificationDate: 2017-01-10T21:48:57.531+01:00})
+NULL, (:Resource:DatatypeProperty {uri: "http://publications.europa.eu/ontology/tdm#stream_page_number_logical"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-10T18:11:44.829+01:00, creationDate: 2016-11-18T13:32:12.326+01:00, uri: "http://publications.europa.eu/resource/cellar/02610f09-0963-4856-91c5-e11a354964b3"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/f0a3590f-bf3f-11e5-9e54-01aa75ed71a1", lastModificationDate: 2018-10-12T16:56:54.680+02:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T08:33:42.732+01:00, creationDate: 2016-11-16T15:39:40.885+01:00, uri: "http://publications.europa.eu/resource/cellar/86dd965a-cef9-4f2b-af69-1f48e8b0b23f"})
+NULL, (:Resource:person {lastModificationDate: 2019-01-08T01:31:05.464+01:00, creationDate: 2017-04-20T09:25:24.717+02:00, uri: "http://publications.europa.eu/resource/cellar/851c5fc4-259a-11e7-ab65-01aa75ed71a1"})
+NULL, (:Resource:organization {lastModificationDate: 2020-05-20T14:34:17.508+02:00, uri: "http://publications.europa.eu/resource/cellar/6fba1d2e-f931-45c8-a694-df6b35288429", build_info: "reception-ID: PO-20200520-1967; environment: PROD; newCERES: 4.8.0; IMMC2CDM: 3.0.3; rules: mtf/rules-mtf.xml#51472#2019-10-08; builddate: 2020-05-20T12:06:30.029;"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T19:48:40.672+01:00, creationDate: 2016-10-03T13:14:23.652+02:00, uri: "http://publications.europa.eu/resource/cellar/19d3c310-ec69-4a95-9be9-7929182dff59"})
+NULL, (:Resource:person {lastModificationDate: 2017-11-27T19:19:50.342+01:00, creationDate: 2017-06-05T05:51:44.225+02:00, uri: "http://publications.europa.eu/resource/cellar/d8ada3d1-3b99-46c5-99c8-a4c41173cbe8"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/52cdb96c-a765-4805-b743-37eafd1d6ab9", lastModificationDate: 2017-01-09T14:28:02.265+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T12:31:32.838+02:00, creationDate: 2017-01-20T08:00:02.656+01:00, uri: "http://publications.europa.eu/resource/cellar/4e5c06cb-cb1f-4d1d-8793-63508de5663c"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T08:41:51.257+01:00, creationDate: 2016-12-14T22:35:08.708+01:00, uri: "http://publications.europa.eu/resource/cellar/78d00ab4-a447-423f-ba08-c918c561da6e"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/6e66ebe9-b65e-4217-9377-ca8e7ccb2c86", lastModificationDate: 2018-12-06T04:47:20.214+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/ac430c3b-ca44-11e5-a4b5-01aa75ed71a1", lastModificationDate: 2017-01-11T02:59:03.228+01:00})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/42ee6960-0789-470a-bf94-a2535605ad35", lastModificationDate: 2018-11-16T04:50:50.195+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/23189407-2b92-4d9c-bb17-4adb11c2b333", lastModificationDate: 2017-01-11T05:27:44.176+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-10T00:13:57.069+01:00, creationDate: 2016-11-09T18:22:15.887+01:00, uri: "http://publications.europa.eu/resource/cellar/823b8431-5732-4f3f-a46d-54374360cd16"})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T15:44:58.049+02:00, creationDate: 2017-05-16T04:51:56.997+02:00, uri: "http://publications.europa.eu/resource/cellar/a017409b-39e2-11e7-a08e-01aa75ed71a1"})
+NULL, (:Resource:ObjectProperty {uri: "http://publications.europa.eu/ontology/cdm#implemented_by"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T14:59:51.005+01:00, creationDate: 2016-09-21T18:29:58.446+02:00, uri: "http://publications.europa.eu/resource/cellar/1663f149-7686-430b-bd62-f8b1b8504a9b"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T10:45:27.269+01:00, creationDate: 2016-09-22T18:31:53.426+02:00, uri: "http://publications.europa.eu/resource/cellar/9966ad8c-c454-4a0c-bc12-ae6e7094bf27"})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T15:14:47.030+02:00, creationDate: 2016-07-20T09:06:40.175+02:00, uri: "http://publications.europa.eu/resource/cellar/81a625e8-4e48-11e6-89bd-01aa75ed71a1"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T09:03:12.250+01:00, creationDate: 2016-10-25T12:05:42.522+02:00, uri: "http://publications.europa.eu/resource/cellar/96a7f78e-9a9a-11e6-9bca-01aa75ed71a1"})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T15:11:50.900+02:00, creationDate: 2016-11-30T04:09:52.179+01:00, uri: "http://publications.europa.eu/resource/cellar/b0301f66-3caa-47cf-84f1-b76b622b52f6"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T09:39:20.544+01:00, creationDate: 2016-11-28T12:40:23.152+01:00, uri: "http://publications.europa.eu/resource/cellar/32646e83-e5df-4f29-b58c-66363f68f537"})
+NULL, (:Resource:DatatypeProperty {comment: "This property provides a permuted search string for the label.
+It is:
+- Generated by the back-office system, based on the literal form of the SKOS preferred or alternate label.
+- Provided as a hidden SKOS label.@en", uri: "http://eurovoc.europa.eu/schema#permutedLiteralForm", importRule: "The following SPARQL query should have an empty result list:
+SELECT lang(?nPT)
+ WHERE {
+  ?label rdf:type xl:Label .
+  ?label xl:literalForm ?lit .
+  ?label xl:permutedLiteralForm ?permLit .
+  FILTER ( lang(?lit) != lang(?permLit) ) }
+
+The seach string is made available as a hidden SKOS label:
+CONSTRUCT { ?c skos:hiddenLabel ?pl, ?al . }
+WHERE {
+      ?c rdf:type skos:Concept .
+      ?c xl:prefLabel ?pt .
+      ?pt ev:permutedLiteralForm ?pl .
+} UNION {
+      ?c rdf:type skos:Concept .
+      ?c xl:altLabel ?npt .
+      ?npt ev:permutedLiteralForm ?al .
+}@en"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/2dcf6f0c-1063-4d06-8c33-63e626ab8e0f", lastModificationDate: 2019-01-25T05:13:20.207+01:00})
+NULL, (:Resource:organization {lastModificationDate: 2017-08-02T04:51:45.655+02:00, creationDate: 2017-07-28T05:24:00.749+02:00, uri: "http://publications.europa.eu/resource/cellar/32a454cf-7344-11e7-b2f2-01aa75ed71a1"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/da72f8ff-b441-11e5-8d3c-01aa75ed71a1", lastModificationDate: 2017-01-11T04:13:08.849+01:00})
+NULL, (:Resource:ObjectProperty {uri: "http://publications.europa.eu/ontology/cdm#person_reports_on_document_budget_ep", comment: ""})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/e6b02dbc-14c5-47f3-b4fd-a290af0f182b", lastModificationDate: 2017-01-11T03:30:42.501+01:00})
+NULL, (:Resource:person {lastModificationDate: 2018-02-09T05:30:08.046+01:00, creationDate: 2016-09-06T11:20:50.202+02:00, uri: "http://publications.europa.eu/resource/cellar/6828fb8d-34ee-450c-a9aa-c4ca0079ddb4"})
+NULL, (:Resource:ObjectProperty {uri: "http://publications.europa.eu/ontology/cdm#creates"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/6ac5c612-4470-4662-a47c-23edf92507e6", lastModificationDate: 2017-11-16T07:14:30.214+01:00})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/7e07ac3d-6f62-47a9-bb19-c0268fb5c556", lastModificationDate: 2018-02-15T15:16:20.802+01:00})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/a1ac3191-933e-11e5-983e-01aa75ed71a1", lastModificationDate: 2019-01-24T05:25:58.094+01:00})
+NULL, (:Resource:agent:organization {lastModificationDate: 2018-10-20T04:20:41.520+02:00, creationDate: 2017-06-02T11:15:51.811+02:00, uri: "http://publications.europa.eu/resource/cellar/c9b6fa77-715d-404e-80a2-97ffcc5fa968"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/fb8d868b-cc73-4e49-9d5c-843fc77018aa", lastModificationDate: 2017-01-11T13:09:20.374+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/55bb005c-ccda-4f02-8c68-cbb93b2235b7", lastModificationDate: 2017-01-11T02:50:46.496+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/895f8cbd-f088-46ac-9007-6dc301294edc", lastModificationDate: 2017-01-11T15:31:26.768+01:00})
+NULL, (:Resource:person {lastModificationDate: 2017-09-22T04:51:21.925+02:00, creationDate: 2017-09-22T04:51:22.759+02:00, uri: "http://publications.europa.eu/resource/cellar/eae09766-9f40-11e7-b92d-01aa75ed71a1"})
+NULL, (:Resource:person {lastModificationDate: 2017-09-25T05:01:20.209+02:00, creationDate: 2017-09-25T04:49:32.405+02:00, uri: "http://publications.europa.eu/resource/cellar/2869c5aa-a19c-11e7-b92d-01aa75ed71a1"})
+NULL, (:Resource:organization {uri: "http://publications.europa.eu/resource/cellar/892a3597-82be-11e5-b8b7-01aa75ed71a1", lastModificationDate: 2018-06-27T20:43:42.204+02:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/35892a20-7039-451a-b296-a7b9aff7ae87", lastModificationDate: 2017-01-09T15:40:06.879+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T18:05:41.808+01:00, creationDate: 2016-12-20T14:25:34.481+01:00, uri: "http://publications.europa.eu/resource/cellar/8ba31e77-9430-415a-8fa4-5f1c53f4e7ef"})
+NULL, (:Resource:agent:organization {lastModificationDate: 2018-10-20T04:19:11.126+02:00, creationDate: 2016-09-23T10:44:14.028+02:00, uri: "http://publications.europa.eu/resource/cellar/063a13ad-d4a6-49f6-8f8e-81003f9f0876"})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T15:05:29.639+02:00, creationDate: 2016-11-09T19:25:15.217+01:00, uri: "http://publications.europa.eu/resource/cellar/59226ec8-bc09-4825-8193-8e5be3179eb9"})
+NULL, (:Resource:agent:organization {lastModificationDate: 2018-10-20T03:19:02.181+02:00, creationDate: 2016-09-06T12:20:46.500+02:00, uri: "http://publications.europa.eu/resource/cellar/b00ca0bd-ba1d-4efd-bb40-ae7706b91280"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/d1c7ba82-2dad-488e-a079-5d9580235108", lastModificationDate: 2017-01-11T09:55:51.573+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/4653e3dd-97f6-11e5-983e-01aa75ed71a1", lastModificationDate: 2017-01-11T05:24:06.555+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T17:30:30.842+01:00, creationDate: 2016-12-21T10:05:02.963+01:00, uri: "http://publications.europa.eu/resource/cellar/8edaa0cf-c75c-11e6-a6db-01aa75ed71a1"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T08:26:04.819+01:00, creationDate: 2016-09-06T11:01:41.703+02:00, uri: "http://publications.europa.eu/resource/cellar/c8025cd9-73fe-488d-b82a-f33a5d66117d"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/f2f21976-1ddb-4015-a4ad-02abc186e2cc", lastModificationDate: 2017-01-09T16:16:11.362+01:00})
+NULL, (:Resource:organization {lastModificationDate: 2021-03-01T12:57:01.372+01:00, uri: "http://publications.europa.eu/resource/cellar/608a32f3-0d00-4c46-a0f7-6483f4144a23", build_info: "reception-ID: PO-20210301-2078; environment: PROD; newCERES: 4.13.2; IMMC2CDM: 3.2.2; rules: mtf/rules-mtf.xml#51472#2019-10-08; builddate: 2021-03-01T12:49:26.029;"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/e8e51e50-1b28-11e6-ba9a-01aa75ed71a1", lastModificationDate: 2018-10-12T17:09:28.452+02:00})
+NULL, (:Resource:DatatypeProperty {in_notice: "true", comment: "Sequential number of the nth corrigendum. Relevant for legal analysis: true", to_be_indexed: "true", uri: "http://publications.europa.eu/ontology/cdm#resource_legal_number_corrigendum"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/206af8b0-c815-489b-b015-955a52646eb4", lastModificationDate: 2018-06-20T05:43:20.124+02:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/fa52edca-69ae-424e-bbaf-d3ccd56698db", lastModificationDate: 2017-01-09T15:19:46.424+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T11:43:13.395+01:00, creationDate: 2016-10-06T19:26:05.239+02:00, uri: "http://publications.europa.eu/resource/cellar/ce8b4e2d-2558-4027-b0f0-c47cb3d7b5b0"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T17:38:10.181+01:00, creationDate: 2016-11-09T23:15:20.479+01:00, uri: "http://publications.europa.eu/resource/cellar/6b5302be-cdaa-432b-b90c-83bfb7355f3d"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T10:11:39.637+01:00, creationDate: 2016-12-06T09:56:12.019+01:00, uri: "http://publications.europa.eu/resource/cellar/43290380-c1aa-41e2-a323-4eed2fb3bf6e"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T09:03:31.203+01:00, creationDate: 2016-11-09T14:04:14.016+01:00, uri: "http://publications.europa.eu/resource/cellar/ce9f3a57-d087-4b59-874f-87d870eed38d"})
+NULL, (:Resource:Class {uri: "http://data.europa.eu/54i#FinancialInstrument"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/3fd935c7-b50d-11e5-8d3c-01aa75ed71a1", lastModificationDate: 2017-01-11T06:42:15.488+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T20:45:57.142+01:00, creationDate: 2016-12-08T18:17:35.385+01:00, uri: "http://publications.europa.eu/resource/cellar/bc1aa6aa-46e4-4fa2-9162-ede5a6da033b"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/2f63f09c-49e8-4a3c-805c-061402294852", lastModificationDate: 2018-10-12T12:46:20.672+02:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T09:16:22.414+01:00, creationDate: 2016-11-23T22:09:22.385+01:00, uri: "http://publications.europa.eu/resource/cellar/398e3bfe-6e9d-4f85-8275-6360143ee579"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-09T17:21:28.728+01:00, creationDate: 2016-12-02T03:21:10.643+01:00, uri: "http://publications.europa.eu/resource/cellar/d0eda80d-9156-4c8a-a60f-7f028c105952"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/baa5522c-a41f-42e3-b0c1-8a3bc96af6bf", lastModificationDate: 2018-09-06T04:49:32.857+02:00})
+NULL, (:Resource:ObjectProperty {uri: "http://data.europa.eu/54i#isApplicableFor", comment: "e.g. Public Service X is applicable for Territory Y (is a Location)
+However, this property is not restricted to PublicService/Location Domain/Range@en"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T08:26:03.286+01:00, creationDate: 2016-08-19T11:13:30.353+02:00, uri: "http://publications.europa.eu/resource/cellar/40eeb8ee-e273-4760-9668-d6079f68fcec"})
+NULL, (:Resource:organization {uri: "http://publications.europa.eu/resource/cellar/aa4c3d03-2d8f-4bc9-853d-4c61ee61cbab", lastModificationDate: 2019-02-28T04:44:30.137+01:00})
+NULL, (:Resource:DatatypeProperty {uri: "http://publications.europa.eu/ontology/cdm#resource_legal_procedure_comment", comment: "Comment on the corresponding legal procedure.
+Obsolete, only maintained for backwards compatibility. Relevant for legal analysis: true."})
+NULL, (:Resource:agent:organization {lastModificationDate: 2018-10-20T04:09:24.285+02:00, creationDate: 2017-02-10T08:28:33.427+01:00, uri: "http://publications.europa.eu/resource/cellar/6c045c0c-21c5-4622-8a30-a418d20ebb1c"})
+NULL, (:Resource:ObjectProperty {in_notice: "true", comment: "Name of the person (EP member or member of CoR or EESC) who reports on the relevant act.
+This property will be deprecated and replaced with work_reported_by_person. Role RAPP. Relevant for legal analysis: true", uri: "http://publications.europa.eu/ontology/cdm#opinion_consultation_eesc_reported_by_person"})
+NULL, (:Resource:person {lastModificationDate: 2018-04-16T04:55:40.463+02:00, creationDate: 2017-01-12T07:41:51.251+01:00, uri: "http://publications.europa.eu/resource/cellar/32e482eb-d892-11e6-ad7c-01aa75ed71a1"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/6ccf4369-f4fd-40e2-9a9d-ab3a6e0ca06b", lastModificationDate: 2017-01-11T11:12:49.441+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T11:42:06.328+01:00, creationDate: 2016-10-05T14:34:31.506+02:00, uri: "http://publications.europa.eu/resource/cellar/cda13875-41d7-471f-bac6-343b8b9cba91"})
+NULL, (:Resource:person {lastModificationDate: 2017-09-25T05:09:40.138+02:00, creationDate: 2017-09-25T04:55:40.559+02:00, uri: "http://publications.europa.eu/resource/cellar/03dfb7d5-a19d-11e7-b92d-01aa75ed71a1"})
+NULL, (:Resource:Class {uri: "http://publications.europa.eu/ontology/cdm#concept", comment: " a cognitive unit of meaning (Wikipedia).
+
+Note: Being the \"subject\" (http://purl.org/dc/terms/subject) of a particular work is a specific role of a given concept
+
+Note: Concept is a subclass of skos:Concept (= http://www.w3.org/2004/02/skos/core#Concept)
+
+A concept will typically be encoded using a suitable vocabulary encoding scheme (controlled vocabulary, taxonomy, or thesaurus)"})
+NULL, (:Resource:Class {date: "Corresponds to DEC_REVIEW in resource-type table", uri: "http://publications.europa.eu/ontology/cdm#decision_review_cjeu"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-09T19:05:44.486+01:00, creationDate: 2016-11-24T20:03:17.889+01:00, uri: "http://publications.europa.eu/resource/cellar/f19cd4c1-914f-4fee-9fba-22c4552a9f2e"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T10:19:35.101+01:00, creationDate: 2017-01-04T11:12:33.587+01:00, uri: "http://publications.europa.eu/resource/cellar/05c2c8ab-681b-48a7-abac-406d47f1d324"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-09T17:00:03.712+01:00, creationDate: 2016-11-09T13:02:49.661+01:00, uri: "http://publications.europa.eu/resource/cellar/19f503d0-5e39-4180-a9a6-42300373a196"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/64f9e2f8-727b-11e5-9317-01aa75ed71a1", lastModificationDate: 2019-01-14T04:51:50.114+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/0234d9a0-53c8-4468-b5f5-516ad59da2de", lastModificationDate: 2017-01-11T06:07:13.315+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T15:53:37.425+02:00, creationDate: 2016-09-30T19:21:47.180+02:00, uri: "http://publications.europa.eu/resource/cellar/14c10d7a-441e-48be-b84d-e0dfd2dd8efd"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T09:41:40.633+01:00, creationDate: 2016-12-01T00:12:21.166+01:00, uri: "http://publications.europa.eu/resource/cellar/3783215b-ab22-429d-aae6-99d592dae455"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-09T18:17:00.661+01:00, creationDate: 2016-11-17T17:23:42.829+01:00, uri: "http://publications.europa.eu/resource/cellar/2d04cec6-1c94-4a8a-b870-2406cfa06dbc"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T10:47:13.237+01:00, creationDate: 2016-10-25T09:31:49.608+02:00, uri: "http://publications.europa.eu/resource/cellar/1768ca21-9a85-11e6-9bca-01aa75ed71a1"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T10:56:20.918+01:00, creationDate: 2016-11-30T16:58:42.064+01:00, uri: "http://publications.europa.eu/resource/cellar/7e5605d1-268b-4bd0-9437-37886b0404b4"})
+NULL, (:Resource:DatatypeProperty {uri: "http://publications.europa.eu/ontology/cdm#transliterated_country"})
+duration cat2 q4:  899 ms
+duration cat2 q5:  70873 ms
+duration cat2 q6:  70686 ms
+total
+962997
+duration cat2 q1:  2018 ms
+count
+2501
+duration cat2 q2:  16122 ms
+duration cat2 q3:  879 ms
+celex, n
+NULL, (:_GraphConfig {_classLabel: "Class", _handleRDFTypes: 0, _subClassOfRel: "SCO", _handleMultival: 0, _objectPropertyLabel: "Relationship", _rangeRel: "RANGE", _domainRel: "DOMAIN", _keepLangTag: TRUE, _keepCustomDataTypes: FALSE, _handleVocabUris: 2, _applyNeo4jNaming: FALSE, _subPropertyOfRel: "SPO", _dataTypePropertyLabel: "Property"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/8b1632f7-40db-4969-9208-f8ee6a44a883", lastModificationDate: 2017-01-11T05:44:03.703+01:00})
+NULL, (:Resource:DatatypeProperty {uri: "http://publications.europa.eu/ontology/cdm#manifestation_official-journal_part_durability", comment: "Indication of the durability of the legal resource (as seen by the printer).
+Values such as \"DUR\""})
+NULL, (:Resource:Class {uri: "http://publications.europa.eu/resource/authority/Gender"})
+NULL, (:Resource:person {lastModificationDate: 2017-12-22T05:22:20.141+01:00, creationDate: 2016-09-23T16:23:09.620+02:00, uri: "http://publications.europa.eu/resource/cellar/7b4803dd-c0dd-43dc-b1f7-559ac57388ae"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/26cb186f-551c-4d7a-a1fd-527747c87c82", lastModificationDate: 2017-01-11T03:10:25.266+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T19:50:21.200+01:00, creationDate: 2016-10-04T18:24:21.341+02:00, uri: "http://publications.europa.eu/resource/cellar/6beac168-c2fd-428c-b48b-7c9a5ae1bf46"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/ba370bd9-692f-44e0-9a6b-69a89956b251", lastModificationDate: 2017-01-11T05:35:27.188+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/54cae178-cbd6-11e5-a4b5-01aa75ed71a1", lastModificationDate: 2017-01-10T21:48:57.531+01:00})
+NULL, (:Resource:DatatypeProperty {uri: "http://publications.europa.eu/ontology/tdm#stream_page_number_logical"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-10T18:11:44.829+01:00, creationDate: 2016-11-18T13:32:12.326+01:00, uri: "http://publications.europa.eu/resource/cellar/02610f09-0963-4856-91c5-e11a354964b3"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/f0a3590f-bf3f-11e5-9e54-01aa75ed71a1", lastModificationDate: 2018-10-12T16:56:54.680+02:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T08:33:42.732+01:00, creationDate: 2016-11-16T15:39:40.885+01:00, uri: "http://publications.europa.eu/resource/cellar/86dd965a-cef9-4f2b-af69-1f48e8b0b23f"})
+NULL, (:Resource:person {lastModificationDate: 2019-01-08T01:31:05.464+01:00, creationDate: 2017-04-20T09:25:24.717+02:00, uri: "http://publications.europa.eu/resource/cellar/851c5fc4-259a-11e7-ab65-01aa75ed71a1"})
+NULL, (:Resource:organization {lastModificationDate: 2020-05-20T14:34:17.508+02:00, uri: "http://publications.europa.eu/resource/cellar/6fba1d2e-f931-45c8-a694-df6b35288429", build_info: "reception-ID: PO-20200520-1967; environment: PROD; newCERES: 4.8.0; IMMC2CDM: 3.0.3; rules: mtf/rules-mtf.xml#51472#2019-10-08; builddate: 2020-05-20T12:06:30.029;"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T19:48:40.672+01:00, creationDate: 2016-10-03T13:14:23.652+02:00, uri: "http://publications.europa.eu/resource/cellar/19d3c310-ec69-4a95-9be9-7929182dff59"})
+NULL, (:Resource:person {lastModificationDate: 2017-11-27T19:19:50.342+01:00, creationDate: 2017-06-05T05:51:44.225+02:00, uri: "http://publications.europa.eu/resource/cellar/d8ada3d1-3b99-46c5-99c8-a4c41173cbe8"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/52cdb96c-a765-4805-b743-37eafd1d6ab9", lastModificationDate: 2017-01-09T14:28:02.265+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T12:31:32.838+02:00, creationDate: 2017-01-20T08:00:02.656+01:00, uri: "http://publications.europa.eu/resource/cellar/4e5c06cb-cb1f-4d1d-8793-63508de5663c"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T08:41:51.257+01:00, creationDate: 2016-12-14T22:35:08.708+01:00, uri: "http://publications.europa.eu/resource/cellar/78d00ab4-a447-423f-ba08-c918c561da6e"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/6e66ebe9-b65e-4217-9377-ca8e7ccb2c86", lastModificationDate: 2018-12-06T04:47:20.214+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/ac430c3b-ca44-11e5-a4b5-01aa75ed71a1", lastModificationDate: 2017-01-11T02:59:03.228+01:00})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/42ee6960-0789-470a-bf94-a2535605ad35", lastModificationDate: 2018-11-16T04:50:50.195+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/23189407-2b92-4d9c-bb17-4adb11c2b333", lastModificationDate: 2017-01-11T05:27:44.176+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-10T00:13:57.069+01:00, creationDate: 2016-11-09T18:22:15.887+01:00, uri: "http://publications.europa.eu/resource/cellar/823b8431-5732-4f3f-a46d-54374360cd16"})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T15:44:58.049+02:00, creationDate: 2017-05-16T04:51:56.997+02:00, uri: "http://publications.europa.eu/resource/cellar/a017409b-39e2-11e7-a08e-01aa75ed71a1"})
+NULL, (:Resource:ObjectProperty {uri: "http://publications.europa.eu/ontology/cdm#implemented_by"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T14:59:51.005+01:00, creationDate: 2016-09-21T18:29:58.446+02:00, uri: "http://publications.europa.eu/resource/cellar/1663f149-7686-430b-bd62-f8b1b8504a9b"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T10:45:27.269+01:00, creationDate: 2016-09-22T18:31:53.426+02:00, uri: "http://publications.europa.eu/resource/cellar/9966ad8c-c454-4a0c-bc12-ae6e7094bf27"})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T15:14:47.030+02:00, creationDate: 2016-07-20T09:06:40.175+02:00, uri: "http://publications.europa.eu/resource/cellar/81a625e8-4e48-11e6-89bd-01aa75ed71a1"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T09:03:12.250+01:00, creationDate: 2016-10-25T12:05:42.522+02:00, uri: "http://publications.europa.eu/resource/cellar/96a7f78e-9a9a-11e6-9bca-01aa75ed71a1"})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T15:11:50.900+02:00, creationDate: 2016-11-30T04:09:52.179+01:00, uri: "http://publications.europa.eu/resource/cellar/b0301f66-3caa-47cf-84f1-b76b622b52f6"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T09:39:20.544+01:00, creationDate: 2016-11-28T12:40:23.152+01:00, uri: "http://publications.europa.eu/resource/cellar/32646e83-e5df-4f29-b58c-66363f68f537"})
+NULL, (:Resource:DatatypeProperty {comment: "This property provides a permuted search string for the label.
+It is:
+- Generated by the back-office system, based on the literal form of the SKOS preferred or alternate label.
+- Provided as a hidden SKOS label.@en", uri: "http://eurovoc.europa.eu/schema#permutedLiteralForm", importRule: "The following SPARQL query should have an empty result list:
+SELECT lang(?nPT)
+ WHERE {
+  ?label rdf:type xl:Label .
+  ?label xl:literalForm ?lit .
+  ?label xl:permutedLiteralForm ?permLit .
+  FILTER ( lang(?lit) != lang(?permLit) ) }
+
+The seach string is made available as a hidden SKOS label:
+CONSTRUCT { ?c skos:hiddenLabel ?pl, ?al . }
+WHERE {
+      ?c rdf:type skos:Concept .
+      ?c xl:prefLabel ?pt .
+      ?pt ev:permutedLiteralForm ?pl .
+} UNION {
+      ?c rdf:type skos:Concept .
+      ?c xl:altLabel ?npt .
+      ?npt ev:permutedLiteralForm ?al .
+}@en"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/2dcf6f0c-1063-4d06-8c33-63e626ab8e0f", lastModificationDate: 2019-01-25T05:13:20.207+01:00})
+NULL, (:Resource:organization {lastModificationDate: 2017-08-02T04:51:45.655+02:00, creationDate: 2017-07-28T05:24:00.749+02:00, uri: "http://publications.europa.eu/resource/cellar/32a454cf-7344-11e7-b2f2-01aa75ed71a1"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/da72f8ff-b441-11e5-8d3c-01aa75ed71a1", lastModificationDate: 2017-01-11T04:13:08.849+01:00})
+NULL, (:Resource:ObjectProperty {uri: "http://publications.europa.eu/ontology/cdm#person_reports_on_document_budget_ep", comment: ""})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/e6b02dbc-14c5-47f3-b4fd-a290af0f182b", lastModificationDate: 2017-01-11T03:30:42.501+01:00})
+NULL, (:Resource:person {lastModificationDate: 2018-02-09T05:30:08.046+01:00, creationDate: 2016-09-06T11:20:50.202+02:00, uri: "http://publications.europa.eu/resource/cellar/6828fb8d-34ee-450c-a9aa-c4ca0079ddb4"})
+NULL, (:Resource:ObjectProperty {uri: "http://publications.europa.eu/ontology/cdm#creates"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/6ac5c612-4470-4662-a47c-23edf92507e6", lastModificationDate: 2017-11-16T07:14:30.214+01:00})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/7e07ac3d-6f62-47a9-bb19-c0268fb5c556", lastModificationDate: 2018-02-15T15:16:20.802+01:00})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/a1ac3191-933e-11e5-983e-01aa75ed71a1", lastModificationDate: 2019-01-24T05:25:58.094+01:00})
+NULL, (:Resource:agent:organization {lastModificationDate: 2018-10-20T04:20:41.520+02:00, creationDate: 2017-06-02T11:15:51.811+02:00, uri: "http://publications.europa.eu/resource/cellar/c9b6fa77-715d-404e-80a2-97ffcc5fa968"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/fb8d868b-cc73-4e49-9d5c-843fc77018aa", lastModificationDate: 2017-01-11T13:09:20.374+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/55bb005c-ccda-4f02-8c68-cbb93b2235b7", lastModificationDate: 2017-01-11T02:50:46.496+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/895f8cbd-f088-46ac-9007-6dc301294edc", lastModificationDate: 2017-01-11T15:31:26.768+01:00})
+NULL, (:Resource:person {lastModificationDate: 2017-09-22T04:51:21.925+02:00, creationDate: 2017-09-22T04:51:22.759+02:00, uri: "http://publications.europa.eu/resource/cellar/eae09766-9f40-11e7-b92d-01aa75ed71a1"})
+NULL, (:Resource:person {lastModificationDate: 2017-09-25T05:01:20.209+02:00, creationDate: 2017-09-25T04:49:32.405+02:00, uri: "http://publications.europa.eu/resource/cellar/2869c5aa-a19c-11e7-b92d-01aa75ed71a1"})
+NULL, (:Resource:organization {uri: "http://publications.europa.eu/resource/cellar/892a3597-82be-11e5-b8b7-01aa75ed71a1", lastModificationDate: 2018-06-27T20:43:42.204+02:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/35892a20-7039-451a-b296-a7b9aff7ae87", lastModificationDate: 2017-01-09T15:40:06.879+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T18:05:41.808+01:00, creationDate: 2016-12-20T14:25:34.481+01:00, uri: "http://publications.europa.eu/resource/cellar/8ba31e77-9430-415a-8fa4-5f1c53f4e7ef"})
+NULL, (:Resource:agent:organization {lastModificationDate: 2018-10-20T04:19:11.126+02:00, creationDate: 2016-09-23T10:44:14.028+02:00, uri: "http://publications.europa.eu/resource/cellar/063a13ad-d4a6-49f6-8f8e-81003f9f0876"})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T15:05:29.639+02:00, creationDate: 2016-11-09T19:25:15.217+01:00, uri: "http://publications.europa.eu/resource/cellar/59226ec8-bc09-4825-8193-8e5be3179eb9"})
+NULL, (:Resource:agent:organization {lastModificationDate: 2018-10-20T03:19:02.181+02:00, creationDate: 2016-09-06T12:20:46.500+02:00, uri: "http://publications.europa.eu/resource/cellar/b00ca0bd-ba1d-4efd-bb40-ae7706b91280"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/d1c7ba82-2dad-488e-a079-5d9580235108", lastModificationDate: 2017-01-11T09:55:51.573+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/4653e3dd-97f6-11e5-983e-01aa75ed71a1", lastModificationDate: 2017-01-11T05:24:06.555+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T17:30:30.842+01:00, creationDate: 2016-12-21T10:05:02.963+01:00, uri: "http://publications.europa.eu/resource/cellar/8edaa0cf-c75c-11e6-a6db-01aa75ed71a1"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T08:26:04.819+01:00, creationDate: 2016-09-06T11:01:41.703+02:00, uri: "http://publications.europa.eu/resource/cellar/c8025cd9-73fe-488d-b82a-f33a5d66117d"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/f2f21976-1ddb-4015-a4ad-02abc186e2cc", lastModificationDate: 2017-01-09T16:16:11.362+01:00})
+NULL, (:Resource:organization {lastModificationDate: 2021-03-01T12:57:01.372+01:00, uri: "http://publications.europa.eu/resource/cellar/608a32f3-0d00-4c46-a0f7-6483f4144a23", build_info: "reception-ID: PO-20210301-2078; environment: PROD; newCERES: 4.13.2; IMMC2CDM: 3.2.2; rules: mtf/rules-mtf.xml#51472#2019-10-08; builddate: 2021-03-01T12:49:26.029;"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/e8e51e50-1b28-11e6-ba9a-01aa75ed71a1", lastModificationDate: 2018-10-12T17:09:28.452+02:00})
+NULL, (:Resource:DatatypeProperty {in_notice: "true", comment: "Sequential number of the nth corrigendum. Relevant for legal analysis: true", to_be_indexed: "true", uri: "http://publications.europa.eu/ontology/cdm#resource_legal_number_corrigendum"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/206af8b0-c815-489b-b015-955a52646eb4", lastModificationDate: 2018-06-20T05:43:20.124+02:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/fa52edca-69ae-424e-bbaf-d3ccd56698db", lastModificationDate: 2017-01-09T15:19:46.424+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T11:43:13.395+01:00, creationDate: 2016-10-06T19:26:05.239+02:00, uri: "http://publications.europa.eu/resource/cellar/ce8b4e2d-2558-4027-b0f0-c47cb3d7b5b0"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T17:38:10.181+01:00, creationDate: 2016-11-09T23:15:20.479+01:00, uri: "http://publications.europa.eu/resource/cellar/6b5302be-cdaa-432b-b90c-83bfb7355f3d"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T10:11:39.637+01:00, creationDate: 2016-12-06T09:56:12.019+01:00, uri: "http://publications.europa.eu/resource/cellar/43290380-c1aa-41e2-a323-4eed2fb3bf6e"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T09:03:31.203+01:00, creationDate: 2016-11-09T14:04:14.016+01:00, uri: "http://publications.europa.eu/resource/cellar/ce9f3a57-d087-4b59-874f-87d870eed38d"})
+NULL, (:Resource:Class {uri: "http://data.europa.eu/54i#FinancialInstrument"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/3fd935c7-b50d-11e5-8d3c-01aa75ed71a1", lastModificationDate: 2017-01-11T06:42:15.488+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T20:45:57.142+01:00, creationDate: 2016-12-08T18:17:35.385+01:00, uri: "http://publications.europa.eu/resource/cellar/bc1aa6aa-46e4-4fa2-9162-ede5a6da033b"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/2f63f09c-49e8-4a3c-805c-061402294852", lastModificationDate: 2018-10-12T12:46:20.672+02:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T09:16:22.414+01:00, creationDate: 2016-11-23T22:09:22.385+01:00, uri: "http://publications.europa.eu/resource/cellar/398e3bfe-6e9d-4f85-8275-6360143ee579"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-09T17:21:28.728+01:00, creationDate: 2016-12-02T03:21:10.643+01:00, uri: "http://publications.europa.eu/resource/cellar/d0eda80d-9156-4c8a-a60f-7f028c105952"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/baa5522c-a41f-42e3-b0c1-8a3bc96af6bf", lastModificationDate: 2018-09-06T04:49:32.857+02:00})
+NULL, (:Resource:ObjectProperty {uri: "http://data.europa.eu/54i#isApplicableFor", comment: "e.g. Public Service X is applicable for Territory Y (is a Location)
+However, this property is not restricted to PublicService/Location Domain/Range@en"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T08:26:03.286+01:00, creationDate: 2016-08-19T11:13:30.353+02:00, uri: "http://publications.europa.eu/resource/cellar/40eeb8ee-e273-4760-9668-d6079f68fcec"})
+NULL, (:Resource:organization {uri: "http://publications.europa.eu/resource/cellar/aa4c3d03-2d8f-4bc9-853d-4c61ee61cbab", lastModificationDate: 2019-02-28T04:44:30.137+01:00})
+NULL, (:Resource:DatatypeProperty {uri: "http://publications.europa.eu/ontology/cdm#resource_legal_procedure_comment", comment: "Comment on the corresponding legal procedure.
+Obsolete, only maintained for backwards compatibility. Relevant for legal analysis: true."})
+NULL, (:Resource:agent:organization {lastModificationDate: 2018-10-20T04:09:24.285+02:00, creationDate: 2017-02-10T08:28:33.427+01:00, uri: "http://publications.europa.eu/resource/cellar/6c045c0c-21c5-4622-8a30-a418d20ebb1c"})
+NULL, (:Resource:ObjectProperty {in_notice: "true", comment: "Name of the person (EP member or member of CoR or EESC) who reports on the relevant act.
+This property will be deprecated and replaced with work_reported_by_person. Role RAPP. Relevant for legal analysis: true", uri: "http://publications.europa.eu/ontology/cdm#opinion_consultation_eesc_reported_by_person"})
+NULL, (:Resource:person {lastModificationDate: 2018-04-16T04:55:40.463+02:00, creationDate: 2017-01-12T07:41:51.251+01:00, uri: "http://publications.europa.eu/resource/cellar/32e482eb-d892-11e6-ad7c-01aa75ed71a1"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/6ccf4369-f4fd-40e2-9a9d-ab3a6e0ca06b", lastModificationDate: 2017-01-11T11:12:49.441+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T11:42:06.328+01:00, creationDate: 2016-10-05T14:34:31.506+02:00, uri: "http://publications.europa.eu/resource/cellar/cda13875-41d7-471f-bac6-343b8b9cba91"})
+NULL, (:Resource:person {lastModificationDate: 2017-09-25T05:09:40.138+02:00, creationDate: 2017-09-25T04:55:40.559+02:00, uri: "http://publications.europa.eu/resource/cellar/03dfb7d5-a19d-11e7-b92d-01aa75ed71a1"})
+NULL, (:Resource:Class {uri: "http://publications.europa.eu/ontology/cdm#concept", comment: " a cognitive unit of meaning (Wikipedia).
+
+Note: Being the \"subject\" (http://purl.org/dc/terms/subject) of a particular work is a specific role of a given concept
+
+Note: Concept is a subclass of skos:Concept (= http://www.w3.org/2004/02/skos/core#Concept)
+
+A concept will typically be encoded using a suitable vocabulary encoding scheme (controlled vocabulary, taxonomy, or thesaurus)"})
+NULL, (:Resource:Class {date: "Corresponds to DEC_REVIEW in resource-type table", uri: "http://publications.europa.eu/ontology/cdm#decision_review_cjeu"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-09T19:05:44.486+01:00, creationDate: 2016-11-24T20:03:17.889+01:00, uri: "http://publications.europa.eu/resource/cellar/f19cd4c1-914f-4fee-9fba-22c4552a9f2e"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T10:19:35.101+01:00, creationDate: 2017-01-04T11:12:33.587+01:00, uri: "http://publications.europa.eu/resource/cellar/05c2c8ab-681b-48a7-abac-406d47f1d324"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-09T17:00:03.712+01:00, creationDate: 2016-11-09T13:02:49.661+01:00, uri: "http://publications.europa.eu/resource/cellar/19f503d0-5e39-4180-a9a6-42300373a196"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/64f9e2f8-727b-11e5-9317-01aa75ed71a1", lastModificationDate: 2019-01-14T04:51:50.114+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/0234d9a0-53c8-4468-b5f5-516ad59da2de", lastModificationDate: 2017-01-11T06:07:13.315+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T15:53:37.425+02:00, creationDate: 2016-09-30T19:21:47.180+02:00, uri: "http://publications.europa.eu/resource/cellar/14c10d7a-441e-48be-b84d-e0dfd2dd8efd"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T09:41:40.633+01:00, creationDate: 2016-12-01T00:12:21.166+01:00, uri: "http://publications.europa.eu/resource/cellar/3783215b-ab22-429d-aae6-99d592dae455"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-09T18:17:00.661+01:00, creationDate: 2016-11-17T17:23:42.829+01:00, uri: "http://publications.europa.eu/resource/cellar/2d04cec6-1c94-4a8a-b870-2406cfa06dbc"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T10:47:13.237+01:00, creationDate: 2016-10-25T09:31:49.608+02:00, uri: "http://publications.europa.eu/resource/cellar/1768ca21-9a85-11e6-9bca-01aa75ed71a1"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T10:56:20.918+01:00, creationDate: 2016-11-30T16:58:42.064+01:00, uri: "http://publications.europa.eu/resource/cellar/7e5605d1-268b-4bd0-9437-37886b0404b4"})
+NULL, (:Resource:DatatypeProperty {uri: "http://publications.europa.eu/ontology/cdm#transliterated_country"})
+duration cat2 q4:  907 ms
+duration cat2 q5:  70793 ms
+duration cat2 q6:  71900 ms
+total
+962997
+duration cat2 q1:  1983 ms
+count
+2501
+duration cat2 q2:  16077 ms
+duration cat2 q3:  877 ms
+celex, n
+NULL, (:_GraphConfig {_classLabel: "Class", _handleRDFTypes: 0, _subClassOfRel: "SCO", _handleMultival: 0, _objectPropertyLabel: "Relationship", _rangeRel: "RANGE", _domainRel: "DOMAIN", _keepLangTag: TRUE, _keepCustomDataTypes: FALSE, _handleVocabUris: 2, _applyNeo4jNaming: FALSE, _subPropertyOfRel: "SPO", _dataTypePropertyLabel: "Property"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/8b1632f7-40db-4969-9208-f8ee6a44a883", lastModificationDate: 2017-01-11T05:44:03.703+01:00})
+NULL, (:Resource:DatatypeProperty {uri: "http://publications.europa.eu/ontology/cdm#manifestation_official-journal_part_durability", comment: "Indication of the durability of the legal resource (as seen by the printer).
+Values such as \"DUR\""})
+NULL, (:Resource:Class {uri: "http://publications.europa.eu/resource/authority/Gender"})
+NULL, (:Resource:person {lastModificationDate: 2017-12-22T05:22:20.141+01:00, creationDate: 2016-09-23T16:23:09.620+02:00, uri: "http://publications.europa.eu/resource/cellar/7b4803dd-c0dd-43dc-b1f7-559ac57388ae"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/26cb186f-551c-4d7a-a1fd-527747c87c82", lastModificationDate: 2017-01-11T03:10:25.266+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T19:50:21.200+01:00, creationDate: 2016-10-04T18:24:21.341+02:00, uri: "http://publications.europa.eu/resource/cellar/6beac168-c2fd-428c-b48b-7c9a5ae1bf46"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/ba370bd9-692f-44e0-9a6b-69a89956b251", lastModificationDate: 2017-01-11T05:35:27.188+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/54cae178-cbd6-11e5-a4b5-01aa75ed71a1", lastModificationDate: 2017-01-10T21:48:57.531+01:00})
+NULL, (:Resource:DatatypeProperty {uri: "http://publications.europa.eu/ontology/tdm#stream_page_number_logical"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-10T18:11:44.829+01:00, creationDate: 2016-11-18T13:32:12.326+01:00, uri: "http://publications.europa.eu/resource/cellar/02610f09-0963-4856-91c5-e11a354964b3"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/f0a3590f-bf3f-11e5-9e54-01aa75ed71a1", lastModificationDate: 2018-10-12T16:56:54.680+02:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T08:33:42.732+01:00, creationDate: 2016-11-16T15:39:40.885+01:00, uri: "http://publications.europa.eu/resource/cellar/86dd965a-cef9-4f2b-af69-1f48e8b0b23f"})
+NULL, (:Resource:person {lastModificationDate: 2019-01-08T01:31:05.464+01:00, creationDate: 2017-04-20T09:25:24.717+02:00, uri: "http://publications.europa.eu/resource/cellar/851c5fc4-259a-11e7-ab65-01aa75ed71a1"})
+NULL, (:Resource:organization {lastModificationDate: 2020-05-20T14:34:17.508+02:00, uri: "http://publications.europa.eu/resource/cellar/6fba1d2e-f931-45c8-a694-df6b35288429", build_info: "reception-ID: PO-20200520-1967; environment: PROD; newCERES: 4.8.0; IMMC2CDM: 3.0.3; rules: mtf/rules-mtf.xml#51472#2019-10-08; builddate: 2020-05-20T12:06:30.029;"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T19:48:40.672+01:00, creationDate: 2016-10-03T13:14:23.652+02:00, uri: "http://publications.europa.eu/resource/cellar/19d3c310-ec69-4a95-9be9-7929182dff59"})
+NULL, (:Resource:person {lastModificationDate: 2017-11-27T19:19:50.342+01:00, creationDate: 2017-06-05T05:51:44.225+02:00, uri: "http://publications.europa.eu/resource/cellar/d8ada3d1-3b99-46c5-99c8-a4c41173cbe8"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/52cdb96c-a765-4805-b743-37eafd1d6ab9", lastModificationDate: 2017-01-09T14:28:02.265+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T12:31:32.838+02:00, creationDate: 2017-01-20T08:00:02.656+01:00, uri: "http://publications.europa.eu/resource/cellar/4e5c06cb-cb1f-4d1d-8793-63508de5663c"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T08:41:51.257+01:00, creationDate: 2016-12-14T22:35:08.708+01:00, uri: "http://publications.europa.eu/resource/cellar/78d00ab4-a447-423f-ba08-c918c561da6e"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/6e66ebe9-b65e-4217-9377-ca8e7ccb2c86", lastModificationDate: 2018-12-06T04:47:20.214+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/ac430c3b-ca44-11e5-a4b5-01aa75ed71a1", lastModificationDate: 2017-01-11T02:59:03.228+01:00})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/42ee6960-0789-470a-bf94-a2535605ad35", lastModificationDate: 2018-11-16T04:50:50.195+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/23189407-2b92-4d9c-bb17-4adb11c2b333", lastModificationDate: 2017-01-11T05:27:44.176+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-10T00:13:57.069+01:00, creationDate: 2016-11-09T18:22:15.887+01:00, uri: "http://publications.europa.eu/resource/cellar/823b8431-5732-4f3f-a46d-54374360cd16"})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T15:44:58.049+02:00, creationDate: 2017-05-16T04:51:56.997+02:00, uri: "http://publications.europa.eu/resource/cellar/a017409b-39e2-11e7-a08e-01aa75ed71a1"})
+NULL, (:Resource:ObjectProperty {uri: "http://publications.europa.eu/ontology/cdm#implemented_by"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T14:59:51.005+01:00, creationDate: 2016-09-21T18:29:58.446+02:00, uri: "http://publications.europa.eu/resource/cellar/1663f149-7686-430b-bd62-f8b1b8504a9b"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T10:45:27.269+01:00, creationDate: 2016-09-22T18:31:53.426+02:00, uri: "http://publications.europa.eu/resource/cellar/9966ad8c-c454-4a0c-bc12-ae6e7094bf27"})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T15:14:47.030+02:00, creationDate: 2016-07-20T09:06:40.175+02:00, uri: "http://publications.europa.eu/resource/cellar/81a625e8-4e48-11e6-89bd-01aa75ed71a1"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T09:03:12.250+01:00, creationDate: 2016-10-25T12:05:42.522+02:00, uri: "http://publications.europa.eu/resource/cellar/96a7f78e-9a9a-11e6-9bca-01aa75ed71a1"})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T15:11:50.900+02:00, creationDate: 2016-11-30T04:09:52.179+01:00, uri: "http://publications.europa.eu/resource/cellar/b0301f66-3caa-47cf-84f1-b76b622b52f6"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T09:39:20.544+01:00, creationDate: 2016-11-28T12:40:23.152+01:00, uri: "http://publications.europa.eu/resource/cellar/32646e83-e5df-4f29-b58c-66363f68f537"})
+NULL, (:Resource:DatatypeProperty {comment: "This property provides a permuted search string for the label.
+It is:
+- Generated by the back-office system, based on the literal form of the SKOS preferred or alternate label.
+- Provided as a hidden SKOS label.@en", uri: "http://eurovoc.europa.eu/schema#permutedLiteralForm", importRule: "The following SPARQL query should have an empty result list:
+SELECT lang(?nPT)
+ WHERE {
+  ?label rdf:type xl:Label .
+  ?label xl:literalForm ?lit .
+  ?label xl:permutedLiteralForm ?permLit .
+  FILTER ( lang(?lit) != lang(?permLit) ) }
+
+The seach string is made available as a hidden SKOS label:
+CONSTRUCT { ?c skos:hiddenLabel ?pl, ?al . }
+WHERE {
+      ?c rdf:type skos:Concept .
+      ?c xl:prefLabel ?pt .
+      ?pt ev:permutedLiteralForm ?pl .
+} UNION {
+      ?c rdf:type skos:Concept .
+      ?c xl:altLabel ?npt .
+      ?npt ev:permutedLiteralForm ?al .
+}@en"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/2dcf6f0c-1063-4d06-8c33-63e626ab8e0f", lastModificationDate: 2019-01-25T05:13:20.207+01:00})
+NULL, (:Resource:organization {lastModificationDate: 2017-08-02T04:51:45.655+02:00, creationDate: 2017-07-28T05:24:00.749+02:00, uri: "http://publications.europa.eu/resource/cellar/32a454cf-7344-11e7-b2f2-01aa75ed71a1"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/da72f8ff-b441-11e5-8d3c-01aa75ed71a1", lastModificationDate: 2017-01-11T04:13:08.849+01:00})
+NULL, (:Resource:ObjectProperty {uri: "http://publications.europa.eu/ontology/cdm#person_reports_on_document_budget_ep", comment: ""})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/e6b02dbc-14c5-47f3-b4fd-a290af0f182b", lastModificationDate: 2017-01-11T03:30:42.501+01:00})
+NULL, (:Resource:person {lastModificationDate: 2018-02-09T05:30:08.046+01:00, creationDate: 2016-09-06T11:20:50.202+02:00, uri: "http://publications.europa.eu/resource/cellar/6828fb8d-34ee-450c-a9aa-c4ca0079ddb4"})
+NULL, (:Resource:ObjectProperty {uri: "http://publications.europa.eu/ontology/cdm#creates"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/6ac5c612-4470-4662-a47c-23edf92507e6", lastModificationDate: 2017-11-16T07:14:30.214+01:00})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/7e07ac3d-6f62-47a9-bb19-c0268fb5c556", lastModificationDate: 2018-02-15T15:16:20.802+01:00})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/a1ac3191-933e-11e5-983e-01aa75ed71a1", lastModificationDate: 2019-01-24T05:25:58.094+01:00})
+NULL, (:Resource:agent:organization {lastModificationDate: 2018-10-20T04:20:41.520+02:00, creationDate: 2017-06-02T11:15:51.811+02:00, uri: "http://publications.europa.eu/resource/cellar/c9b6fa77-715d-404e-80a2-97ffcc5fa968"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/fb8d868b-cc73-4e49-9d5c-843fc77018aa", lastModificationDate: 2017-01-11T13:09:20.374+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/55bb005c-ccda-4f02-8c68-cbb93b2235b7", lastModificationDate: 2017-01-11T02:50:46.496+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/895f8cbd-f088-46ac-9007-6dc301294edc", lastModificationDate: 2017-01-11T15:31:26.768+01:00})
+NULL, (:Resource:person {lastModificationDate: 2017-09-22T04:51:21.925+02:00, creationDate: 2017-09-22T04:51:22.759+02:00, uri: "http://publications.europa.eu/resource/cellar/eae09766-9f40-11e7-b92d-01aa75ed71a1"})
+NULL, (:Resource:person {lastModificationDate: 2017-09-25T05:01:20.209+02:00, creationDate: 2017-09-25T04:49:32.405+02:00, uri: "http://publications.europa.eu/resource/cellar/2869c5aa-a19c-11e7-b92d-01aa75ed71a1"})
+NULL, (:Resource:organization {uri: "http://publications.europa.eu/resource/cellar/892a3597-82be-11e5-b8b7-01aa75ed71a1", lastModificationDate: 2018-06-27T20:43:42.204+02:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/35892a20-7039-451a-b296-a7b9aff7ae87", lastModificationDate: 2017-01-09T15:40:06.879+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T18:05:41.808+01:00, creationDate: 2016-12-20T14:25:34.481+01:00, uri: "http://publications.europa.eu/resource/cellar/8ba31e77-9430-415a-8fa4-5f1c53f4e7ef"})
+NULL, (:Resource:agent:organization {lastModificationDate: 2018-10-20T04:19:11.126+02:00, creationDate: 2016-09-23T10:44:14.028+02:00, uri: "http://publications.europa.eu/resource/cellar/063a13ad-d4a6-49f6-8f8e-81003f9f0876"})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T15:05:29.639+02:00, creationDate: 2016-11-09T19:25:15.217+01:00, uri: "http://publications.europa.eu/resource/cellar/59226ec8-bc09-4825-8193-8e5be3179eb9"})
+NULL, (:Resource:agent:organization {lastModificationDate: 2018-10-20T03:19:02.181+02:00, creationDate: 2016-09-06T12:20:46.500+02:00, uri: "http://publications.europa.eu/resource/cellar/b00ca0bd-ba1d-4efd-bb40-ae7706b91280"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/d1c7ba82-2dad-488e-a079-5d9580235108", lastModificationDate: 2017-01-11T09:55:51.573+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/4653e3dd-97f6-11e5-983e-01aa75ed71a1", lastModificationDate: 2017-01-11T05:24:06.555+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T17:30:30.842+01:00, creationDate: 2016-12-21T10:05:02.963+01:00, uri: "http://publications.europa.eu/resource/cellar/8edaa0cf-c75c-11e6-a6db-01aa75ed71a1"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T08:26:04.819+01:00, creationDate: 2016-09-06T11:01:41.703+02:00, uri: "http://publications.europa.eu/resource/cellar/c8025cd9-73fe-488d-b82a-f33a5d66117d"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/f2f21976-1ddb-4015-a4ad-02abc186e2cc", lastModificationDate: 2017-01-09T16:16:11.362+01:00})
+NULL, (:Resource:organization {lastModificationDate: 2021-03-01T12:57:01.372+01:00, uri: "http://publications.europa.eu/resource/cellar/608a32f3-0d00-4c46-a0f7-6483f4144a23", build_info: "reception-ID: PO-20210301-2078; environment: PROD; newCERES: 4.13.2; IMMC2CDM: 3.2.2; rules: mtf/rules-mtf.xml#51472#2019-10-08; builddate: 2021-03-01T12:49:26.029;"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/e8e51e50-1b28-11e6-ba9a-01aa75ed71a1", lastModificationDate: 2018-10-12T17:09:28.452+02:00})
+NULL, (:Resource:DatatypeProperty {in_notice: "true", comment: "Sequential number of the nth corrigendum. Relevant for legal analysis: true", to_be_indexed: "true", uri: "http://publications.europa.eu/ontology/cdm#resource_legal_number_corrigendum"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/206af8b0-c815-489b-b015-955a52646eb4", lastModificationDate: 2018-06-20T05:43:20.124+02:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/fa52edca-69ae-424e-bbaf-d3ccd56698db", lastModificationDate: 2017-01-09T15:19:46.424+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T11:43:13.395+01:00, creationDate: 2016-10-06T19:26:05.239+02:00, uri: "http://publications.europa.eu/resource/cellar/ce8b4e2d-2558-4027-b0f0-c47cb3d7b5b0"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T17:38:10.181+01:00, creationDate: 2016-11-09T23:15:20.479+01:00, uri: "http://publications.europa.eu/resource/cellar/6b5302be-cdaa-432b-b90c-83bfb7355f3d"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T10:11:39.637+01:00, creationDate: 2016-12-06T09:56:12.019+01:00, uri: "http://publications.europa.eu/resource/cellar/43290380-c1aa-41e2-a323-4eed2fb3bf6e"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T09:03:31.203+01:00, creationDate: 2016-11-09T14:04:14.016+01:00, uri: "http://publications.europa.eu/resource/cellar/ce9f3a57-d087-4b59-874f-87d870eed38d"})
+NULL, (:Resource:Class {uri: "http://data.europa.eu/54i#FinancialInstrument"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/3fd935c7-b50d-11e5-8d3c-01aa75ed71a1", lastModificationDate: 2017-01-11T06:42:15.488+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T20:45:57.142+01:00, creationDate: 2016-12-08T18:17:35.385+01:00, uri: "http://publications.europa.eu/resource/cellar/bc1aa6aa-46e4-4fa2-9162-ede5a6da033b"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/2f63f09c-49e8-4a3c-805c-061402294852", lastModificationDate: 2018-10-12T12:46:20.672+02:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T09:16:22.414+01:00, creationDate: 2016-11-23T22:09:22.385+01:00, uri: "http://publications.europa.eu/resource/cellar/398e3bfe-6e9d-4f85-8275-6360143ee579"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-09T17:21:28.728+01:00, creationDate: 2016-12-02T03:21:10.643+01:00, uri: "http://publications.europa.eu/resource/cellar/d0eda80d-9156-4c8a-a60f-7f028c105952"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/baa5522c-a41f-42e3-b0c1-8a3bc96af6bf", lastModificationDate: 2018-09-06T04:49:32.857+02:00})
+NULL, (:Resource:ObjectProperty {uri: "http://data.europa.eu/54i#isApplicableFor", comment: "e.g. Public Service X is applicable for Territory Y (is a Location)
+However, this property is not restricted to PublicService/Location Domain/Range@en"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T08:26:03.286+01:00, creationDate: 2016-08-19T11:13:30.353+02:00, uri: "http://publications.europa.eu/resource/cellar/40eeb8ee-e273-4760-9668-d6079f68fcec"})
+NULL, (:Resource:organization {uri: "http://publications.europa.eu/resource/cellar/aa4c3d03-2d8f-4bc9-853d-4c61ee61cbab", lastModificationDate: 2019-02-28T04:44:30.137+01:00})
+NULL, (:Resource:DatatypeProperty {uri: "http://publications.europa.eu/ontology/cdm#resource_legal_procedure_comment", comment: "Comment on the corresponding legal procedure.
+Obsolete, only maintained for backwards compatibility. Relevant for legal analysis: true."})
+NULL, (:Resource:agent:organization {lastModificationDate: 2018-10-20T04:09:24.285+02:00, creationDate: 2017-02-10T08:28:33.427+01:00, uri: "http://publications.europa.eu/resource/cellar/6c045c0c-21c5-4622-8a30-a418d20ebb1c"})
+NULL, (:Resource:ObjectProperty {in_notice: "true", comment: "Name of the person (EP member or member of CoR or EESC) who reports on the relevant act.
+This property will be deprecated and replaced with work_reported_by_person. Role RAPP. Relevant for legal analysis: true", uri: "http://publications.europa.eu/ontology/cdm#opinion_consultation_eesc_reported_by_person"})
+NULL, (:Resource:person {lastModificationDate: 2018-04-16T04:55:40.463+02:00, creationDate: 2017-01-12T07:41:51.251+01:00, uri: "http://publications.europa.eu/resource/cellar/32e482eb-d892-11e6-ad7c-01aa75ed71a1"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/6ccf4369-f4fd-40e2-9a9d-ab3a6e0ca06b", lastModificationDate: 2017-01-11T11:12:49.441+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T11:42:06.328+01:00, creationDate: 2016-10-05T14:34:31.506+02:00, uri: "http://publications.europa.eu/resource/cellar/cda13875-41d7-471f-bac6-343b8b9cba91"})
+NULL, (:Resource:person {lastModificationDate: 2017-09-25T05:09:40.138+02:00, creationDate: 2017-09-25T04:55:40.559+02:00, uri: "http://publications.europa.eu/resource/cellar/03dfb7d5-a19d-11e7-b92d-01aa75ed71a1"})
+NULL, (:Resource:Class {uri: "http://publications.europa.eu/ontology/cdm#concept", comment: " a cognitive unit of meaning (Wikipedia).
+
+Note: Being the \"subject\" (http://purl.org/dc/terms/subject) of a particular work is a specific role of a given concept
+
+Note: Concept is a subclass of skos:Concept (= http://www.w3.org/2004/02/skos/core#Concept)
+
+A concept will typically be encoded using a suitable vocabulary encoding scheme (controlled vocabulary, taxonomy, or thesaurus)"})
+NULL, (:Resource:Class {date: "Corresponds to DEC_REVIEW in resource-type table", uri: "http://publications.europa.eu/ontology/cdm#decision_review_cjeu"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-09T19:05:44.486+01:00, creationDate: 2016-11-24T20:03:17.889+01:00, uri: "http://publications.europa.eu/resource/cellar/f19cd4c1-914f-4fee-9fba-22c4552a9f2e"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T10:19:35.101+01:00, creationDate: 2017-01-04T11:12:33.587+01:00, uri: "http://publications.europa.eu/resource/cellar/05c2c8ab-681b-48a7-abac-406d47f1d324"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-09T17:00:03.712+01:00, creationDate: 2016-11-09T13:02:49.661+01:00, uri: "http://publications.europa.eu/resource/cellar/19f503d0-5e39-4180-a9a6-42300373a196"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/64f9e2f8-727b-11e5-9317-01aa75ed71a1", lastModificationDate: 2019-01-14T04:51:50.114+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/0234d9a0-53c8-4468-b5f5-516ad59da2de", lastModificationDate: 2017-01-11T06:07:13.315+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T15:53:37.425+02:00, creationDate: 2016-09-30T19:21:47.180+02:00, uri: "http://publications.europa.eu/resource/cellar/14c10d7a-441e-48be-b84d-e0dfd2dd8efd"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T09:41:40.633+01:00, creationDate: 2016-12-01T00:12:21.166+01:00, uri: "http://publications.europa.eu/resource/cellar/3783215b-ab22-429d-aae6-99d592dae455"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-09T18:17:00.661+01:00, creationDate: 2016-11-17T17:23:42.829+01:00, uri: "http://publications.europa.eu/resource/cellar/2d04cec6-1c94-4a8a-b870-2406cfa06dbc"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T10:47:13.237+01:00, creationDate: 2016-10-25T09:31:49.608+02:00, uri: "http://publications.europa.eu/resource/cellar/1768ca21-9a85-11e6-9bca-01aa75ed71a1"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T10:56:20.918+01:00, creationDate: 2016-11-30T16:58:42.064+01:00, uri: "http://publications.europa.eu/resource/cellar/7e5605d1-268b-4bd0-9437-37886b0404b4"})
+NULL, (:Resource:DatatypeProperty {uri: "http://publications.europa.eu/ontology/cdm#transliterated_country"})
+duration cat2 q4:  922 ms
+duration cat2 q5:  71054 ms
+duration cat2 q6:  71085 ms
+total
+962997
+duration cat2 q1:  1899 ms
+count
+2501
+duration cat2 q2:  15967 ms
+duration cat2 q3:  869 ms
+celex, n
+NULL, (:_GraphConfig {_classLabel: "Class", _handleRDFTypes: 0, _subClassOfRel: "SCO", _handleMultival: 0, _objectPropertyLabel: "Relationship", _rangeRel: "RANGE", _domainRel: "DOMAIN", _keepLangTag: TRUE, _keepCustomDataTypes: FALSE, _handleVocabUris: 2, _applyNeo4jNaming: FALSE, _subPropertyOfRel: "SPO", _dataTypePropertyLabel: "Property"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/8b1632f7-40db-4969-9208-f8ee6a44a883", lastModificationDate: 2017-01-11T05:44:03.703+01:00})
+NULL, (:Resource:DatatypeProperty {uri: "http://publications.europa.eu/ontology/cdm#manifestation_official-journal_part_durability", comment: "Indication of the durability of the legal resource (as seen by the printer).
+Values such as \"DUR\""})
+NULL, (:Resource:Class {uri: "http://publications.europa.eu/resource/authority/Gender"})
+NULL, (:Resource:person {lastModificationDate: 2017-12-22T05:22:20.141+01:00, creationDate: 2016-09-23T16:23:09.620+02:00, uri: "http://publications.europa.eu/resource/cellar/7b4803dd-c0dd-43dc-b1f7-559ac57388ae"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/26cb186f-551c-4d7a-a1fd-527747c87c82", lastModificationDate: 2017-01-11T03:10:25.266+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T19:50:21.200+01:00, creationDate: 2016-10-04T18:24:21.341+02:00, uri: "http://publications.europa.eu/resource/cellar/6beac168-c2fd-428c-b48b-7c9a5ae1bf46"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/ba370bd9-692f-44e0-9a6b-69a89956b251", lastModificationDate: 2017-01-11T05:35:27.188+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/54cae178-cbd6-11e5-a4b5-01aa75ed71a1", lastModificationDate: 2017-01-10T21:48:57.531+01:00})
+NULL, (:Resource:DatatypeProperty {uri: "http://publications.europa.eu/ontology/tdm#stream_page_number_logical"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-10T18:11:44.829+01:00, creationDate: 2016-11-18T13:32:12.326+01:00, uri: "http://publications.europa.eu/resource/cellar/02610f09-0963-4856-91c5-e11a354964b3"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/f0a3590f-bf3f-11e5-9e54-01aa75ed71a1", lastModificationDate: 2018-10-12T16:56:54.680+02:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T08:33:42.732+01:00, creationDate: 2016-11-16T15:39:40.885+01:00, uri: "http://publications.europa.eu/resource/cellar/86dd965a-cef9-4f2b-af69-1f48e8b0b23f"})
+NULL, (:Resource:person {lastModificationDate: 2019-01-08T01:31:05.464+01:00, creationDate: 2017-04-20T09:25:24.717+02:00, uri: "http://publications.europa.eu/resource/cellar/851c5fc4-259a-11e7-ab65-01aa75ed71a1"})
+NULL, (:Resource:organization {lastModificationDate: 2020-05-20T14:34:17.508+02:00, uri: "http://publications.europa.eu/resource/cellar/6fba1d2e-f931-45c8-a694-df6b35288429", build_info: "reception-ID: PO-20200520-1967; environment: PROD; newCERES: 4.8.0; IMMC2CDM: 3.0.3; rules: mtf/rules-mtf.xml#51472#2019-10-08; builddate: 2020-05-20T12:06:30.029;"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T19:48:40.672+01:00, creationDate: 2016-10-03T13:14:23.652+02:00, uri: "http://publications.europa.eu/resource/cellar/19d3c310-ec69-4a95-9be9-7929182dff59"})
+NULL, (:Resource:person {lastModificationDate: 2017-11-27T19:19:50.342+01:00, creationDate: 2017-06-05T05:51:44.225+02:00, uri: "http://publications.europa.eu/resource/cellar/d8ada3d1-3b99-46c5-99c8-a4c41173cbe8"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/52cdb96c-a765-4805-b743-37eafd1d6ab9", lastModificationDate: 2017-01-09T14:28:02.265+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T12:31:32.838+02:00, creationDate: 2017-01-20T08:00:02.656+01:00, uri: "http://publications.europa.eu/resource/cellar/4e5c06cb-cb1f-4d1d-8793-63508de5663c"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T08:41:51.257+01:00, creationDate: 2016-12-14T22:35:08.708+01:00, uri: "http://publications.europa.eu/resource/cellar/78d00ab4-a447-423f-ba08-c918c561da6e"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/6e66ebe9-b65e-4217-9377-ca8e7ccb2c86", lastModificationDate: 2018-12-06T04:47:20.214+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/ac430c3b-ca44-11e5-a4b5-01aa75ed71a1", lastModificationDate: 2017-01-11T02:59:03.228+01:00})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/42ee6960-0789-470a-bf94-a2535605ad35", lastModificationDate: 2018-11-16T04:50:50.195+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/23189407-2b92-4d9c-bb17-4adb11c2b333", lastModificationDate: 2017-01-11T05:27:44.176+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-10T00:13:57.069+01:00, creationDate: 2016-11-09T18:22:15.887+01:00, uri: "http://publications.europa.eu/resource/cellar/823b8431-5732-4f3f-a46d-54374360cd16"})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T15:44:58.049+02:00, creationDate: 2017-05-16T04:51:56.997+02:00, uri: "http://publications.europa.eu/resource/cellar/a017409b-39e2-11e7-a08e-01aa75ed71a1"})
+NULL, (:Resource:ObjectProperty {uri: "http://publications.europa.eu/ontology/cdm#implemented_by"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T14:59:51.005+01:00, creationDate: 2016-09-21T18:29:58.446+02:00, uri: "http://publications.europa.eu/resource/cellar/1663f149-7686-430b-bd62-f8b1b8504a9b"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T10:45:27.269+01:00, creationDate: 2016-09-22T18:31:53.426+02:00, uri: "http://publications.europa.eu/resource/cellar/9966ad8c-c454-4a0c-bc12-ae6e7094bf27"})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T15:14:47.030+02:00, creationDate: 2016-07-20T09:06:40.175+02:00, uri: "http://publications.europa.eu/resource/cellar/81a625e8-4e48-11e6-89bd-01aa75ed71a1"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T09:03:12.250+01:00, creationDate: 2016-10-25T12:05:42.522+02:00, uri: "http://publications.europa.eu/resource/cellar/96a7f78e-9a9a-11e6-9bca-01aa75ed71a1"})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T15:11:50.900+02:00, creationDate: 2016-11-30T04:09:52.179+01:00, uri: "http://publications.europa.eu/resource/cellar/b0301f66-3caa-47cf-84f1-b76b622b52f6"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T09:39:20.544+01:00, creationDate: 2016-11-28T12:40:23.152+01:00, uri: "http://publications.europa.eu/resource/cellar/32646e83-e5df-4f29-b58c-66363f68f537"})
+NULL, (:Resource:DatatypeProperty {comment: "This property provides a permuted search string for the label.
+It is:
+- Generated by the back-office system, based on the literal form of the SKOS preferred or alternate label.
+- Provided as a hidden SKOS label.@en", uri: "http://eurovoc.europa.eu/schema#permutedLiteralForm", importRule: "The following SPARQL query should have an empty result list:
+SELECT lang(?nPT)
+ WHERE {
+  ?label rdf:type xl:Label .
+  ?label xl:literalForm ?lit .
+  ?label xl:permutedLiteralForm ?permLit .
+  FILTER ( lang(?lit) != lang(?permLit) ) }
+
+The seach string is made available as a hidden SKOS label:
+CONSTRUCT { ?c skos:hiddenLabel ?pl, ?al . }
+WHERE {
+      ?c rdf:type skos:Concept .
+      ?c xl:prefLabel ?pt .
+      ?pt ev:permutedLiteralForm ?pl .
+} UNION {
+      ?c rdf:type skos:Concept .
+      ?c xl:altLabel ?npt .
+      ?npt ev:permutedLiteralForm ?al .
+}@en"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/2dcf6f0c-1063-4d06-8c33-63e626ab8e0f", lastModificationDate: 2019-01-25T05:13:20.207+01:00})
+NULL, (:Resource:organization {lastModificationDate: 2017-08-02T04:51:45.655+02:00, creationDate: 2017-07-28T05:24:00.749+02:00, uri: "http://publications.europa.eu/resource/cellar/32a454cf-7344-11e7-b2f2-01aa75ed71a1"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/da72f8ff-b441-11e5-8d3c-01aa75ed71a1", lastModificationDate: 2017-01-11T04:13:08.849+01:00})
+NULL, (:Resource:ObjectProperty {uri: "http://publications.europa.eu/ontology/cdm#person_reports_on_document_budget_ep", comment: ""})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/e6b02dbc-14c5-47f3-b4fd-a290af0f182b", lastModificationDate: 2017-01-11T03:30:42.501+01:00})
+NULL, (:Resource:person {lastModificationDate: 2018-02-09T05:30:08.046+01:00, creationDate: 2016-09-06T11:20:50.202+02:00, uri: "http://publications.europa.eu/resource/cellar/6828fb8d-34ee-450c-a9aa-c4ca0079ddb4"})
+NULL, (:Resource:ObjectProperty {uri: "http://publications.europa.eu/ontology/cdm#creates"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/6ac5c612-4470-4662-a47c-23edf92507e6", lastModificationDate: 2017-11-16T07:14:30.214+01:00})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/7e07ac3d-6f62-47a9-bb19-c0268fb5c556", lastModificationDate: 2018-02-15T15:16:20.802+01:00})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/a1ac3191-933e-11e5-983e-01aa75ed71a1", lastModificationDate: 2019-01-24T05:25:58.094+01:00})
+NULL, (:Resource:agent:organization {lastModificationDate: 2018-10-20T04:20:41.520+02:00, creationDate: 2017-06-02T11:15:51.811+02:00, uri: "http://publications.europa.eu/resource/cellar/c9b6fa77-715d-404e-80a2-97ffcc5fa968"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/fb8d868b-cc73-4e49-9d5c-843fc77018aa", lastModificationDate: 2017-01-11T13:09:20.374+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/55bb005c-ccda-4f02-8c68-cbb93b2235b7", lastModificationDate: 2017-01-11T02:50:46.496+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/895f8cbd-f088-46ac-9007-6dc301294edc", lastModificationDate: 2017-01-11T15:31:26.768+01:00})
+NULL, (:Resource:person {lastModificationDate: 2017-09-22T04:51:21.925+02:00, creationDate: 2017-09-22T04:51:22.759+02:00, uri: "http://publications.europa.eu/resource/cellar/eae09766-9f40-11e7-b92d-01aa75ed71a1"})
+NULL, (:Resource:person {lastModificationDate: 2017-09-25T05:01:20.209+02:00, creationDate: 2017-09-25T04:49:32.405+02:00, uri: "http://publications.europa.eu/resource/cellar/2869c5aa-a19c-11e7-b92d-01aa75ed71a1"})
+NULL, (:Resource:organization {uri: "http://publications.europa.eu/resource/cellar/892a3597-82be-11e5-b8b7-01aa75ed71a1", lastModificationDate: 2018-06-27T20:43:42.204+02:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/35892a20-7039-451a-b296-a7b9aff7ae87", lastModificationDate: 2017-01-09T15:40:06.879+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T18:05:41.808+01:00, creationDate: 2016-12-20T14:25:34.481+01:00, uri: "http://publications.europa.eu/resource/cellar/8ba31e77-9430-415a-8fa4-5f1c53f4e7ef"})
+NULL, (:Resource:agent:organization {lastModificationDate: 2018-10-20T04:19:11.126+02:00, creationDate: 2016-09-23T10:44:14.028+02:00, uri: "http://publications.europa.eu/resource/cellar/063a13ad-d4a6-49f6-8f8e-81003f9f0876"})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T15:05:29.639+02:00, creationDate: 2016-11-09T19:25:15.217+01:00, uri: "http://publications.europa.eu/resource/cellar/59226ec8-bc09-4825-8193-8e5be3179eb9"})
+NULL, (:Resource:agent:organization {lastModificationDate: 2018-10-20T03:19:02.181+02:00, creationDate: 2016-09-06T12:20:46.500+02:00, uri: "http://publications.europa.eu/resource/cellar/b00ca0bd-ba1d-4efd-bb40-ae7706b91280"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/d1c7ba82-2dad-488e-a079-5d9580235108", lastModificationDate: 2017-01-11T09:55:51.573+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/4653e3dd-97f6-11e5-983e-01aa75ed71a1", lastModificationDate: 2017-01-11T05:24:06.555+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T17:30:30.842+01:00, creationDate: 2016-12-21T10:05:02.963+01:00, uri: "http://publications.europa.eu/resource/cellar/8edaa0cf-c75c-11e6-a6db-01aa75ed71a1"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T08:26:04.819+01:00, creationDate: 2016-09-06T11:01:41.703+02:00, uri: "http://publications.europa.eu/resource/cellar/c8025cd9-73fe-488d-b82a-f33a5d66117d"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/f2f21976-1ddb-4015-a4ad-02abc186e2cc", lastModificationDate: 2017-01-09T16:16:11.362+01:00})
+NULL, (:Resource:organization {lastModificationDate: 2021-03-01T12:57:01.372+01:00, uri: "http://publications.europa.eu/resource/cellar/608a32f3-0d00-4c46-a0f7-6483f4144a23", build_info: "reception-ID: PO-20210301-2078; environment: PROD; newCERES: 4.13.2; IMMC2CDM: 3.2.2; rules: mtf/rules-mtf.xml#51472#2019-10-08; builddate: 2021-03-01T12:49:26.029;"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/e8e51e50-1b28-11e6-ba9a-01aa75ed71a1", lastModificationDate: 2018-10-12T17:09:28.452+02:00})
+NULL, (:Resource:DatatypeProperty {in_notice: "true", comment: "Sequential number of the nth corrigendum. Relevant for legal analysis: true", to_be_indexed: "true", uri: "http://publications.europa.eu/ontology/cdm#resource_legal_number_corrigendum"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/206af8b0-c815-489b-b015-955a52646eb4", lastModificationDate: 2018-06-20T05:43:20.124+02:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/fa52edca-69ae-424e-bbaf-d3ccd56698db", lastModificationDate: 2017-01-09T15:19:46.424+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T11:43:13.395+01:00, creationDate: 2016-10-06T19:26:05.239+02:00, uri: "http://publications.europa.eu/resource/cellar/ce8b4e2d-2558-4027-b0f0-c47cb3d7b5b0"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T17:38:10.181+01:00, creationDate: 2016-11-09T23:15:20.479+01:00, uri: "http://publications.europa.eu/resource/cellar/6b5302be-cdaa-432b-b90c-83bfb7355f3d"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T10:11:39.637+01:00, creationDate: 2016-12-06T09:56:12.019+01:00, uri: "http://publications.europa.eu/resource/cellar/43290380-c1aa-41e2-a323-4eed2fb3bf6e"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T09:03:31.203+01:00, creationDate: 2016-11-09T14:04:14.016+01:00, uri: "http://publications.europa.eu/resource/cellar/ce9f3a57-d087-4b59-874f-87d870eed38d"})
+NULL, (:Resource:Class {uri: "http://data.europa.eu/54i#FinancialInstrument"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/3fd935c7-b50d-11e5-8d3c-01aa75ed71a1", lastModificationDate: 2017-01-11T06:42:15.488+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T20:45:57.142+01:00, creationDate: 2016-12-08T18:17:35.385+01:00, uri: "http://publications.europa.eu/resource/cellar/bc1aa6aa-46e4-4fa2-9162-ede5a6da033b"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/2f63f09c-49e8-4a3c-805c-061402294852", lastModificationDate: 2018-10-12T12:46:20.672+02:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T09:16:22.414+01:00, creationDate: 2016-11-23T22:09:22.385+01:00, uri: "http://publications.europa.eu/resource/cellar/398e3bfe-6e9d-4f85-8275-6360143ee579"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-09T17:21:28.728+01:00, creationDate: 2016-12-02T03:21:10.643+01:00, uri: "http://publications.europa.eu/resource/cellar/d0eda80d-9156-4c8a-a60f-7f028c105952"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/baa5522c-a41f-42e3-b0c1-8a3bc96af6bf", lastModificationDate: 2018-09-06T04:49:32.857+02:00})
+NULL, (:Resource:ObjectProperty {uri: "http://data.europa.eu/54i#isApplicableFor", comment: "e.g. Public Service X is applicable for Territory Y (is a Location)
+However, this property is not restricted to PublicService/Location Domain/Range@en"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T08:26:03.286+01:00, creationDate: 2016-08-19T11:13:30.353+02:00, uri: "http://publications.europa.eu/resource/cellar/40eeb8ee-e273-4760-9668-d6079f68fcec"})
+NULL, (:Resource:organization {uri: "http://publications.europa.eu/resource/cellar/aa4c3d03-2d8f-4bc9-853d-4c61ee61cbab", lastModificationDate: 2019-02-28T04:44:30.137+01:00})
+NULL, (:Resource:DatatypeProperty {uri: "http://publications.europa.eu/ontology/cdm#resource_legal_procedure_comment", comment: "Comment on the corresponding legal procedure.
+Obsolete, only maintained for backwards compatibility. Relevant for legal analysis: true."})
+NULL, (:Resource:agent:organization {lastModificationDate: 2018-10-20T04:09:24.285+02:00, creationDate: 2017-02-10T08:28:33.427+01:00, uri: "http://publications.europa.eu/resource/cellar/6c045c0c-21c5-4622-8a30-a418d20ebb1c"})
+NULL, (:Resource:ObjectProperty {in_notice: "true", comment: "Name of the person (EP member or member of CoR or EESC) who reports on the relevant act.
+This property will be deprecated and replaced with work_reported_by_person. Role RAPP. Relevant for legal analysis: true", uri: "http://publications.europa.eu/ontology/cdm#opinion_consultation_eesc_reported_by_person"})
+NULL, (:Resource:person {lastModificationDate: 2018-04-16T04:55:40.463+02:00, creationDate: 2017-01-12T07:41:51.251+01:00, uri: "http://publications.europa.eu/resource/cellar/32e482eb-d892-11e6-ad7c-01aa75ed71a1"})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/6ccf4369-f4fd-40e2-9a9d-ab3a6e0ca06b", lastModificationDate: 2017-01-11T11:12:49.441+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T11:42:06.328+01:00, creationDate: 2016-10-05T14:34:31.506+02:00, uri: "http://publications.europa.eu/resource/cellar/cda13875-41d7-471f-bac6-343b8b9cba91"})
+NULL, (:Resource:person {lastModificationDate: 2017-09-25T05:09:40.138+02:00, creationDate: 2017-09-25T04:55:40.559+02:00, uri: "http://publications.europa.eu/resource/cellar/03dfb7d5-a19d-11e7-b92d-01aa75ed71a1"})
+NULL, (:Resource:Class {uri: "http://publications.europa.eu/ontology/cdm#concept", comment: " a cognitive unit of meaning (Wikipedia).
+
+Note: Being the \"subject\" (http://purl.org/dc/terms/subject) of a particular work is a specific role of a given concept
+
+Note: Concept is a subclass of skos:Concept (= http://www.w3.org/2004/02/skos/core#Concept)
+
+A concept will typically be encoded using a suitable vocabulary encoding scheme (controlled vocabulary, taxonomy, or thesaurus)"})
+NULL, (:Resource:Class {date: "Corresponds to DEC_REVIEW in resource-type table", uri: "http://publications.europa.eu/ontology/cdm#decision_review_cjeu"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-09T19:05:44.486+01:00, creationDate: 2016-11-24T20:03:17.889+01:00, uri: "http://publications.europa.eu/resource/cellar/f19cd4c1-914f-4fee-9fba-22c4552a9f2e"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T10:19:35.101+01:00, creationDate: 2017-01-04T11:12:33.587+01:00, uri: "http://publications.europa.eu/resource/cellar/05c2c8ab-681b-48a7-abac-406d47f1d324"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-09T17:00:03.712+01:00, creationDate: 2016-11-09T13:02:49.661+01:00, uri: "http://publications.europa.eu/resource/cellar/19f503d0-5e39-4180-a9a6-42300373a196"})
+NULL, (:Resource:person {uri: "http://publications.europa.eu/resource/cellar/64f9e2f8-727b-11e5-9317-01aa75ed71a1", lastModificationDate: 2019-01-14T04:51:50.114+01:00})
+NULL, (:Resource:agent:person {uri: "http://publications.europa.eu/resource/cellar/0234d9a0-53c8-4468-b5f5-516ad59da2de", lastModificationDate: 2017-01-11T06:07:13.315+01:00})
+NULL, (:Resource:agent:person {lastModificationDate: 2018-10-12T15:53:37.425+02:00, creationDate: 2016-09-30T19:21:47.180+02:00, uri: "http://publications.europa.eu/resource/cellar/14c10d7a-441e-48be-b84d-e0dfd2dd8efd"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T09:41:40.633+01:00, creationDate: 2016-12-01T00:12:21.166+01:00, uri: "http://publications.europa.eu/resource/cellar/3783215b-ab22-429d-aae6-99d592dae455"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-09T18:17:00.661+01:00, creationDate: 2016-11-17T17:23:42.829+01:00, uri: "http://publications.europa.eu/resource/cellar/2d04cec6-1c94-4a8a-b870-2406cfa06dbc"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T10:47:13.237+01:00, creationDate: 2016-10-25T09:31:49.608+02:00, uri: "http://publications.europa.eu/resource/cellar/1768ca21-9a85-11e6-9bca-01aa75ed71a1"})
+NULL, (:Resource:agent:person {lastModificationDate: 2017-01-11T10:56:20.918+01:00, creationDate: 2016-11-30T16:58:42.064+01:00, uri: "http://publications.europa.eu/resource/cellar/7e5605d1-268b-4bd0-9437-37886b0404b4"})
+NULL, (:Resource:DatatypeProperty {uri: "http://publications.europa.eu/ontology/cdm#transliterated_country"})
+duration cat2 q4:  921 ms
+duration cat2 q5:  71386 ms
+duration cat2 q6:  70320 ms
+Thats's all folks

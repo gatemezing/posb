@@ -1,0 +1,44 @@
+PREFIX hint: <http://aws.amazon.com/neptune/vocab/v01/QueryHints#>
+prefix cdm: <http://publications.europa.eu/ontology/cdm#> 
+prefix annotation: <http://publications.europa.eu/ontology/annotation#>
+prefix owl: <http://www.w3.org/2002/07/owl#> 
+
+# updates: June 2022
+select distinct ?country ?nim_id ?work_date_document ?transposition_deadline ?transposition_status
+?oj_name ?oj_number ?oj_date ?oj_page ?expr_language ?title ?entry_into_force ?reference_commission ?date_notification ?website ?eli ?implements
+(group_concat(distinct ?type;separator=", ") as ?types) where 
+{
+
+  hint:Group hint:joinOrder "Ordered" . 
+?cellar_id owl:sameAs ?nim_id. filter (regex(?nim_id,'resource/nim')).
+{
+select distinct ?country ?cellar_id ?work_date_document ?transposition_deadline
+?transposition_status ?oj_name ?oj_number ?oj_date ?oj_page ?expr_language ?title
+?entry_into_force ?reference_commission ?date_notification ?website ?eli ?type ?implements where {
+?cellar_id ?implements ?rl. ?rl owl:sameAs? <http://publications.europa.eu/resource/celex/32012L0027> .
+FILTER(?implements=cdm:measure_national_implementing_implements_directive||
+?implements =cdm:measure_national_implementing_implements_resource_legal).
+?exp cdm:expression_belongs_to_work ?cellar_id ; cdm:expression_uses_language ?expr_language; cdm:expression_title ?title.
+OPTIONAL {?manif cdm:manifestation_manifests_expression ?exp; cdm:manifestation_type ?type.}
+OPTIONAL
+{ ?cellar_id cdm:measure_national_implementing_implemented_by_country ?country.}
+OPTIONAL { ?s annotation:transposition_deadline_transmitted ?transposition_deadline_transmitted.
+OPTIONAL {?s annotation:transposition_notification ?date_notification.}
+?s owl:annotatedSource ?cellar_id.
+?s owl:annotatedProperty ?implements.
+?s owl:annotatedTarget ?rl. ?rl owl:sameAs? <http://publications.europa.eu/resource/celex/32012L0027> .
+}
+bind((if(bound(?transposition_deadline_transmitted), ?transposition_deadline_transmitted,"1001-01-01")) as ?transposition_deadline).
+OPTIONAL {?cellar_id cdm:measure_national_implementing_declaration_transposition_member-state ?transposition_status.}
+OPTIONAL {?cellar_id cdm:measure_national_implementing_name_official_journal ?oj_name.}
+OPTIONAL {?cellar_id cdm:measure_national_implementing_number_official_journal ?oj_number.}
+OPTIONAL {?cellar_id cdm:measure_national_implementing_date_official_journal ?oj_date.}
+OPTIONAL {?cellar_id cdm:measure_national_implementing_page_official_journal ?oj_page.}
+OPTIONAL {?cellar_id cdm:resource_legal_date_entry-into-force ?entry_into_force.}
+OPTIONAL {?cellar_id cdm:measure_national_implementing_reference_commission ?reference_commission.}
+OPTIONAL {?cellar_id cdm:measure_national_implementing_national_website_link ?website.}
+OPTIONAL {?cellar_id (cdm:eli|cdm:resource_legal_eli) ?eli.}
+OPTIONAL {?cellar_id cdm:work_date_document ?work_date_document.}}}}
+GROUP BY ?country ?nim_id ?work_date_document ?transposition_deadline ?transposition_status
+?oj_name ?oj_number ?oj_date ?oj_page ?expr_language ?title ?entry_into_force ?reference_commission ?date_notification ?website ?eli ?implements
+ORDER BY ?country ?nim_id

@@ -1,0 +1,6 @@
+{
+  "PredefinedMetricSpecification": { "PredefinedMetricType": "NeptuneReaderAverageCPUUtilization" },
+  "TargetValue": 80.0,
+  "ScaleOutCooldown" : 600,
+  "ScaleInCooldown" : 600
+}

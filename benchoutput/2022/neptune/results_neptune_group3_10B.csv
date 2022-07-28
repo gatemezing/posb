@@ -1,0 +1,35 @@
+Total Response Time,Average Response Time (Arithmetic),Total Runtime,Average Runtime (Arithmetic),Average Runtime (Geometric),Minimum Mix Runtime,Maximum Mix Runtime,Variance,Standard Deviation,Operation Mixes per Hour
+0.7936130339999999,0.26453767800000005,0.851174315,0.283724771,0.2832569246065208,0.262263808,0.301309254,3.924070439804903E-4,0.01980926661894605,12688.35282626768
+Options Summary,
+Query Endpoint,https://opoce10b.cluster-ctllocetqpml.eu-west-3.neptune.amazonaws.com:8182/sparql
+Update Endpoint,https://opoce10b.cluster-ctllocetqpml.eu-west-3.neptune.amazonaws.com:8182/sparql
+Graph Store Endpoint,null
+Sanity Checking Level,0
+Warmups,20
+Runs,5
+Random Operation Order,false
+Outliers,1
+Timeout,10s
+Max Delay between Operations,1000s
+Result Limit,Query Specified
+ASK Results Format,application/sparql-results+xml
+Graph Results Format,application/rdf+xml
+SELECT Results Format,application/sparql-results+xml
+Parallel Threads,1
+Result Counting,false
+,
+Run Summary,
+Run,Total Response Time,Total Runtime,Min Query Runtime,Max Query Runtime
+1,0.233673086,0.25486807899999997,0.017766362,0.149698297
+2,0.24546588600000002,0.262263808,0.017147956,0.159649741
+3,0.275906064,0.301309254,0.014616939,0.183955063
+4,0.272241084,0.287601253,0.01660263,0.19080407600000002
+5,0.29724849,0.320314977,0.017948037,0.21023
+,
+Operation Summary,
+Operation,Type,Total Response Time,Average Response Time (Arithmetic),Total Runtime,Average Runtime (Arithmetic),Average Runtime (Geometric),Min Runtime,Max Runtime,Variance,Standard Deviation,Queries per Second,Queries per Hour
+/home/ec2-user/bench/queries/cat3/q1.rq,Remote SPARQL Query,0.949337624,0.041275548,1.3284957039999998,0.057760682,5.6026756717775054E7,0.038148300999999996,0.104514508,2.488720564966323E-4,0.015775679272114793,17.312814969878644,62326.13389156312
+/home/ec2-user/bench/queries/cat3/q2.rq,Remote SPARQL Update,2.611000024,0.11352174,2.611000024,0.11352174,1.0734150225350979E8,0.071440595,0.21023,0.001684638726720651,0.04104435072845776,8.808885417013517,31711.98750124866
+/home/ec2-user/bench/queries/cat3/q3.rq,Remote SPARQL Update,0.587942047,0.025562697,0.587942047,0.025562697,2.4922023170321047E7,0.019572773,0.052438473,4.6902495212113116E-5,0.0068485396408368045,39.119502922559384,140830.2105212138
+/home/ec2-user/bench/queries/cat3/q4.rq,Remote SPARQL Update,0.520955701,0.022650247000000002,0.520955701,0.022650247000000002,2.2266381350464255E7,0.017147956,0.032426017,1.926864440021585E-5,0.004389606406070577,44.14962892016144,158938.6641125812
+/home/ec2-user/bench/queries/cat3/q5.rq,Remote SPARQL Update,0.46870649400000003,0.020378543,0.46870649400000003,0.020378543,1.9854109811416186E7,0.014452464000000002,0.033213638000000004,2.532845238839763E-5,0.005032738060777416,49.07122162757171,176656.39785925814

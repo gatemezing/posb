@@ -1,0 +1,58 @@
+############################################################################
+##Q10: Unsatisfactory use case on the wizard without answer - no response ##
+### It simulates select all filed and filter on title like "microsoft" #####
+############################################################################
+
+PREFIX ORACLE_SEM_FS_NS:   
+<http://oracle.com/semtech#timeout=60,degree=8,ods=6>
+## Oracle optimization
+## Use orardf:like() instead of regex(). Regex is known to be a bit slow in Oracle. 
+# Oracle provides orardf:textContains() and orardf:like() as more performant alternatives.
+
+# Turn off some special character escaping  
+PREFIX ORACLE_SEM_HT_NS: <http://oracle.com/semtech#ESCAPE_STR_FUNC=F,DISABLE_REGEX_UNESC>
+
+#FILTER (!regex(str(?dat_cre), "^2016-")) would become 
+#FILTER(!<http://xmlns.oracle.com/rdf/like>(?dat_cre,"2016-%"))
+
+PREFIX cdm:<http://publications.europa.eu/ontology/cdm#>
+PREFIX skos:<http://www.w3.org/2004/02/skos/core#>
+PREFIX dc:<http://purl.org/dc/elements/1.1/>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl:<http://www.w3.org/2002/07/owl#>
+
+SELECT DISTINCT  (group_concat(distinct ?work;separator=",") as ?cellarURIs) 
+   (group_concat(STR(?title_);separator=",") as ?title) 
+  ?langIdentifier
+   (group_concat(STR(?mtype);separator=",") as ?mtypes) 
+   (group_concat(STR(?thumbnail);separator=",") as ?thumbnails) 
+  (group_concat(STR(?resType);separator=",") as ?workTypes) 
+  (group_concat(STR(?agentName);separator=",") as ?authors) 
+  ?date
+  (group_concat(STR(?subjectLabel);separator=",") as ?subjects) 
+  (group_concat(STR(?workId_);separator=",") as ?workIds) 
+
+WHERE 
+{
+?work cdm:work_date_document ?d.
+?exp cdm:expression_belongs_to_work ?work .
+?exp cdm:expression_title ?title_ .
+?exp cdm:expression_uses_language/dc:identifier ?langIdentifier .
+?manif cdm:manifestation_manifests_expression ?exp .
+?manif cdm:manifestation_type ?mtype .
+OPTIONAL {?manif2 cdm:manifestation_manifests_expression ?exp }.
+OPTIONAL {?manif2 cdm:manifestation_has_thumbnail ?thumbnail }.
+?work rdf:type ?resType .
+OPTIONAL {?work cdm:work_created_by_agent/skos:prefLabel ?agentName .
+filter (lang(?agentName)="en")}.
+?work cdm:work_date_document ?date .
+OPTIONAL {?work cdm:work_is_about_concept_eurovoc/skos:prefLabel ?subjectLabel .
+filter (lang(?subjectLabel)="en")}.
+?work cdm:work_id_document ?workId_ .
+ ?exp cdm:expression_uses_language <http://publications.europa.eu/resource/authority/language/ENG>.
+FILTER (<http://xmlns.oracle.com/rdf/like>(?title_, "microsoft")).
+}
+GROUP BY ?work ?date ?langIdentifier
+LIMIT 100
+OFFSET 0
