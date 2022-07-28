@@ -17,7 +17,8 @@ where
 	?uri cdm:work_datetime_transmission ?date. 
 	OPTIONAL
 	{ 
-		?rectificationOrder cdm:resource_legal_corrects_resource_legal ?uri; cdm:resource_legal_id_celex ?rectificationOrderCelex. 
+		?rectificationOrder cdm:resource_legal_corrects_resource_legal ?uri; 
+		cdm:resource_legal_id_celex ?rectificationOrderCelex. 
 	} 
 
 	?uri ^cdm:expression_belongs_to_work ?exp. 

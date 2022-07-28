@@ -3,6 +3,9 @@
 
 #Error with qparse jena tool. 
 #Query OK according to sparql.org update validator
+# sample update query
+#Note: In case of Jena parsing error, use DELETE { GRAPH <g1> { a b c } } INSERT { GRAPH <g1> { x y z } } USING <g1> WHERE { ... }
+
 
 prefix lodep: <https://webgate.acceptance.ec.testa.eu/eparticipation/ontologies/LOD_Eparticipation/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
