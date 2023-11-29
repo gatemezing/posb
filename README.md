@@ -18,7 +18,7 @@ This folder contains the resources of the POSB Benchmark. The folder is structur
   
   
  ## Publications work 2017
-   - First ref. paper https://hobbitdata.informatik.uni-leipzig.de/quweda/quweda2018/QuWeDa2018_paper_5.pdf
+   - First reference paper https://hobbitdata.informatik.uni-leipzig.de/quweda/quweda2018/QuWeDa2018_paper_5.pdf
    - Blog Mondeca (en français): http://blog.mondeca.com/2019/02/01/benchmark-de-aws-neptune-1-0/
    - Empirical Evaluation of a Cloud-based Graph Database: the Case of Neptune: https://link.springer.com/chapter/10.1007/978-3-030-91305-2_3 
  
@@ -31,7 +31,7 @@ This folder contains the resources of the POSB Benchmark. The folder is structur
  ## License
  This project is licensed under the terms of the MIT license.
 
- ## ACKNOWLEDGEMENTS
+ ## ACKNOWLEDGMENTS
  - Publications Office (PO) for the datasets used for the benchmark.
  - Cellar team at PO
  - Folks at Oracle (Boston), Stardog Union, Ontotext, OpenLinks, AWS Neptune
