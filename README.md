@@ -1,4 +1,4 @@
-# POS Benchmarck (Publications Office Benchmark)
+# POSB Benchmark (Publications Office Benchmark)
 
 
 ## Update 2022: New Benchmark started on the 5th, January till end of June, 2022
